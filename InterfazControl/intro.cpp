@@ -31,14 +31,14 @@ intro::intro(QWidget *parent) :
     this->setLayout(layout);
 
     logo=new QLabel("<img src=\"./icons/nautilus128x128.svg\">");
-    layout->addWidget(logo,0,0,1,4);
-    layout->setAlignment(logo, Qt::AlignCenter);
+
+
 
     welcomeTxt=new QLabel("WELCOME TO NAUTILUS COMMANDER");
     welcomeTxt->setStyleSheet("QLabel{font-size:40px;font-weight:bold;}");
 
-    layout->addWidget(welcomeTxt,1,0,1,4);
-    layout->setAlignment(welcomeTxt, Qt::AlignCenter);
+
+
 
     btnNew= new QPushButton("Start New Mission");
     btnNew->setIcon(QIcon( "./icons/new32.png"));
@@ -53,24 +53,18 @@ intro::intro(QWidget *parent) :
     namelbl->setStyleSheet("QLabel{font-size:20px;font-weight:bold;}");
 
 
-   /* openlbl=new QLabel("Or open a recent Mission:");
-    openlbl->setStyleSheet("QLabel{font-size:20px;font-weight:bold;}");*/
+    projectList= new QListWidget();
+    createProjectList();
+    projectList->setSelectionMode (QAbstractItemView::NoSelection);
 
 
 
-    btnOpen= new QPushButton("Open Mission");
-    btnOpen->setIcon(QIcon( "./icons/folder32.png"));
-    btnOpen->setIconSize(QSize(32,32));
-    btnOpen->setStyleSheet("QPushButton{font-size:20px;font-weight:bold;background:#A4A4A4} QPushButton:hover:!pressed {background:#D8D8D8}" );
-    btnOpen->setFocusPolicy(Qt::NoFocus);
-    connect(btnOpen,SIGNAL(released()),this,SLOT(handleOpenBtn()));
-
-
-
-    layout->addWidget(namelbl,2,1,1,2);
-    layout->addWidget(newMission,3,1,1,2);
-    layout->addWidget(btnNew,4,1,1,2);
-    layout->addWidget(btnOpen,5,1,2,2,Qt::AlignTop);
+    layout->addWidget(logo,0,0,1,4,Qt::AlignCenter);
+    layout->addWidget(welcomeTxt,1,0,1,4,Qt::AlignCenter);
+    layout->addWidget(namelbl,2,1,1,2,Qt::AlignBottom);
+    layout->addWidget(newMission,3,1,1,2);//,Qt::AlignTop);
+    layout->addWidget(btnNew,4,1,1,2);//,Qt::AlignTop);
+    layout->addWidget(projectList,5,1,2,2,Qt::AlignTop);
 
 
     if(!QDir("./Missions").exists()){
@@ -110,9 +104,7 @@ void intro::handleNewBtn(){
   }
 }
 
-void intro::handleOpenBtn(){
-    qDebug("click open");
-}
+
 
 void  intro::showMessage(QString message){
     QMessageBox msgBox;
@@ -126,3 +118,59 @@ void  intro::showMessage(QString message){
     msgBox.setGeometry(x+(w/4),y+(h/2),100,100);
     msgBox.exec();
 }
+
+void intro::createProjectList(){
+
+    QDirIterator it("./Missions",QDir::NoDotAndDotDot | QDir::AllDirs);
+
+    while (it.hasNext()) {
+        QFileInfo Info(it.next());
+        QString missionName = QString(Info.fileName());
+        qDebug() <<missionName;
+
+        QListWidgetItem *item = new QListWidgetItem();
+        item->setSizeHint(QSize(item->sizeHint().width(), 60));
+
+        myItem *myListItem = new myItem(0,missionName);
+        connect(myListItem,SIGNAL(continueSignal(QString)),this,SLOT(continueMission(QString)));
+        connect(myListItem,SIGNAL(deleteSignal(QString,QListWidgetItem*)),this,SLOT(deleteMission(QString,QListWidgetItem*)));
+        connect(myListItem,SIGNAL(exploreSignal(QString)),this,SLOT(exploreMission(QString)));
+        myListItem->setWItem(item);
+
+
+        projectList->addItem(item);
+        projectList->setItemWidget(item, myListItem );
+    }
+}
+
+void intro::continueMission(QString missionName){
+   qDebug() <<"continue "+missionName;
+}
+
+void intro::exploreMission(QString missionName){
+  qDebug() <<"explore "+missionName;
+}
+
+void intro::deleteMission(QString missionName,QListWidgetItem *item){
+
+    QString msg=QString("Are you sure?\nThe Mission %1 including all files are going to be deleted").arg(missionName);
+    QMessageBox::StandardButton reply;
+
+      reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
+      if (reply == QMessageBox::Ok) {
+          qDebug() <<"delete "+missionName;
+          QString dirName=QString("./Missions/%1").arg(missionName);
+
+          QDir dir(dirName);
+
+          if(dir.removeRecursively()){
+              qDebug()<<"delete OK";
+              projectList->removeItemWidget(item);
+          }
+          else{
+              qDebug()<<"no delete";
+          }
+      }
+
+}
+

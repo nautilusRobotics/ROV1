@@ -12,6 +12,10 @@
 #include <missionwidget.h>
 #include <QMessageBox>
 #include <QStyle>
+#include <QListWidget>
+#include <myitem.h>
+#include <QDirIterator>
+#include <QFileInfo>
 
 class intro : public QWidget
 {
@@ -22,13 +26,18 @@ public:
 signals:
 
 public slots:
-    void handleNewBtn();
-    void handleOpenBtn();
+    void handleNewBtn();    
+    void createProjectList();
+    void continueMission(QString missionName);
+    void exploreMission(QString missionName);
+    void deleteMission(QString missionName,QListWidgetItem *item);
+
     private:
     QGridLayout *layout;
     QLabel *welcomeTxt,*logo,*namelbl,*openlbl;
-    QPushButton *btnNew,*btnOpen;
+    QPushButton *btnNew;
     QLineEdit *newMission;
+    QListWidget *projectList;
     MissionWidget *mission;
     void showMessage(QString message);
 

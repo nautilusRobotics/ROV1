@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     sendaction.cpp \
     missionwidget.cpp \
     openrtsp.cpp \
-    intro.cpp
+    intro.cpp \
+    myitem.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -35,7 +36,8 @@ HEADERS  += \
     com.h \
     missionwidget.h \
     openrtsp.h \
-    intro.h
+    intro.h \
+    myitem.h
 
 FORMS    +=
 

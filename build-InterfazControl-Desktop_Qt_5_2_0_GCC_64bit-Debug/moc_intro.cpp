@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_intro_t {
-    QByteArrayData data[4];
-    char stringdata[35];
+    QByteArrayData data[10];
+    char stringdata[118];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,9 +32,17 @@ static const qt_meta_stringdata_intro_t qt_meta_stringdata_intro = {
 QT_MOC_LITERAL(0, 0, 5),
 QT_MOC_LITERAL(1, 6, 12),
 QT_MOC_LITERAL(2, 19, 0),
-QT_MOC_LITERAL(3, 20, 13)
+QT_MOC_LITERAL(3, 20, 17),
+QT_MOC_LITERAL(4, 38, 15),
+QT_MOC_LITERAL(5, 54, 11),
+QT_MOC_LITERAL(6, 66, 14),
+QT_MOC_LITERAL(7, 81, 13),
+QT_MOC_LITERAL(8, 95, 16),
+QT_MOC_LITERAL(9, 112, 4)
     },
-    "intro\0handleNewBtn\0\0handleOpenBtn\0"
+    "intro\0handleNewBtn\0\0createProjectList\0"
+    "continueMission\0missionName\0exploreMission\0"
+    "deleteMission\0QListWidgetItem*\0item\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,7 +52,7 @@ static const uint qt_meta_data_intro[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -52,12 +60,18 @@ static const uint qt_meta_data_intro[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a,
-       3,    0,   25,    2, 0x0a,
+       1,    0,   39,    2, 0x0a,
+       3,    0,   40,    2, 0x0a,
+       4,    1,   41,    2, 0x0a,
+       6,    1,   44,    2, 0x0a,
+       7,    2,   47,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void, QMetaType::QString, 0x80000000 | 8,    5,    9,
 
        0        // eod
 };
@@ -68,11 +82,13 @@ void intro::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         intro *_t = static_cast<intro *>(_o);
         switch (_id) {
         case 0: _t->handleNewBtn(); break;
-        case 1: _t->handleOpenBtn(); break;
+        case 1: _t->createProjectList(); break;
+        case 2: _t->continueMission((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 3: _t->exploreMission((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->deleteMission((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject intro::staticMetaObject = {
@@ -100,13 +116,13 @@ int intro::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 5;
     }
     return _id;
 }
