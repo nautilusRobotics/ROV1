@@ -1,18 +1,10 @@
 #include "sendaction.h"
 
-
 #define USER_DEBUG_SA
 
-SendAction::SendAction(QWidget *parent) :
-    QWidget(parent)
-{    
+
+SendAction::SendAction(QWidget *parent) : QWidget(parent){
   robotIp="10.5.5.103 ";
-
-  QVBoxLayout *layout = new QVBoxLayout(this);
-
-  label_depth.setText("DEPTH: ");
-  layout->addWidget(&label_depth,1,0);
-
 }
 
 void SendAction::axisEvent(QString axis,int value){
@@ -29,17 +21,44 @@ void SendAction::axisEvent(QString axis,int value){
 
 }
 
-
-void SendAction::buttonEvent(QString button){
+void SendAction::buttonEvent(QString button, QGameControllerButtonEvent *event){
 #ifdef USER_DEBUG_SA
      qDebug("handle button");
 #endif
-     if(button==button_A){
-         label_depth.setText("DEPTH: "+ sendComando(GET_DEPTH));
+     if(button==button_A){         
+         double scaleFactor=1;
+         double depth=sendComando(GET_DEPTH).toDouble()*scaleFactor;
+         emit changeDepth(depth);
+
      }
      else if(button==button_back){
          sendComando(CLOSE_ROBOT);
      }
+     else if(button==button_B){
+
+        if(!event->pressed()){   //Just when button is released
+
+
+        emit takeScreenshot();
+
+            #ifdef USER_DEBUG_SA
+                 qDebug("released B");
+            #endif
+         }
+     }
+     else if(button==button_Y){
+         if(!event->pressed()){   //Just when button is released
+
+
+         emit saveVideo();
+
+             #ifdef USER_DEBUG_SA
+                  qDebug("released Y");
+             #endif
+          }
+     }
+
+
 
 }
 
@@ -58,7 +77,7 @@ QString SendAction::sendComando(QString comando){
 }
 
 
-SendAction::~SendAction ()
-{
+
+SendAction::~SendAction (){
 
 }

@@ -21,16 +21,13 @@
 #define JOYSTICKWIDGET_H
 
 #include <QWidget>
-#include <QSlider>
-#include <QLabel>
-#include <QMap>
-#include <QLabel>
-#include <QPushButton>
 #include <QString>
+#include <QTimer>
 #include "qgamecontroller.h"
 #include "sendaction.h"
+#include "player.h"
 
-
+#define JS1 1
 #define JS2 2
 #define axis_left_horizontal  "LH"
 #define axis_left_vertical    "LV"
@@ -60,18 +57,21 @@ class JoystickWidget : public QWidget
 
 
 public:
-    explicit JoystickWidget(QWidget *parent = 0, QLabel *status=NULL, QPushButton *btn=NULL);
+    explicit JoystickWidget(QWidget *parent = 0);
     ~JoystickWidget();
     SendAction* getSendAction();
     bool isValidController();
+    void init();
 private:
     QMap<uint, QList<QSlider*> > slidersMap;
     QMap<uint, QList<QLabel*> > buttonLabelsMap;
     QStringList buttonsXbox, axisXbox;
     SendAction* sendAction;
-    QGameController *gameController;
-    QLabel *labelStatusController;
+    QGameController *gameController;    
     QPushButton *btnConnect;
+
+signals:
+   void updateStatus(bool isConnected);
 
 private slots:
     void handleQGameControllerAxisEvent(QGameControllerAxisEvent *event);

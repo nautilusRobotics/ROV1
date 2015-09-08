@@ -9,8 +9,15 @@
 #include <QHBoxLayout>
 #include <QTextEdit>
 #include <QLabel>
+#include <QFile>
+#include <QDesktopWidget>
+#include <QApplication>
+#include <QScreen>
+#include <QWindow>
+#include <qmpwidget.h>
 #include "com.h"
 #include "joystickwidget.h"
+#include "player.h"
 
 
 
@@ -24,7 +31,7 @@ public:
 
 public:
     void axisEvent(QString axis,int value);
-    void buttonEvent(QString button);
+    void buttonEvent(QString button,QGameControllerButtonEvent* event);
 
 private:
      QString sendComando(QString comando);
@@ -32,6 +39,13 @@ private:
      QString robotIp;
      QTextEdit txt;
      QLabel label_depth;
+
+ signals:
+     void changeDepth(double value);
+     void takeScreenshot(void);
+     void saveVideo(void);
+
+
 };
 
 #endif // SENDACTION_H

@@ -1,0 +1,2 @@
+#!/bin/bash
+openRTSP -4  -F video -f 32 rtsp://admin:12345@10.5.5.110:554 > ./Missions/$1/vid_$2.mp4

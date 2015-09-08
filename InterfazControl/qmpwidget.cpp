@@ -36,7 +36,9 @@ public slots:
     void displayImage(const QImage &image)
     {
         m_pixmap = QPixmap::fromImage(image);
+
         update();
+
     }
 protected:
     void paintEvent(QPaintEvent *event)
@@ -73,6 +75,7 @@ public:
     void showUserImage(const QImage &image)
     {
         m_userImage = image;
+
         makeCurrent();
         if (m_tex >= 0) {
             deleteTexture(m_tex);
@@ -138,6 +141,7 @@ protected:
             glEnd();
 
         }
+
     }
 private:
     QImage m_userImage;
@@ -304,6 +308,7 @@ public:
     }
     void writeCommand(const QString &command)
     {
+
 #ifdef QMP_DEBUG_OUTPUT
         qDebug("in: \"%s\"", qPrintable(command));
 #endif
@@ -806,7 +811,9 @@ void QMPwidget::start(const QStringList &args)
         m_process->quit();
 
     }
+
     m_process->start(m_widget, args);
+
 }
 /*!
 * \brief Loads a file or url and starts playback
@@ -834,6 +841,7 @@ void QMPwidget::play()
     if (m_process->m_state == PausedState) {
         m_process->pause();
     }
+
 }
 /*!
 * \brief Pauses playback
@@ -950,8 +958,8 @@ void QMPwidget::mouseDoubleClickEvent(QMouseEvent *event)
 *
 * \param event Key event
 */
-/*
-void QMPwidget::keyPressEvent(QKeyEvent *event)
+
+/*void QMPwidget::keyPressEvent(QKeyEvent *event)
 {
 
     bool accept = true;
@@ -1011,7 +1019,9 @@ void QMPwidget::keyPressEvent(QKeyEvent *event)
         accept = false;
         break;
     }
-    event->setAccepted(accept);
+
+
+    event->setAccepted(true);
 }*/
 /*!
 * \brief
@@ -1034,6 +1044,7 @@ void QMPwidget::moveEvent(QMoveEvent *){
     qDebug("MOVE----------------------------------------------------");
 #endif
     m_widget->resize(1280, 720);
+
 }
 
 
@@ -1096,4 +1107,9 @@ void QMPwidget::fixRepaint(){
     m_widget->resize(1280, 720);
 
 }
+
+void QMPwidget::screenShot(){
+   writeCommand("screenshot 0");
+}
+
 #include "qmpwidget.moc"

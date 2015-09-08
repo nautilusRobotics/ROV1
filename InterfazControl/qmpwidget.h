@@ -89,6 +89,7 @@ public:
     void showImage(const QImage &image);
     virtual QSize sizeHint() const;
     void fixRepaint();
+    void screenShot();
 public slots:
     void start(const QStringList &args = QStringList());
     void load(const QString &url);
@@ -99,9 +100,10 @@ public slots:
     bool seek(double offset, int whence = AbsoluteSeek);
     void toggleFullScreen();
     void writeCommand(const QString &command);
+
 protected:
     //virtual void mouseDoubleClickEvent(QMouseEvent *event);
-   // virtual void keyPressEvent(QKeyEvent *event);
+    //virtual void keyPressEvent(QKeyEvent *event);
     virtual void resizeEvent(QResizeEvent *event);
     virtual void moveEvent(QMoveEvent *event);
 private:

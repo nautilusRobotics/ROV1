@@ -16,8 +16,10 @@ class Player : public QMPwidget
     Q_OBJECT
 
 public:
-    Player(const QStringList &args, const QString &url, QWidget *parent = 0, QLabel *nstatus=NULL);
+    Player(const QStringList &args, const QString &url, QWidget *parent = 0);
     bool enableCount;
+    void screenShot();
+    void play();
 
 private slots:
     void stateChanged(int state);
@@ -26,12 +28,13 @@ private slots:
 protected:
     void showEvent(QShowEvent *event);
 
-   // void keyPressEvent(QKeyEvent *event);
-
 
 private:
-    QString m_url;
-    QLabel *status;
+    QString m_url;    
+    const QStringList &arguments;
+
+    signals:
+     void updateStatus(bool isConnected);
 
 
 };
