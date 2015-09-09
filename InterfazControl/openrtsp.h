@@ -16,6 +16,7 @@ signals:
 
 public slots:
     void saveVideo();
+    int getVideoCount();
 private:
     QProcess procSave;
     bool isSaving;

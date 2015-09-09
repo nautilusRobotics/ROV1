@@ -16,6 +16,7 @@
 #include <myitem.h>
 #include <QDirIterator>
 #include <QFileInfo>
+#include "missionexplorer.h"
 
 class intro : public QWidget
 {

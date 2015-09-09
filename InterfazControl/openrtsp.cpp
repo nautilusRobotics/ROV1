@@ -40,3 +40,8 @@ void openRTSP::saveVideo(){
        emit isRecording(false);
    }
  }
+
+
+int openRTSP::getVideoCount(){
+    return numVideo;
+}

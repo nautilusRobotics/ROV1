@@ -9,19 +9,19 @@ myItem::myItem(QWidget *parent, QString name) :
 
     btnContinue=new QPushButton("Continue");
     btnContinue->setIcon(QIcon( "./icons/continue.png"));
-    btnContinue->setIconSize(QSize(32,32));
+    btnContinue->setIconSize(QSize(25,25));
     btnContinue->setFocusPolicy(Qt::NoFocus);
     connect(btnContinue,SIGNAL(released()),this,SLOT(handleContinue()));
 
     btnDelete=new QPushButton("Delete");
     btnDelete->setIcon(QIcon( "./icons/trash.png"));
-    btnDelete->setIconSize(QSize(32,32));
+    btnDelete->setIconSize(QSize(25,25));
     btnDelete->setFocusPolicy(Qt::NoFocus);
     connect(btnDelete,SIGNAL(released()),this,SLOT(handleDelete()));
 
     btnExplore=new QPushButton("Explore");
     btnExplore->setIcon(QIcon( "./icons/explore.png"));
-    btnExplore->setIconSize(QSize(32,32));
+    btnExplore->setIconSize(QSize(25,25));
     btnExplore->setFocusPolicy(Qt::NoFocus);
     connect(btnExplore,SIGNAL(released()),this,SLOT(handleExplore()));
 

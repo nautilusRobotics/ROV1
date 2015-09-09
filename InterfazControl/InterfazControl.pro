@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui network opengl
+QT += core gui network opengl multimedia  multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +22,10 @@ SOURCES += main.cpp\
     missionwidget.cpp \
     openrtsp.cpp \
     intro.cpp \
-    myitem.cpp
+    myitem.cpp \
+    missionexplorer.cpp \
+    playercontrols.cpp \
+    thumbviewer.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -37,7 +40,10 @@ HEADERS  += \
     missionwidget.h \
     openrtsp.h \
     intro.h \
-    myitem.h
+    myitem.h \
+    missionexplorer.h \
+    playercontrols.h \
+    thumbviewer.h
 
 FORMS    +=
 

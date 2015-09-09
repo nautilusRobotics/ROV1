@@ -12,6 +12,9 @@
 #include <QObject>
 #include <QWidget>
 #include <QStatusBar>
+#include <QMessageBox>
+#include <QStyle>
+
 
 #include "player.h"
 #include "qmpwidget.h"
@@ -19,7 +22,7 @@
 #include "joystickwidget.h"
 #include "qgamecontroller.h"
 #include "openrtsp.h"
-#include <QStyle>
+
 
 /*---------ScreenShot definitions-----------*/
 #define OFFSET_X 10
@@ -36,8 +39,8 @@ class MissionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled", int numMission=0, int numPic=0);
-  // void show();
+    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled", int numVideos=0, int numPic=0);
+    void saveMissionPrefs();
 signals:
 
 public slots:
@@ -46,11 +49,13 @@ public slots:
     void takeScreenshot(void);
     void updateRobotDepth(double value);
     void updateRecording(bool isRecording);
+    void handleButtonOff();
+    void handleButtonHome();
 
 private:
     QMPwidget widget;
     Player *player;
-    QPushButton *button_control,*button_1,*button_camara, *button_test;
+    QPushButton *button_control,*button_1,*button_camara, *button_test, *button_off,*button_home;
     QToolBar *toolbar;
     JoystickWidget *joystick;
     SendAction* sendAction;

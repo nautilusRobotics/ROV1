@@ -20,7 +20,8 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
     void Player::stateChanged(int state){
 
         #ifdef DEBUG_PLAYER
-              qDebug("StateChange");
+              QString dbg=QString("StateChange %1").arg(state);
+              qDebug()<<dbg;
         #endif
 
 
@@ -38,6 +39,7 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
              qDebug("Playing");
         #endif
             emit updateStatus(true);
+            emit newState(QMediaPlayer::PlayingState);
 
         }
         else if(state==QMPwidget::IdleState){
@@ -49,12 +51,21 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
                 emit updateStatus(false);
             }
 
+
         }      
         else if(state==QMPwidget::LoadingState){
             #ifdef DEBUG_PLAYER
                  qDebug("LoadingState");
             #endif
         }
+        else if(state==QMPwidget::PausedState){
+#ifdef DEBUG_PLAYER
+            qDebug("PausedState");
+#endif
+
+            emit newState(QMediaPlayer::PausedState);
+        }
+
 
 
 
@@ -73,6 +84,18 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
     }
 
 
+    void Player::play(){
+        QMPwidget::play();
+    }
+    void Player:: pause(){
+        QMPwidget::pause();
+    }
+    void Player::reload(){
+        QMPwidget::QMPwidget::seek(0,QMPwidget::PercentageSeek);
+    }
 
 
+    void Player::setVideoSlider(QAbstractSlider *slider){
+       QMPwidget::setSeekSlider(slider);
+    }
 

@@ -27,8 +27,9 @@ void SendAction::buttonEvent(QString button, QGameControllerButtonEvent *event){
 #endif
      if(button==button_A){         
          double scaleFactor=1;
-         double depth=sendComando(GET_DEPTH).toDouble()*scaleFactor;
-         emit changeDepth(depth);
+         /*double depth=sendComando(GET_DEPTH).toDouble()*scaleFactor;
+         emit changeDepth(depth);*/
+         emit changeDepth(1.2);
 
      }
      else if(button==button_back){

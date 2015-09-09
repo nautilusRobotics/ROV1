@@ -1,12 +1,19 @@
 #include "missionwidget.h"
+#include "intro.h"
 
 
-MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numMission, int numPic) :
+MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numVideos, int numPic) :
     QWidget(parent)
 {
 
      this->numPic=numPic;
      this->missionName=missionName;
+
+     /*Qt::WindowFlags flags(Qt::Window | Qt::CustomizeWindowHint | Qt::TitleBarArea);
+
+     this->setWindowFlags(flags);*/
+
+     //this->setWindowState( Qt::WindowFullScreen );
 
      //Create Mission Folder.
      QString missionFolder="./Missions/"+missionName;
@@ -42,10 +49,14 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numMissio
     button_control->setIcon(QIcon("./icons/control.png"));
     button_control->setIconSize(QSize(32,32));
 
+    button_home = new QPushButton();
+    button_home->setIcon(QIcon("./icons/home.png"));
+    button_home->setIconSize(QSize(32,32));
+    connect(button_home,SIGNAL(released()),this,SLOT(handleButtonHome()));
 
-    button_1 = new QPushButton();
+   /* button_1 = new QPushButton();
     button_1->setIcon(QIcon("./icons/nautilus.svg"));
-    button_1->setIconSize(QSize(32,32));
+    button_1->setIconSize(QSize(32,32));*/
 
 
 
@@ -53,13 +64,18 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numMissio
     button_camara->setIcon(QIcon("./icons/camara.png"));
     button_camara->setIconSize(QSize(32,32));
 
-
+    button_off = new QPushButton();
+    button_off->setIcon(QIcon("./icons/off.png"));
+    button_off->setIconSize(QSize(32,32));
+    connect(button_off,SIGNAL(released()),this,SLOT(handleButtonOff()));
 
     toolbar=new QToolBar("Tools");
     toolbar->setGeometry(10,10,300,30);
-    toolbar->addWidget(button_1);
+    toolbar->addWidget(button_home);
     toolbar->addWidget(button_control);
     toolbar->addWidget(button_camara);
+    toolbar->addWidget(button_off);
+
     layout->addWidget(toolbar,0,0);
 
     /***********************************************************************************************/
@@ -69,6 +85,8 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numMissio
     QStringList argumentos;
     argumentos.push_back("-vf");
     argumentos.push_back("screenshot");
+    argumentos.push_back("-fps");
+    argumentos.push_back("20");
 
     //widget.setGeometry(400,Qt::AlignCenter,1280,720);
     widget.setFixedSize(1280,720);
@@ -96,7 +114,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numMissio
     connect(sendAction,SIGNAL(takeScreenshot()),this,SLOT(takeScreenshot()));
     connect(sendAction,SIGNAL(changeDepth(double)),this,SLOT(updateRobotDepth(double)));
 
-    rtsp=new openRTSP(0,missionName,numMission);
+    rtsp=new openRTSP(0,missionName,numVideos);
     connect(sendAction,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
     connect(rtsp,SIGNAL(isRecording(bool)),this,SLOT(updateRecording(bool)));
 
@@ -172,11 +190,12 @@ void MissionWidget::takeScreenshot(){
    int y=this->y();
    QPixmap pxm = screen->grabWindow(QApplication::desktop()->winId(),x+OFFSET_X,y+OFFSET_Y,SCREEN_SHOT_LR,SCREEN_SHOT_UD);
 
-   QString picFolder=QString("./Missions/%1/pic_%2").arg(missionName).arg(numPic);
+   QString picFolder=QString("./Missions/%1/pic_%2.jpeg").arg(missionName).arg(numPic);
    qDebug()<<picFolder;
    QFile file(picFolder);
    file.open(QIODevice::WriteOnly);
    pxm.save(&file, "JPG",100);
+   numPic++;
 
 }
 
@@ -193,5 +212,38 @@ void MissionWidget::updateRecording(bool isRecording){
     else{
         statusRecording->setText("Recording Off");
         statusRecording->setStyleSheet("QLabel {  color : red; }");
+    }
+}
+
+void MissionWidget::handleButtonHome(){
+    saveMissionPrefs();
+    this->close();
+
+    /*intro welcomeScreen;
+    welcomeScreen.show();*/
+
+}
+
+void MissionWidget::handleButtonOff(){
+    QString msg=QString("Are you sure? \n The robot is save? \n the system is going to turning off");
+    QMessageBox::StandardButton reply;
+
+      reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
+      if (reply == QMessageBox::Ok){
+         saveMissionPrefs();
+         this->close();
+      }
+}
+
+void MissionWidget::saveMissionPrefs(){
+    QString filename=QString("./Missions/%1/prefs.mission").arg(missionName);
+    QFile file( filename );
+    if ( file.open(QIODevice::ReadWrite) )
+    {
+        QTextStream stream( &file );
+        QString countVideos=QString("#v%1").arg(rtsp->getVideoCount());
+        QString countPic=QString("#p%1").arg(numPic);
+        stream << countVideos +"\n" + countPic << endl;
+
     }
 }

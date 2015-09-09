@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MissionWidget_t {
-    QByteArrayData data[10];
-    char stringdata[133];
+    QByteArrayData data[12];
+    char stringdata[166];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,12 +38,15 @@ QT_MOC_LITERAL(5, 66, 14),
 QT_MOC_LITERAL(6, 81, 16),
 QT_MOC_LITERAL(7, 98, 5),
 QT_MOC_LITERAL(8, 104, 15),
-QT_MOC_LITERAL(9, 120, 11)
+QT_MOC_LITERAL(9, 120, 11),
+QT_MOC_LITERAL(10, 132, 15),
+QT_MOC_LITERAL(11, 148, 16)
     },
     "MissionWidget\0updatePlayerStatus\0\0"
     "isConnected\0updateControlStatus\0"
     "takeScreenshot\0updateRobotDepth\0value\0"
-    "updateRecording\0isRecording\0"
+    "updateRecording\0isRecording\0handleButtonOff\0"
+    "handleButtonHome\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +56,7 @@ static const uint qt_meta_data_MissionWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,11 +64,13 @@ static const uint qt_meta_data_MissionWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x0a,
-       4,    1,   42,    2, 0x0a,
-       5,    0,   45,    2, 0x0a,
-       6,    1,   46,    2, 0x0a,
-       8,    1,   49,    2, 0x0a,
+       1,    1,   49,    2, 0x0a,
+       4,    1,   52,    2, 0x0a,
+       5,    0,   55,    2, 0x0a,
+       6,    1,   56,    2, 0x0a,
+       8,    1,   59,    2, 0x0a,
+      10,    0,   62,    2, 0x0a,
+      11,    0,   63,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -73,6 +78,8 @@ static const uint qt_meta_data_MissionWidget[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,    7,
     QMetaType::Void, QMetaType::Bool,    9,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -87,6 +94,8 @@ void MissionWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 2: _t->takeScreenshot(); break;
         case 3: _t->updateRobotDepth((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 4: _t->updateRecording((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 5: _t->handleButtonOff(); break;
+        case 6: _t->handleButtonHome(); break;
         default: ;
         }
     }
@@ -117,13 +126,13 @@ int MissionWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 7;
     }
     return _id;
 }

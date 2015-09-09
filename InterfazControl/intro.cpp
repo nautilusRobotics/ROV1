@@ -10,6 +10,7 @@ intro::intro(QWidget *parent) :
     setWindowTitle("Nautilus Commander");
     const QRect rec = QApplication::desktop()->screenGeometry();
     setGeometry(rec);
+
     /*setGeometry(0,0,1000,1000);
     setGeometry(
     QStyle::alignedRect(
@@ -43,7 +44,7 @@ intro::intro(QWidget *parent) :
     btnNew= new QPushButton("Start New Mission");
     btnNew->setIcon(QIcon( "./icons/new32.png"));
     btnNew->setIconSize(QSize(32,32));
-    btnNew->setStyleSheet("QPushButton{font-size:20px;font-weight:bold;background:#58FA58}QPushButton:hover:!pressed {background:#A9F5A9}");
+    btnNew->setStyleSheet("QPushButton{font-size:20px;font-weight:bold;color:white;background:#295BFF}QPushButton:hover:!pressed {background:#4873FF}");
     btnNew->setFocusPolicy(Qt::NoFocus);
 
     connect(btnNew,SIGNAL(released()),this,SLOT(handleNewBtn()));
@@ -56,7 +57,7 @@ intro::intro(QWidget *parent) :
     projectList= new QListWidget();
     createProjectList();
     projectList->setSelectionMode (QAbstractItemView::NoSelection);
-
+    projectList->setFixedHeight(150);
 
 
     layout->addWidget(logo,0,0,1,4,Qt::AlignCenter);
@@ -87,8 +88,8 @@ void intro::handleNewBtn(){
       qDebug()<<"click fixed: "+str;
 
       if(str.compare("")){
-          this->hide();
           this->mission=new MissionWidget(0,str);
+          this->close();
           mission->show();
       }
       else{
@@ -103,8 +104,6 @@ void intro::handleNewBtn(){
        newMission->setFocus();
   }
 }
-
-
 
 void  intro::showMessage(QString message){
     QMessageBox msgBox;
@@ -145,10 +144,37 @@ void intro::createProjectList(){
 
 void intro::continueMission(QString missionName){
    qDebug() <<"continue "+missionName;
+
+
+   QString path=QString("./Missions/%1/prefs.mission").arg(missionName);
+   qDebug()<<path;
+   QFile file(path);
+
+   if(!file.open(QIODevice::ReadOnly))
+       QMessageBox::information(0, "error","Error Loading Mission");
+
+   else{
+       QTextStream in(&file);
+       QString videos = in.readLine();
+       QString pics = in.readLine();
+       file.close();
+       int videoCount=videos.mid(2,videos.length()).toInt();
+       int picCount=pics.mid(2,pics.length()).toInt();
+       qDebug()<< "video count: "+videoCount;
+       qDebug()<< "pic count: "+picCount;
+       this->mission=new MissionWidget(0,missionName,videoCount,picCount);
+       this->close();
+       mission->show();
+   }
+
+
 }
 
 void intro::exploreMission(QString missionName){
   qDebug() <<"explore "+missionName;
+  MissionExplorer *missionExplorer=new MissionExplorer(0,missionName);
+  this->close();
+  missionExplorer->show();
 }
 
 void intro::deleteMission(QString missionName,QListWidgetItem *item){
@@ -165,7 +191,8 @@ void intro::deleteMission(QString missionName,QListWidgetItem *item){
 
           if(dir.removeRecursively()){
               qDebug()<<"delete OK";
-              projectList->removeItemWidget(item);
+              projectList->takeItem(projectList->row(item));
+
           }
           else{
               qDebug()<<"no delete";
