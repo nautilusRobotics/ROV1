@@ -1,5 +1,9 @@
 #include "intro.h"
 
+
+//#define DEBUG_INTRO
+
+
 intro::intro(QWidget *parent) :
     QWidget(parent)
 {
@@ -72,6 +76,8 @@ intro::intro(QWidget *parent) :
         QDir().mkdir("./Missions");
     }
 
+    ExportManager *exm=new ExportManager(0,"Mission1");
+
 
 }
 
@@ -79,18 +85,21 @@ void intro::handleNewBtn(){
 
   if(newMission->text().compare("")){
 
+#ifdef DEBUG_INTRO
       qDebug()<<"click new: "+newMission->text();
+#endif
 
 
       QRegExp rx ("[^a-zA-Z0-9]");
-      QString str =newMission->text().replace(rx,"");
+      QString fixedName =newMission->text().replace(rx,"");
 
-      qDebug()<<"click fixed: "+str;
+#ifdef DEBUG_INTRO
+      qDebug()<<"click fixed: "+fixedName;
+#endif
 
-      if(str.compare("")){
-          this->mission=new MissionWidget(0,str);
-          this->close();
-          mission->show();
+
+      if(fixedName.compare("")){
+          runMission(fixedName);
       }
       else{
            showMessage("Invalid mission name");
@@ -99,7 +108,12 @@ void intro::handleNewBtn(){
 
   }
   else{
-       qDebug("vacio");
+
+#ifdef DEBUG_INTRO
+        qDebug("campo de texto vacio");
+#endif
+
+
        showMessage("Write the name of the new mission");
        newMission->setFocus();
   }
@@ -125,13 +139,17 @@ void intro::createProjectList(){
     while (it.hasNext()) {
         QFileInfo Info(it.next());
         QString missionName = QString(Info.fileName());
+
+#ifdef DEBUG_INTRO
         qDebug() <<missionName;
+#endif
+
 
         QListWidgetItem *item = new QListWidgetItem();
         item->setSizeHint(QSize(item->sizeHint().width(), 60));
 
         myItem *myListItem = new myItem(0,missionName);
-        connect(myListItem,SIGNAL(continueSignal(QString)),this,SLOT(continueMission(QString)));
+        connect(myListItem,SIGNAL(continueSignal(QString)),this,SLOT(runMission(QString)));
         connect(myListItem,SIGNAL(deleteSignal(QString,QListWidgetItem*)),this,SLOT(deleteMission(QString,QListWidgetItem*)));
         connect(myListItem,SIGNAL(exploreSignal(QString)),this,SLOT(exploreMission(QString)));
         myListItem->setWItem(item);
@@ -142,36 +160,21 @@ void intro::createProjectList(){
     }
 }
 
-void intro::continueMission(QString missionName){
-   qDebug() <<"continue "+missionName;
+void intro::runMission(QString missionName){
+#ifdef DEBUG_INTRO
+      qDebug() <<"continue "+missionName;
+#endif
 
-
-   QString path=QString("./Missions/%1/prefs.mission").arg(missionName);
-   qDebug()<<path;
-   QFile file(path);
-
-   if(!file.open(QIODevice::ReadOnly))
-       QMessageBox::information(0, "error","Error Loading Mission");
-
-   else{
-       QTextStream in(&file);
-       QString videos = in.readLine();
-       QString pics = in.readLine();
-       file.close();
-       int videoCount=videos.mid(2,videos.length()).toInt();
-       int picCount=pics.mid(2,pics.length()).toInt();
-       qDebug()<< "video count: "+videoCount;
-       qDebug()<< "pic count: "+picCount;
-       this->mission=new MissionWidget(0,missionName,videoCount,picCount);
-       this->close();
-       mission->show();
-   }
-
-
+   this->mission=new MissionWidget(0,missionName);
+   this->close();
+   mission->show();
 }
 
 void intro::exploreMission(QString missionName){
-  qDebug() <<"explore "+missionName;
+
+#ifdef DEBUG_INTRO
+      qDebug() <<"explore "+missionName;
+#endif
   MissionExplorer *missionExplorer=new MissionExplorer(0,missionName);
   this->close();
   missionExplorer->show();
@@ -184,18 +187,26 @@ void intro::deleteMission(QString missionName,QListWidgetItem *item){
 
       reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
       if (reply == QMessageBox::Ok) {
-          qDebug() <<"delete "+missionName;
+
+#ifdef DEBUG_INTRO
+       qDebug() <<"delete "+missionName;
+#endif
+
           QString dirName=QString("./Missions/%1").arg(missionName);
 
           QDir dir(dirName);
 
           if(dir.removeRecursively()){
-              qDebug()<<"delete OK";
+            #ifdef DEBUG_INTRO
+                   qDebug()<<"delete OK";
+            #endif
               projectList->takeItem(projectList->row(item));
 
           }
           else{
-              qDebug()<<"no delete";
+            #ifdef DEBUG_INTRO
+                      qDebug()<<"no delete";
+            #endif
           }
       }
 

@@ -17,6 +17,7 @@
 #include <QDirIterator>
 #include <QFileInfo>
 #include "missionexplorer.h"
+#include "exportmanager.h"
 
 class intro : public QWidget
 {
@@ -29,7 +30,7 @@ signals:
 public slots:
     void handleNewBtn();    
     void createProjectList();
-    void continueMission(QString missionName);
+    void runMission(QString missionName);
     void exploreMission(QString missionName);
     void deleteMission(QString missionName,QListWidgetItem *item);
 

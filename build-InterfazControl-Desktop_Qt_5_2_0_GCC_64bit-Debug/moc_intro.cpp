@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_intro_t {
     QByteArrayData data[10];
-    char stringdata[118];
+    char stringdata[113];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,15 +33,15 @@ QT_MOC_LITERAL(0, 0, 5),
 QT_MOC_LITERAL(1, 6, 12),
 QT_MOC_LITERAL(2, 19, 0),
 QT_MOC_LITERAL(3, 20, 17),
-QT_MOC_LITERAL(4, 38, 15),
-QT_MOC_LITERAL(5, 54, 11),
-QT_MOC_LITERAL(6, 66, 14),
-QT_MOC_LITERAL(7, 81, 13),
-QT_MOC_LITERAL(8, 95, 16),
-QT_MOC_LITERAL(9, 112, 4)
+QT_MOC_LITERAL(4, 38, 10),
+QT_MOC_LITERAL(5, 49, 11),
+QT_MOC_LITERAL(6, 61, 14),
+QT_MOC_LITERAL(7, 76, 13),
+QT_MOC_LITERAL(8, 90, 16),
+QT_MOC_LITERAL(9, 107, 4)
     },
     "intro\0handleNewBtn\0\0createProjectList\0"
-    "continueMission\0missionName\0exploreMission\0"
+    "runMission\0missionName\0exploreMission\0"
     "deleteMission\0QListWidgetItem*\0item\0"
 };
 #undef QT_MOC_LITERAL
@@ -83,7 +83,7 @@ void intro::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         switch (_id) {
         case 0: _t->handleNewBtn(); break;
         case 1: _t->createProjectList(); break;
-        case 2: _t->continueMission((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->runMission((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->exploreMission((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->deleteMission((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
         default: ;

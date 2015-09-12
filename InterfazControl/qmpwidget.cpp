@@ -11,10 +11,13 @@
 #include <QGLWidget>
 #endif
 #include "qmpwidget.h"
-//#define QMP_DEBUG_OUTPUT
 #ifdef QMP_USE_YUVPIPE
 #include "qmpyuvreader.h"
 #endif // QMP_USE_YUVPIPE
+
+
+//#define QMP_DEBUG_OUTPUT
+
 // A plain video widget
 class QMPPlainVideoWidget : public QWidget
 {
@@ -69,7 +72,7 @@ public:
     QMPOpenGLVideoWidget(QWidget *parent = 0)
         : QGLWidget(parent), m_tex(-1)
     {
-        //setAttribute(Qt::WA_TranslucentBackground, true);
+        setAttribute(Qt::WA_TranslucentBackground, true);
         setMouseTracking(true);
     }
     void showUserImage(const QImage &image)
@@ -112,7 +115,7 @@ protected:
     void initializeGL()
     {
         glEnable(GL_TEXTURE_2D);
-        glClearColor(0, 0, 0, 0);
+        glClearColor(255, 255, 255, 255);
         glClearDepth(1);
 
     }
@@ -167,6 +170,9 @@ public:
 #elif defined(Q_WS_X11)
         m_mode = QMPwidget::EmbeddedMode;
 #ifdef QT_OPENGL_LIB
+#ifdef QMP_DEBUG_OUTPUT
+       qDebug()<<"QT_OPENGL_LIB defined"
+#endif
         m_videoOutput = "gl2,gl,xv";
 #else
         m_videoOutput = "xv";
@@ -179,6 +185,7 @@ public:
         m_videoOutput = "quartz";
 #endif
 #endif
+        m_mode = QMPwidget::EmbeddedMode;//ADDED
         m_movieFinishedTimer.setSingleShot(true);
         m_movieFinishedTimer.setInterval(100);
         connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
@@ -226,9 +233,9 @@ public:
         myargs += "-noquiet";
         myargs += "-identify";
         myargs += "-nomouseinput";
-        myargs += "-nokeepaspect";
+        /*myargs += "-nokeepaspect";
         myargs += "-monitorpixelaspect";
-        myargs += "1";     
+        myargs += "1";*/
         myargs += "-vo";
         myargs += "gl";
         myargs += "-geometry";
@@ -258,6 +265,10 @@ public:
 #endif
         }
         if (m_mode == QMPwidget::EmbeddedMode) {
+
+#ifdef QMP_DEBUG_OUTPUT
+        qDebug()<<"-------------EMBEDDEDMODE----------------";
+#endif
             myargs += "-wid";
             myargs += QString::number((int)widget->winId());
             if (!m_videoOutput.isEmpty()) {
@@ -538,8 +549,8 @@ QMPwidget::QMPwidget(QWidget *parent)
     : QWidget(parent)
 {
     //setAttribute(Qt::WA_TranslucentBackground, true);
-     setFocusPolicy(Qt::StrongFocus);
-     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setFocusPolicy(Qt::StrongFocus);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 #ifdef QT_OPENGL_LIB
     m_widget = new QMPOpenGLVideoWidget(this);
 #else
@@ -568,6 +579,7 @@ QMPwidget::~QMPwidget()
 {
     if (m_process->processState() == QProcess::Running) {
         m_process->quit();
+        qDebug()<<"KILLED MPWIDGET";
     }
     delete m_process;
 }
@@ -898,6 +910,7 @@ bool QMPwidget::seek(double offset, int whence)
 */
 void QMPwidget::toggleFullScreen()
 {
+/*
     if (!isFullScreen()) {
         m_windowFlags = windowFlags() & (Qt::Window);
         m_geometry = geometry();
@@ -916,7 +929,7 @@ void QMPwidget::toggleFullScreen()
         setWindowState(windowState() & ~Qt::WindowFullScreen);
         setGeometry(m_geometry);
         show();
-    }
+    }*/
 }
 /*!
 * \brief Sends a command to the MPlayer process
@@ -1041,7 +1054,7 @@ void QMPwidget::moveEvent(QMoveEvent *){
 #ifdef QMP_DEBUG_OUTPUT
     qDebug("MOVE----------------------------------------------------");
 #endif
-    m_widget->resize(1280, 720);
+     m_widget->resize(1280, 720);
 
 }
 
@@ -1052,15 +1065,19 @@ void QMPwidget::updateWidgetSize()
 
     if (!m_process->m_mediaInfo.size.isNull()) {
         QSize mediaSize = m_process->m_mediaInfo.size;
+
         QSize widgetSize = size();
         double factor = qMin(double(widgetSize.width()) / mediaSize.width(), double(widgetSize.height()) / mediaSize.height());
         QRect wrect(0, 0, int(factor * mediaSize.width() + 0.5), int(factor * mediaSize.height()));
         wrect.moveTopLeft(rect().center() - wrect.center());
         m_widget->setGeometry(wrect);
 
+
     } else {
         m_widget->setGeometry(QRect(QPoint(0, 0), size()));
     }
+
+
 }
 void QMPwidget::delayedSeek()
 {

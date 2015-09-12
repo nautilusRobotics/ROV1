@@ -20,16 +20,15 @@ public:
     Player(const QStringList &args, const QString &url, QWidget *parent = 0);
     bool enableCount;
     void screenShot();
-    void setVideoSlider(QAbstractSlider *slider);
+
 
 private:
     QString m_url;
     const QStringList &arguments;
+    QMPwidget::State playerStatus;
 
 private slots:
-    void stateChanged(int state);
-    void play();
-    void pause();
+    void stateChanged(int);
     void reload();
 
 signals:

@@ -8,9 +8,10 @@
 #include <QObject>
 #include <QListWidget>
 #include <QDirIterator>
-#include "player.h"
-#include "qmpwidget.h"
-#include "playercontrols.h"
+#include <QSettings>
+#include <QProcess>
+#include <QPainter>
+#include "player.h" 
 #include "thumbviewer.h"
 
 class MissionExplorer : public QWidget
@@ -20,17 +21,34 @@ public:
     explicit MissionExplorer(QWidget *parent = 0, QString missionPath="Untitled");
 
 signals:
-
+    void play();
+    void pause();
 public slots:
+    void displaySource();
+    void playCLiked();
+    void setState(QMediaPlayer::State);
 private:
-    QGridLayout *layout;
-    QMPwidget widget;
-    Player *player;
-    PlayerControls *controls;
+    QGridLayout *layout; 
+    Player *player;    
     QListWidget *listFiles;
-    QString missionPath;
+    QString missionPath,m_sSettingsFile;
     ThumbViewer *thumbElement;
+    QList<QString> files;
+    QList<bool> isVideoFile;
+    QLabel *picLbl, *defaultLbl;
+    QStringList argumentos;
+    bool createThumbs;
+    QAbstractButton *playButton;
+    QAbstractButton *reloadButton;
+    QAbstractSlider *videoSlider;    
+    QMediaPlayer::State playerState;
     void createPreviewList();
+    void addPreviewItem(QString preThumb, bool type);
+    void loadSettings();
+    void saveSettings();
+
+protected:
+     void closeEvent(QCloseEvent *event);
 
 };
 

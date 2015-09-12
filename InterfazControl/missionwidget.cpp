@@ -2,13 +2,12 @@
 #include "intro.h"
 
 
-MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numVideos, int numPic) :
+MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     QWidget(parent)
 {
-
-     this->numPic=numPic;
      this->missionName=missionName;
-
+     m_sSettingsFile = QString("./Missions/%1/settings.ini").arg(missionName);
+     loadSettings();
      /*Qt::WindowFlags flags(Qt::Window | Qt::CustomizeWindowHint | Qt::TitleBarArea);
 
      this->setWindowFlags(flags);*/
@@ -89,10 +88,11 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, int numVideos
     argumentos.push_back("20");
 
     //widget.setGeometry(400,Qt::AlignCenter,1280,720);
-    widget.setFixedSize(1280,720);
+   // widget.setFixedSize(1280,720);
 
     statusPlayer=new QLabel();
-    player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", &widget);
+    //player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", &widget);
+    player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", this);
     player->setFixedSize(1280,720);
     connect(player,SIGNAL(updateStatus(bool)),this,SLOT(updatePlayerStatus(bool)));
     layout->addWidget(player, 1, 0,1,3);
@@ -215,8 +215,8 @@ void MissionWidget::updateRecording(bool isRecording){
     }
 }
 
-void MissionWidget::handleButtonHome(){
-    saveMissionPrefs();
+void MissionWidget::handleButtonHome(){    
+
     this->close();
 
     /*intro welcomeScreen;
@@ -228,22 +228,45 @@ void MissionWidget::handleButtonOff(){
     QString msg=QString("Are you sure? \n The robot is save? \n the system is going to turning off");
     QMessageBox::StandardButton reply;
 
-      reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
-      if (reply == QMessageBox::Ok){
-         saveMissionPrefs();
-         this->close();
-      }
+    reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
+    if (reply == QMessageBox::Ok)this->close();
+
 }
 
-void MissionWidget::saveMissionPrefs(){
-    QString filename=QString("./Missions/%1/prefs.mission").arg(missionName);
-    QFile file( filename );
-    if ( file.open(QIODevice::ReadWrite) )
-    {
-        QTextStream stream( &file );
-        QString countVideos=QString("#v%1").arg(rtsp->getVideoCount());
-        QString countPic=QString("#p%1").arg(numPic);
-        stream << countVideos +"\n" + countPic << endl;
 
-    }
+
+
+void MissionWidget::loadSettings(){
+     QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
+     QString countVideos = settings.value("videos", "").toString();
+     QString countPic = settings.value("pics", "").toString();
+     qDebug()<<"Load Settigns videos:"+countVideos+" pics: "+countPic;
+
+
+     if(!countVideos.compare("")){
+          numPic=0;
+          numVideos=0;
+
+     }
+     else{
+         numPic=countPic.toInt();
+         numVideos=countVideos.toInt();
+     }
+
+}
+
+void MissionWidget::saveSettings()
+{
+     QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
+     if(rtsp->getVideoCount()!=numVideos)settings.setValue("isThumbnailed", false);
+     QString countVideos=QString("%1").arg(rtsp->getVideoCount());
+     QString countPic=QString("%1").arg(numPic);
+     settings.setValue("videos", countVideos);
+     settings.setValue("pics", countPic);
+}
+
+
+void MissionWidget::closeEvent(QCloseEvent *event) {
+    saveSettings();
+    event->accept();
 }

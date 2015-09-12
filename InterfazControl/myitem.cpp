@@ -30,8 +30,9 @@ myItem::myItem(QWidget *parent, QString name) :
     layout->addWidget(icon,0,0,1,1);
     layout->addWidget(nameLabel,0,1,1,4);
     layout->addWidget(btnContinue,0,6,1,2);
-    layout->addWidget(btnDelete,0,8,1,2);
-    layout->addWidget(btnExplore,0,10,1,2);
+    layout->addWidget(btnExplore,0,8,1,2);
+    layout->addWidget(btnDelete,0,10,1,2);
+
 
     this->setLayout(layout);
 

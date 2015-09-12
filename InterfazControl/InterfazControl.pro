@@ -24,8 +24,8 @@ SOURCES += main.cpp\
     intro.cpp \
     myitem.cpp \
     missionexplorer.cpp \
-    playercontrols.cpp \
-    thumbviewer.cpp
+    thumbviewer.cpp \
+    exportmanager.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -42,8 +42,8 @@ HEADERS  += \
     intro.h \
     myitem.h \
     missionexplorer.h \
-    playercontrols.h \
-    thumbviewer.h
+    thumbviewer.h \
+    exportmanager.h
 
 FORMS    +=
 

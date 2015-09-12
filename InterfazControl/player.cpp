@@ -1,6 +1,8 @@
 #include "player.h"
 //#define DEBUG_PLAYER
 
+
+
 Player::Player(const QStringList &args, const QString &url, QWidget *parent): QMPwidget(parent), m_url(url),arguments(args){
 
     connect(this, SIGNAL(stateChanged(int)), this, SLOT(stateChanged(int)));
@@ -13,6 +15,7 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
     enableCount=true;
 
     QMPwidget::start(args);
+
 
 }
 
@@ -31,7 +34,7 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
         #ifdef DEBUG_PLAYER
              qDebug("NotStarted");
         #endif
-
+          playerStatus=QMPwidget::NotStartedState;
         }
         else if (state == QMPwidget::PlayingState && mediaInfo().ok) {
 
@@ -39,7 +42,8 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
              qDebug("Playing");
         #endif
             emit updateStatus(true);
-            emit newState(QMediaPlayer::PlayingState);
+
+             playerStatus=QMPwidget::PlayingState;
 
         }
         else if(state==QMPwidget::IdleState){
@@ -51,19 +55,23 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
                 emit updateStatus(false);
             }
 
+            if(playerStatus==QMPwidget::PlayingState)
+                emit newState(QMediaPlayer::StoppedState);
 
+            playerStatus=QMPwidget::IdleState;
         }      
         else if(state==QMPwidget::LoadingState){
             #ifdef DEBUG_PLAYER
                  qDebug("LoadingState");
             #endif
+                 playerStatus=QMPwidget::LoadingState;
         }
         else if(state==QMPwidget::PausedState){
 #ifdef DEBUG_PLAYER
             qDebug("PausedState");
 #endif
+          playerStatus=QMPwidget::PausedState;
 
-            emit newState(QMediaPlayer::PausedState);
         }
 
 
@@ -84,18 +92,9 @@ Player::Player(const QStringList &args, const QString &url, QWidget *parent): QM
     }
 
 
-    void Player::play(){
-        QMPwidget::play();
-    }
-    void Player:: pause(){
-        QMPwidget::pause();
-    }
     void Player::reload(){
         QMPwidget::QMPwidget::seek(0,QMPwidget::PercentageSeek);
     }
 
 
-    void Player::setVideoSlider(QAbstractSlider *slider){
-       QMPwidget::setSeekSlider(slider);
-    }
 

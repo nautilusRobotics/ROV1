@@ -14,6 +14,8 @@
 #include <QStatusBar>
 #include <QMessageBox>
 #include <QStyle>
+#include <QSettings>
+//#include <QWidget>
 
 
 #include "player.h"
@@ -33,14 +35,13 @@
 
 
 
-#include <QWidget>
+
 
 class MissionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled", int numVideos=0, int numPic=0);
-    void saveMissionPrefs();
+    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled"); 
 signals:
 
 public slots:
@@ -53,7 +54,7 @@ public slots:
     void handleButtonHome();
 
 private:
-    QMPwidget widget;
+   // QMPwidget widget;
     Player *player;
     QPushButton *button_control,*button_1,*button_camara, *button_test, *button_off,*button_home;
     QToolBar *toolbar;
@@ -63,8 +64,15 @@ private:
     QProgressBar *battery,*depth;
     QLabel *statusRobot,  *statusPlayer, *statusJoystick,*robotDepth,*statusRecording;
     QString missionName;
-    openRTSP *rtsp;
-    int numPic;
+    openRTSP *rtsp;    
+    QString m_sSettingsFile;
+
+    int numPic,numVideos;
+    void loadSettings();
+    void saveSettings();
+
+protected:
+     void closeEvent(QCloseEvent *event);
 
 
 };
