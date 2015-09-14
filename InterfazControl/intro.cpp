@@ -59,6 +59,7 @@ intro::intro(QWidget *parent) :
 
 
     projectList= new QListWidget();
+    exm=new ExportManager(this);
     createProjectList();
     projectList->setSelectionMode (QAbstractItemView::NoSelection);
     projectList->setFixedHeight(150);
@@ -76,7 +77,7 @@ intro::intro(QWidget *parent) :
         QDir().mkdir("./Missions");
     }
 
-    ExportManager *exm=new ExportManager(0,"Mission1");
+
 
 
 }
@@ -152,6 +153,8 @@ void intro::createProjectList(){
         connect(myListItem,SIGNAL(continueSignal(QString)),this,SLOT(runMission(QString)));
         connect(myListItem,SIGNAL(deleteSignal(QString,QListWidgetItem*)),this,SLOT(deleteMission(QString,QListWidgetItem*)));
         connect(myListItem,SIGNAL(exploreSignal(QString)),this,SLOT(exploreMission(QString)));
+        exm->setMissionName(missionName);
+        connect(myListItem,SIGNAL(exportSignal()),exm,SLOT(launchDialog()));
         myListItem->setWItem(item);
 
 

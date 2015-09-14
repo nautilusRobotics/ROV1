@@ -25,13 +25,21 @@ myItem::myItem(QWidget *parent, QString name) :
     btnExplore->setFocusPolicy(Qt::NoFocus);
     connect(btnExplore,SIGNAL(released()),this,SLOT(handleExplore()));
 
+    btnExport=new QPushButton("Export");
+    btnExport->setIcon(QIcon( "./icons/export.png"));
+    btnExport->setIconSize(QSize(25,25));
+    btnExport->setFocusPolicy(Qt::NoFocus);
+    connect(btnExport,SIGNAL(released()),this,SIGNAL(exportSignal()));
+
+
     icon=new QLabel("<img src=\"./icons/missionLogo32x32\">");
 
     layout->addWidget(icon,0,0,1,1);
     layout->addWidget(nameLabel,0,1,1,4);
     layout->addWidget(btnContinue,0,6,1,2);
     layout->addWidget(btnExplore,0,8,1,2);
-    layout->addWidget(btnDelete,0,10,1,2);
+    layout->addWidget(btnExport,0,10,1,2);
+    layout->addWidget(btnDelete,0,12,1,2);
 
 
     this->setLayout(layout);
@@ -43,11 +51,13 @@ void myItem::setWItem(QListWidgetItem *item){
 }
 
 void myItem::handleContinue(){
-    continueSignal(missionName);
+    emit continueSignal(missionName);
 }
 void myItem::handleDelete(){
-     deleteSignal(missionName,itemW);
+    emit deleteSignal(missionName,itemW);
 }
 void myItem::handleExplore(){
-    exploreSignal(missionName);
+    emit exploreSignal(missionName);
 }
+
+

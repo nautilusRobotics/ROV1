@@ -58,7 +58,8 @@ SOURCES       = ../InterfazControl/main.cpp \
 		../InterfazControl/myitem.cpp \
 		../InterfazControl/missionexplorer.cpp \
 		../InterfazControl/thumbviewer.cpp \
-		../InterfazControl/exportmanager.cpp moc_joystickwidget.cpp \
+		../InterfazControl/exportmanager.cpp \
+		../InterfazControl/mywidgetusb.cpp moc_joystickwidget.cpp \
 		moc_player.cpp \
 		moc_qgamecontroller.cpp \
 		moc_qmpwidget.cpp \
@@ -69,7 +70,8 @@ SOURCES       = ../InterfazControl/main.cpp \
 		moc_myitem.cpp \
 		moc_missionexplorer.cpp \
 		moc_thumbviewer.cpp \
-		moc_exportmanager.cpp
+		moc_exportmanager.cpp \
+		moc_mywidgetusb.cpp
 OBJECTS       = main.o \
 		joystickwidget.o \
 		player.o \
@@ -84,6 +86,7 @@ OBJECTS       = main.o \
 		missionexplorer.o \
 		thumbviewer.o \
 		exportmanager.o \
+		mywidgetusb.o \
 		moc_joystickwidget.o \
 		moc_player.o \
 		moc_qgamecontroller.o \
@@ -95,7 +98,8 @@ OBJECTS       = main.o \
 		moc_myitem.o \
 		moc_missionexplorer.o \
 		moc_thumbviewer.o \
-		moc_exportmanager.o
+		moc_exportmanager.o \
+		moc_mywidgetusb.o
 DIST          = ../../../Qt5.2.0/5.2.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.2.0/5.2.0/gcc_64/mkspecs/common/shell-unix.conf \
 		../../../Qt5.2.0/5.2.0/gcc_64/mkspecs/common/unix.conf \
@@ -467,7 +471,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/InterfazControl1.0.0 || mkdir -p .tmp/InterfazControl1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/InterfazControl1.0.0/ && $(COPY_FILE) --parents ../InterfazControl/joystickwidget.h ../InterfazControl/player.h ../InterfazControl/qgamecontroller.h ../InterfazControl/qgamecontroller-global.h ../InterfazControl/qgamecontroller_linux_p.h ../InterfazControl/qgamecontroller_p.h ../InterfazControl/qmpwidget.h ../InterfazControl/sendaction.h ../InterfazControl/com.h ../InterfazControl/missionwidget.h ../InterfazControl/openrtsp.h ../InterfazControl/intro.h ../InterfazControl/myitem.h ../InterfazControl/missionexplorer.h ../InterfazControl/thumbviewer.h ../InterfazControl/exportmanager.h .tmp/InterfazControl1.0.0/ && $(COPY_FILE) --parents ../InterfazControl/main.cpp ../InterfazControl/joystickwidget.cpp ../InterfazControl/player.cpp ../InterfazControl/qgamecontroller.cpp ../InterfazControl/qgamecontroller_linux.cpp ../InterfazControl/qmpwidget.cpp ../InterfazControl/sendaction.cpp ../InterfazControl/missionwidget.cpp ../InterfazControl/openrtsp.cpp ../InterfazControl/intro.cpp ../InterfazControl/myitem.cpp ../InterfazControl/missionexplorer.cpp ../InterfazControl/thumbviewer.cpp ../InterfazControl/exportmanager.cpp .tmp/InterfazControl1.0.0/ && (cd `dirname .tmp/InterfazControl1.0.0` && $(TAR) InterfazControl1.0.0.tar InterfazControl1.0.0 && $(COMPRESS) InterfazControl1.0.0.tar) && $(MOVE) `dirname .tmp/InterfazControl1.0.0`/InterfazControl1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/InterfazControl1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/InterfazControl1.0.0/ && $(COPY_FILE) --parents ../InterfazControl/joystickwidget.h ../InterfazControl/player.h ../InterfazControl/qgamecontroller.h ../InterfazControl/qgamecontroller-global.h ../InterfazControl/qgamecontroller_linux_p.h ../InterfazControl/qgamecontroller_p.h ../InterfazControl/qmpwidget.h ../InterfazControl/sendaction.h ../InterfazControl/com.h ../InterfazControl/missionwidget.h ../InterfazControl/openrtsp.h ../InterfazControl/intro.h ../InterfazControl/myitem.h ../InterfazControl/missionexplorer.h ../InterfazControl/thumbviewer.h ../InterfazControl/exportmanager.h ../InterfazControl/mywidgetusb.h .tmp/InterfazControl1.0.0/ && $(COPY_FILE) --parents ../InterfazControl/main.cpp ../InterfazControl/joystickwidget.cpp ../InterfazControl/player.cpp ../InterfazControl/qgamecontroller.cpp ../InterfazControl/qgamecontroller_linux.cpp ../InterfazControl/qmpwidget.cpp ../InterfazControl/sendaction.cpp ../InterfazControl/missionwidget.cpp ../InterfazControl/openrtsp.cpp ../InterfazControl/intro.cpp ../InterfazControl/myitem.cpp ../InterfazControl/missionexplorer.cpp ../InterfazControl/thumbviewer.cpp ../InterfazControl/exportmanager.cpp ../InterfazControl/mywidgetusb.cpp .tmp/InterfazControl1.0.0/ && (cd `dirname .tmp/InterfazControl1.0.0` && $(TAR) InterfazControl1.0.0.tar InterfazControl1.0.0 && $(COMPRESS) InterfazControl1.0.0.tar) && $(MOVE) `dirname .tmp/InterfazControl1.0.0`/InterfazControl1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/InterfazControl1.0.0
 
 
 clean:compiler_clean 
@@ -490,9 +494,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_joystickwidget.cpp moc_player.cpp moc_qgamecontroller.cpp moc_qmpwidget.cpp moc_sendaction.cpp moc_missionwidget.cpp moc_openrtsp.cpp moc_intro.cpp moc_myitem.cpp moc_missionexplorer.cpp moc_thumbviewer.cpp moc_exportmanager.cpp
+compiler_moc_header_make_all: moc_joystickwidget.cpp moc_player.cpp moc_qgamecontroller.cpp moc_qmpwidget.cpp moc_sendaction.cpp moc_missionwidget.cpp moc_openrtsp.cpp moc_intro.cpp moc_myitem.cpp moc_missionexplorer.cpp moc_thumbviewer.cpp moc_exportmanager.cpp moc_mywidgetusb.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_joystickwidget.cpp moc_player.cpp moc_qgamecontroller.cpp moc_qmpwidget.cpp moc_sendaction.cpp moc_missionwidget.cpp moc_openrtsp.cpp moc_intro.cpp moc_myitem.cpp moc_missionexplorer.cpp moc_thumbviewer.cpp moc_exportmanager.cpp
+	-$(DEL_FILE) moc_joystickwidget.cpp moc_player.cpp moc_qgamecontroller.cpp moc_qmpwidget.cpp moc_sendaction.cpp moc_missionwidget.cpp moc_openrtsp.cpp moc_intro.cpp moc_myitem.cpp moc_missionexplorer.cpp moc_thumbviewer.cpp moc_exportmanager.cpp moc_mywidgetusb.cpp
 moc_joystickwidget.cpp: ../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qwidget.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs.h \
@@ -1748,6 +1752,13 @@ moc_intro.cpp: ../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QPainter \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainter.h \
 		../InterfazControl/thumbviewer.h \
+		../InterfazControl/exportmanager.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon \
 		../InterfazControl/intro.h
 	/home/nautilus/Qt5.2.0/5.2.0/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../InterfazControl/intro.h -o moc_intro.cpp
 
@@ -2082,6 +2093,15 @@ moc_missionexplorer.cpp: ../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
 		../InterfazControl/thumbviewer.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		../InterfazControl/exportmanager.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDebug \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QFileInfo \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon \
 		../InterfazControl/missionexplorer.h
 	/home/nautilus/Qt5.2.0/5.2.0/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../InterfazControl/missionexplorer.h -o moc_missionexplorer.cpp
 
@@ -2274,8 +2294,213 @@ moc_exportmanager.cpp: ../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QObject \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qregexp.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringmatcher.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDebug \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qhash.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvector.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qset.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QFileInfo \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfile.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdir.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QListWidget \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlistwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlistview.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qrect.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsize.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qmatrix.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qregion.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qline.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainterpath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qimage.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfont.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qevent.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurlquery.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qicon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qdialog.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qboxlayout.h \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon \
 		../InterfazControl/exportmanager.h
 	/home/nautilus/Qt5.2.0/5.2.0/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../InterfazControl/exportmanager.h -o moc_exportmanager.cpp
+
+moc_mywidgetusb.cpp: ../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfeatures.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_integrity.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qoldbasicatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_vxworks.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_power.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_alpha.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_bfin.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_mips.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_s390.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_sh4a.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_sparc.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_x86.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_unix.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qflags.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtypetraits.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobject.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstring.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qchar.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlist.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qisenum.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qrect.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsize.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpair.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvector.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qmatrix.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qregion.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qline.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainterpath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qimage.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qhash.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfont.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qevent.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qset.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurlquery.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfile.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qicon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qboxlayout.h \
+		../InterfazControl/mywidgetusb.h
+	/home/nautilus/Qt5.2.0/5.2.0/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../InterfazControl/mywidgetusb.h -o moc_mywidgetusb.cpp
 
 compiler_moc_source_make_all: qmpwidget.moc
 compiler_moc_source_clean:
@@ -2675,7 +2900,14 @@ main.o: ../InterfazControl/main.cpp ../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidg
 		../InterfazControl/missionexplorer.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QPainter \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainter.h \
-		../InterfazControl/thumbviewer.h
+		../InterfazControl/thumbviewer.h \
+		../InterfazControl/exportmanager.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../InterfazControl/main.cpp
 
 joystickwidget.o: ../InterfazControl/joystickwidget.cpp ../InterfazControl/joystickwidget.h \
@@ -3774,7 +4006,14 @@ missionwidget.o: ../InterfazControl/missionwidget.cpp ../InterfazControl/mission
 		../InterfazControl/missionexplorer.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QPainter \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainter.h \
-		../InterfazControl/thumbviewer.h
+		../InterfazControl/thumbviewer.h \
+		../InterfazControl/exportmanager.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o missionwidget.o ../InterfazControl/missionwidget.cpp
 
 openrtsp.o: ../InterfazControl/openrtsp.cpp ../InterfazControl/openrtsp.h \
@@ -4093,7 +4332,14 @@ intro.o: ../InterfazControl/intro.cpp ../InterfazControl/intro.h \
 		../InterfazControl/missionexplorer.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QPainter \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainter.h \
-		../InterfazControl/thumbviewer.h
+		../InterfazControl/thumbviewer.h \
+		../InterfazControl/exportmanager.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o intro.o ../InterfazControl/intro.cpp
 
 myitem.o: ../InterfazControl/myitem.cpp ../InterfazControl/myitem.h \
@@ -4427,7 +4673,16 @@ missionexplorer.o: ../InterfazControl/missionexplorer.cpp ../InterfazControl/mis
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmetaobject.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
 		../InterfazControl/thumbviewer.h \
-		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QHBoxLayout
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		../InterfazControl/exportmanager.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDebug \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QFileInfo \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o missionexplorer.o ../InterfazControl/missionexplorer.cpp
 
 thumbviewer.o: ../InterfazControl/thumbviewer.cpp ../InterfazControl/thumbviewer.h \
@@ -4619,8 +4874,213 @@ exportmanager.o: ../InterfazControl/exportmanager.cpp ../InterfazControl/exportm
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpair.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qregexp.h \
 		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringmatcher.h \
-		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qshareddata.h
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDebug \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qhash.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvector.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qset.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QFileInfo \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfile.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QDir \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdir.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/QtMath \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QListWidget \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlistwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlistview.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qrect.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsize.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qmatrix.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qregion.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qline.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainterpath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qimage.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfont.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qevent.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurlquery.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qicon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QDialog \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qdialog.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qboxlayout.h \
+		../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o exportmanager.o ../InterfazControl/exportmanager.cpp
+
+mywidgetusb.o: ../InterfazControl/mywidgetusb.cpp ../InterfazControl/mywidgetusb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfeatures.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_integrity.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qoldbasicatomic.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_vxworks.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_power.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_alpha.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_bfin.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_mips.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_s390.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_sh4a.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_sparc.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_x86.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qatomic_unix.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qflags.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtypetraits.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobject.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstring.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qchar.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlist.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qisenum.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qrect.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsize.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qpair.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvector.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qmatrix.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qregion.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qline.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpainterpath.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qimage.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qhash.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfont.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qevent.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qmap.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qset.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurl.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qurlquery.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfile.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/qicon.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtGui/QIcon \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt5.2.0/5.2.0/gcc_64/include/QtWidgets/qboxlayout.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mywidgetusb.o ../InterfazControl/mywidgetusb.cpp
 
 moc_joystickwidget.o: moc_joystickwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_joystickwidget.o moc_joystickwidget.cpp
@@ -4657,6 +5117,9 @@ moc_thumbviewer.o: moc_thumbviewer.cpp
 
 moc_exportmanager.o: moc_exportmanager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_exportmanager.o moc_exportmanager.cpp
+
+moc_mywidgetusb.o: moc_mywidgetusb.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mywidgetusb.o moc_mywidgetusb.cpp
 
 ####### Install
 

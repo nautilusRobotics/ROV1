@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_myItem_t {
-    QByteArrayData data[9];
-    char stringdata[110];
+    QByteArrayData data[10];
+    char stringdata[123];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,13 +35,15 @@ QT_MOC_LITERAL(2, 22, 0),
 QT_MOC_LITERAL(3, 23, 12),
 QT_MOC_LITERAL(4, 36, 16),
 QT_MOC_LITERAL(5, 53, 13),
-QT_MOC_LITERAL(6, 67, 14),
-QT_MOC_LITERAL(7, 82, 12),
-QT_MOC_LITERAL(8, 95, 13)
+QT_MOC_LITERAL(6, 67, 12),
+QT_MOC_LITERAL(7, 80, 14),
+QT_MOC_LITERAL(8, 95, 12),
+QT_MOC_LITERAL(9, 108, 13)
     },
     "myItem\0continueSignal\0\0deleteSignal\0"
     "QListWidgetItem*\0exploreSignal\0"
-    "handleContinue\0handleDelete\0handleExplore\0"
+    "exportSignal\0handleContinue\0handleDelete\0"
+    "handleExplore\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,27 +53,29 @@ static const uint qt_meta_data_myItem[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   44,    2, 0x06,
-       3,    2,   47,    2, 0x06,
-       5,    1,   52,    2, 0x06,
+       1,    1,   49,    2, 0x06,
+       3,    2,   52,    2, 0x06,
+       5,    1,   57,    2, 0x06,
+       6,    0,   60,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   55,    2, 0x0a,
-       7,    0,   56,    2, 0x0a,
-       8,    0,   57,    2, 0x0a,
+       7,    0,   61,    2, 0x0a,
+       8,    0,   62,    2, 0x0a,
+       9,    0,   63,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, QMetaType::QString, 0x80000000 | 4,    2,    2,
     QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
@@ -89,9 +93,10 @@ void myItem::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 0: _t->continueSignal((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 1: _t->deleteSignal((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
         case 2: _t->exploreSignal((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 3: _t->handleContinue(); break;
-        case 4: _t->handleDelete(); break;
-        case 5: _t->handleExplore(); break;
+        case 3: _t->exportSignal(); break;
+        case 4: _t->handleContinue(); break;
+        case 5: _t->handleDelete(); break;
+        case 6: _t->handleExplore(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -113,6 +118,12 @@ void myItem::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
             typedef void (myItem::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&myItem::exploreSignal)) {
                 *result = 2;
+            }
+        }
+        {
+            typedef void (myItem::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&myItem::exportSignal)) {
+                *result = 3;
             }
         }
     }
@@ -143,13 +154,13 @@ int myItem::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }
@@ -173,5 +184,11 @@ void myItem::exploreSignal(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void myItem::exportSignal()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, 0);
 }
 QT_END_MOC_NAMESPACE

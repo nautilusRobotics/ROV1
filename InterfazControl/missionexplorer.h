@@ -13,6 +13,7 @@
 #include <QPainter>
 #include "player.h" 
 #include "thumbviewer.h"
+#include "exportmanager.h"
 
 class MissionExplorer : public QWidget
 {
@@ -38,14 +39,15 @@ private:
     QLabel *picLbl, *defaultLbl;
     QStringList argumentos;
     bool createThumbs;
-    QAbstractButton *playButton;
-    QAbstractButton *reloadButton;
-    QAbstractSlider *videoSlider;    
+    QAbstractButton *playButton,*reloadButton;
+    QAbstractSlider *videoSlider;
+    QPushButton *btn_export;
     QMediaPlayer::State playerState;
     void createPreviewList();
     void addPreviewItem(QString preThumb, bool type);
     void loadSettings();
     void saveSettings();
+    ExportManager *exm;
 
 protected:
      void closeEvent(QCloseEvent *event);

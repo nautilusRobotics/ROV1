@@ -48,20 +48,28 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
     defaultLbl=new QLabel("");
     defaultLbl->setPixmap(defaultPixmap);
 
-    /***********************************************************************************************/
+
     listFiles=new QListWidget();    
     listFiles->setFixedWidth(200);
     connect(listFiles,SIGNAL(itemPressed(QListWidgetItem*)),this,SLOT(displaySource()));
 
+    /***********************************************************************************************/
 
+    btn_export = new QPushButton("Export");
+    btn_export->setIcon(QIcon("./icons/export.png"));
+    btn_export->setIconSize(QSize(32,32));
+    exm=new ExportManager(this,missionName);
+    connect(btn_export,SIGNAL(released()),exm,SLOT(launchDialog()));
+
+    /***********************************************************************************************/
     layout=new QGridLayout();
     layout->addWidget(defaultLbl,0,0,1,3);
 
     layout->addWidget(playButton,1,0);
     layout->addWidget(reloadButton,1,1);
     layout->addWidget(videoSlider,1,2);
-
-    layout->addWidget(listFiles,0,4,2,1);
+    layout->addWidget(listFiles,0,4,1,1);
+    layout->addWidget(btn_export,1,4,1,1);
     this->setLayout(layout);
 
 

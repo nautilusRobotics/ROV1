@@ -1,11 +1,10 @@
 #include "exportmanager.h"
-#define DEBUG_EXPORT
+//#define DEBUG_EXPORT
 
-ExportManager::ExportManager(QObject *parent, QString missionName) :
-    QObject(parent)
+ExportManager::ExportManager(QWidget *parent,QString mission) :
+    QWidget(parent)
 {
-    this->missionName=missionName;
-    getExternalDevices();
+  missionName=mission;
 }
 
 
@@ -16,10 +15,10 @@ void ExportManager::getExternalDevices(){
     usbList.start(run);
     usbList.waitForFinished();
     QString output( usbList.readAllStandardOutput());
+
 #ifdef DEBUG_EXPORT
       qDebug("-----------EXTERNAL DEVICES-------------");
       qDebug()<<output;
-
 #endif
 
     usbList.close();
@@ -28,9 +27,10 @@ void ExportManager::getExternalDevices(){
     QList<QString> tempListNames=output.split("\n");
     tempListNames.removeAt(tempListNames.length()-1);
 
-
+  #ifdef DEBUG_EXPORT
     qDebug("-----------SPLITED-------------");
     qDebug()<<QString("LENGTH %1").arg(tempListNames.length());
+  #endif
 
     QList<QString> tempFreeSpace;
 
@@ -41,25 +41,38 @@ void ExportManager::getExternalDevices(){
         if(tempNames.size()==2){
           names.append(tempNames.at(tempNames.length()-1));
           QList<QString> tempfreeSpace=tempNames.at(0).split(" ", QString::SkipEmptyParts);
-          freeSpace.append(tempfreeSpace.at(tempfreeSpace.length()-2));
+          freeSpace.append(tempfreeSpace.at(tempfreeSpace.length()-2));          
         }
+#ifdef DEBUG_EXPORT
         qDebug()<<tempName;
+#endif
     }
 
+    for(int i=0;i<freeSpace.length();i++)
+       bytesFreeSpace.append(toBytes(freeSpace.at(i)));
 
 
-    quint64 value=dir_size("./Missions/Mission1");
-    qDebug()<<QString("FILE SIZE: %1").arg(value);
 }
 
-int ExportManager::toBytes(QString str){
-    int megas=0;
-    QString unit=str.at(str.length());
+quint64 ExportManager::toBytes(QString str){
+    quint64 bytes=0;
+    QString unit=str.at(str.length()-1);
+    double num=str.mid(0,str.length()-1).toDouble();
 
-   // if(unit.compare("G"))
-        //megas=str.
 
-    return megas;
+    if(!unit.compare("G"))
+        bytes= num*qPow(10,9);
+    else if(!unit.compare("M"))
+        bytes= num*qPow(10,6);
+    else if(!unit.compare("K"))
+        bytes= num*qPow(10,3);
+    else
+        bytes=num;
+
+#ifdef DEBUG_EXPORT
+    qDebug()<<bytes;
+#endif
+    return bytes;
 }
 
 quint64 ExportManager::dir_size(const QString & str)
@@ -84,3 +97,73 @@ quint64 ExportManager::dir_size(const QString & str)
     }
     return sizex;
 }
+
+bool ExportManager::saveUsb(int indexUSB ){
+
+    QString file=QString("./Missions/%1").arg(missionName);
+    QString ext=QString("/media/%1/NautilusRobotics/").arg(names.at(indexUSB));
+
+    if(!QDir(ext).exists())
+        QDir().mkpath(ext);
+
+    QProcess copyFiles;
+    QString run=QString("cp -r %1 %2").arg(file).arg(ext);
+    copyFiles.start(run);
+    copyFiles.waitForFinished();
+
+
+   QProcess fixFiles;
+   QString fix=QString("rm %1%2/settings.ini %1%2/thumb.sh").arg(ext).arg(missionName);
+   fixFiles.start(fix);
+   fixFiles.waitForFinished();
+
+
+    msgBox.accept();
+
+    return true;
+
+}
+
+bool ExportManager::checkUsb(int indexUSB){
+    if(dir_size(missionName)<bytesFreeSpace.at(indexUSB))
+         return true;
+
+    return false;
+}
+
+void ExportManager::setMissionName(QString missionName){
+    this->missionName=missionName;
+}
+
+void ExportManager::launchDialog(){
+    getExternalDevices();
+
+    int x =parentWidget()->x();
+    int y = parentWidget()->y();
+    int h= parentWidget()->height();
+    int w=parentWidget()->width();
+    msgBox.setGeometry(x+(w/3),y+(h/2),500,100);
+    msgBox.setWindowTitle("Export to:");
+    msgBox.setFixedSize(msgBox.width(), msgBox.height());
+
+    QGridLayout *layout=new QGridLayout();
+
+
+
+     for(int i=0; i<names.length();i++){
+         myWidgetUsb *btn=new myWidgetUsb(this,i,checkUsb(i),names.at(i));
+         connect(btn,SIGNAL(usbSelected(int)),this,SLOT(saveUsb(int)));
+         layout->addWidget(btn);
+    }
+
+
+    msgBox.setLayout(layout);
+    msgBox.exec();
+
+
+}
+
+
+
+
+

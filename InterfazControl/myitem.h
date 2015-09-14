@@ -17,16 +17,19 @@ signals:
     void continueSignal(QString);
     void deleteSignal(QString,QListWidgetItem*);
     void exploreSignal(QString);
+    void exportSignal();
+
 public slots:
     void handleContinue();
     void handleDelete();
     void handleExplore();
+
 public:
     void setWItem(QListWidgetItem *item);
 
 private:
     QGridLayout *layout;
-    QPushButton *btnContinue,*btnDelete,*btnExplore;
+    QPushButton *btnContinue,*btnDelete,*btnExplore,*btnExport;
     QLabel *nameLabel,*icon;
     QString missionName;
     QListWidgetItem *itemW;

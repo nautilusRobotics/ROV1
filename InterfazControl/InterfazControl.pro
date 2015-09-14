@@ -12,6 +12,7 @@ TARGET = InterfazControl
 TEMPLATE = app
 
 
+
 SOURCES += main.cpp\
     joystickwidget.cpp \
     player.cpp \
@@ -25,7 +26,8 @@ SOURCES += main.cpp\
     myitem.cpp \
     missionexplorer.cpp \
     thumbviewer.cpp \
-    exportmanager.cpp
+    exportmanager.cpp \
+    mywidgetusb.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -43,7 +45,8 @@ HEADERS  += \
     myitem.h \
     missionexplorer.h \
     thumbviewer.h \
-    exportmanager.h
+    exportmanager.h \
+    mywidgetusb.h
 
 FORMS    +=
 

@@ -41,6 +41,7 @@ public slots:
     QLineEdit *newMission;
     QListWidget *projectList;
     MissionWidget *mission;
+    ExportManager *exm;
     void showMessage(QString message);
 
 };
