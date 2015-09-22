@@ -244,8 +244,8 @@ public:
 
 
         if (!useFakeInputconf) {
-            myargs += "-input";
-            myargs += "nodefault-bindings:conf=/dev/null";
+          //  myargs += "-input";
+          //  myargs += "nodefault-bindings:conf=/dev/null";
         } else {
 #ifndef Q_WS_WIN
             // Ugly hack for older versions of mplayer (used in kmplayer and other)
