@@ -82,8 +82,8 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
 
     /********************************  Player  *****************************************************/
     QStringList argumentos;
-    argumentos.push_back("-vf");
-    argumentos.push_back("screenshot");
+    //argumentos.push_back("-vf");
+    //argumentos.push_back("screenshot");
     argumentos.push_back("-fps");
     argumentos.push_back("20");
 
