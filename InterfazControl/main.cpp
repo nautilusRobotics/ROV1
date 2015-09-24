@@ -23,7 +23,7 @@ QString createPath(QString path){
   #endif
 
   #ifdef Q_PROCESSOR_ARM
-      fullPath="/home/olimex/Documents/ROV1/InterfazControl"
+      fullPath="/home/olimex/Documents/ROV1/InterfazControl";
       qDebug("OLIMEX PROCESSOR");
   #endif
   return QString("%1/%2").arg(fullPath).arg(path);
