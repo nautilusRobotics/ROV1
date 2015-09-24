@@ -1,7 +1,7 @@
 #include "sendaction.h"
 
 #define USER_DEBUG_SA
-
+extern QString createPath(QString path);
 
 SendAction::SendAction(QWidget *parent) : QWidget(parent){
   robotIp="10.5.5.103 ";
@@ -64,7 +64,7 @@ void SendAction::buttonEvent(QString button, QGameControllerButtonEvent *event){
 }
 
 QString SendAction::sendComando(QString comando){
-    QString run= "./cliente.o "+robotIp+comando;
+    QString run= createPath("cliente.o ")+robotIp+comando;
     qDebug() << run;
     procRun.start(run);
     procRun.waitForFinished();

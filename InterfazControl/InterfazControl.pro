@@ -46,7 +46,8 @@ HEADERS  += \
     missionexplorer.h \
     thumbviewer.h \
     exportmanager.h \
-    mywidgetusb.h
+    mywidgetusb.h \
+    main.h
 
 FORMS    +=
 

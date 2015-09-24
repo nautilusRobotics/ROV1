@@ -1,6 +1,8 @@
 #include "exportmanager.h"
 //#define DEBUG_EXPORT
 
+extern QString createPath(QString path);
+
 ExportManager::ExportManager(QWidget *parent,QString mission) :
     QWidget(parent)
 {
@@ -100,7 +102,7 @@ quint64 ExportManager::dir_size(const QString & str)
 
 bool ExportManager::saveUsb(int indexUSB ){
 
-    QString file=QString("./Missions/%1").arg(missionName);
+    QString file=QString("%1/%2").arg(createPath("Missions")).arg(missionName);
     QString ext=QString("/media/%1/NautilusRobotics/").arg(names.at(indexUSB));
 
     if(!QDir(ext).exists())

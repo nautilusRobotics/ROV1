@@ -1,5 +1,7 @@
 #include "thumbviewer.h"
 
+extern QString createPath(QString path);
+
 ThumbViewer::ThumbViewer(QWidget *parent, QString fp) :
     QWidget(parent)
 {
@@ -26,7 +28,7 @@ ThumbViewer::ThumbViewer(QWidget *parent, QString fp) :
   }
   else{
       isVideo=true;
-      icon_video=new QLabel("<img src=\"./icons/movie.png\">");
+      icon_video=new QLabel(QString("<img src=\"%1\">").arg(createPath("icons/movie.png")));
 
       layout->addWidget(icon_video,0,0);
       /*btn_action->setIcon(QIcon("./icons/movie.png"));

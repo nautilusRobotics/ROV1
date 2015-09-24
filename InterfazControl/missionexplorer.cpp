@@ -2,19 +2,22 @@
 
 #define DEBUG_EXPLORER
 
+extern QString createPath(QString path);
+
 MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
     QWidget(parent)
 {
-    QIcon icon("./icons/nautilus128x128.svg");
+    QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
     setWindowTitle("Nautilus Mission Explorer");
-    missionPath=QString("./Missions/%1/").arg(missionName);
-    m_sSettingsFile = QString("./Missions/%1/settings.ini").arg(missionName);
+    QString missionsPath=createPath("Missions");
+    missionPath=QString("%1/%2/").arg(missionsPath).arg(missionName);
+    m_sSettingsFile = QString("%1/%2/settings.ini").arg(missionsPath).arg(missionName);
 
     loadSettings();
 
-    argumentos.push_back("-vf");
-    argumentos.push_back("screenshot");
+    //argumentos.push_back("-vf");
+    //argumentos.push_back("screenshot");
     argumentos.push_back("-fps");
     argumentos.push_back("20");
     argumentos.push_back("-osdlevel");
@@ -22,12 +25,12 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
 
     /****************************Player Buttons*********************************************/
     playButton = new QPushButton(this);
-    playButton->setIcon(QIcon("./icons/playRed.png"));
+    playButton->setIcon(QIcon(createPath("icons/playRed.png")));
     playButton->setIconSize(QSize(32,32));
     connect(playButton,SIGNAL(released()),this,SLOT(playCLiked()));
 
     reloadButton = new QPushButton(this);
-    reloadButton->setIcon(QIcon("./icons/reload.png"));
+    reloadButton->setIcon(QIcon(createPath("icons/reload.png")));
     reloadButton->setIconSize(QSize(32,32));
 
 
@@ -44,7 +47,7 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
     player=NULL;
     picLbl=NULL;
 
-    QPixmap defaultPixmap("./icons/explorerDefault.png");
+    QPixmap defaultPixmap(createPath("icons/explorerDefault.png"));
     defaultLbl=new QLabel("");
     defaultLbl->setPixmap(defaultPixmap);
 
@@ -56,7 +59,7 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
     /***********************************************************************************************/
 
     btn_export = new QPushButton("Export");
-    btn_export->setIcon(QIcon("./icons/export.png"));
+    btn_export->setIcon(QIcon(createPath("icons/export.png")));
     btn_export->setIconSize(QSize(32,32));
     exm=new ExportManager(this,missionName);
     connect(btn_export,SIGNAL(released()),exm,SLOT(launchDialog()));
@@ -87,7 +90,7 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
          #ifdef DEBUG_EXPLORER
          qDebug()<< "file "+thumbsPath+" not exist";
          #endif
-         QFile::copy("./thumbs.sh", thumbsPath);
+         QFile::copy(createPath("thumbs.sh"), thumbsPath);
     }
     #ifdef DEBUG_EXPLORER
     else qDebug()<< "file "+thumbsPath+" exist";
@@ -170,7 +173,7 @@ void MissionExplorer::addPreviewItem(QString preThumb,bool type){
     QLabel *thumbElement = new QLabel("");
 
     QPixmap p;
-    if(!type)p.load("./icons/pic.png");else p.load("./icons/movie.png");
+    if(!type)p.load(createPath("icons/pic.png"));else p.load(createPath("icons/movie.png"));
 
 
     QPixmap pixmap = QPixmap::fromImage(*thumb);
@@ -261,16 +264,16 @@ void MissionExplorer::setState(QMediaPlayer::State state)
 
         switch (state) {
         case QMediaPlayer::StoppedState:
-            playButton->setIcon(QIcon("./icons/playRed.png"));
+            playButton->setIcon(QIcon(createPath("icons/playRed.png")));
             reloadButton->setEnabled(false);
             break;
         case QMediaPlayer::PlayingState:
-            playButton->setIcon(QIcon("./icons/pause.png"));
+            playButton->setIcon(QIcon(createPath("icons/pause.png")));
             reloadButton->setEnabled(true);
             emit play();
             break;
         case QMediaPlayer::PausedState:
-            playButton->setIcon(QIcon("./icons/playRed.png"));
+            playButton->setIcon(QIcon(createPath("icons/playRed.png")));
             reloadButton->setEnabled(true);
             emit pause();
             break;

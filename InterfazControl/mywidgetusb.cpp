@@ -1,5 +1,7 @@
 #include "mywidgetusb.h"
 
+extern QString createPath(QString path);
+
 myWidgetUsb::myWidgetUsb(QWidget *parent,int index,bool isSave,QString usbName) :
     QWidget(parent)
 {
@@ -7,7 +9,7 @@ myWidgetUsb::myWidgetUsb(QWidget *parent,int index,bool isSave,QString usbName) 
 
     this->index=index;
     btn=new QPushButton();
-    btn->setIcon(QIcon("./icons/usb.png"));
+    btn->setIcon(QIcon(createPath("icons/usb.png")));
     btn->setIconSize(QSize(32,32));
     btn->setFocusPolicy(Qt::NoFocus);
 

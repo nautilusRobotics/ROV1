@@ -1,15 +1,16 @@
 #include "intro.h"
-
+extern QString fullPath;
 
 //#define DEBUG_INTRO
 
+extern QString createPath(QString path);
 
 intro::intro(QWidget *parent) :
     QWidget(parent)
 {
 
 
-    QIcon icon("./icons/nautilus128x128.svg");
+    QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
     setWindowTitle("Nautilus Commander");
     const QRect rec = QApplication::desktop()->screenGeometry();
@@ -25,7 +26,7 @@ intro::intro(QWidget *parent) :
         ));*/
 
 
-    QPixmap bkgnd("./icons/intro.jpeg");
+    QPixmap bkgnd(createPath("icons/intro.jpeg"));
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -35,7 +36,7 @@ intro::intro(QWidget *parent) :
     layout=new QGridLayout(this);
     this->setLayout(layout);
 
-    logo=new QLabel("<img src=\"./icons/nautilus128x128.svg\">");
+    logo=new QLabel(QString("<img src=\"%1/icons/nautilus128x128.svg\">").arg(QDir::currentPath()));
 
 
 
@@ -46,7 +47,7 @@ intro::intro(QWidget *parent) :
 
 
     btnNew= new QPushButton("Start New Mission");
-    btnNew->setIcon(QIcon( "./icons/new32.png"));
+    btnNew->setIcon(QIcon(createPath("icons/new32.png")));
     btnNew->setIconSize(QSize(32,32));
     btnNew->setStyleSheet("QPushButton{font-size:20px;font-weight:bold;color:white;background:#295BFF}QPushButton:hover:!pressed {background:#4873FF}");
     btnNew->setFocusPolicy(Qt::NoFocus);
@@ -56,6 +57,11 @@ intro::intro(QWidget *parent) :
     newMission=new QLineEdit();
     namelbl=new QLabel("Enter the name of your mission:");
     namelbl->setStyleSheet("QLabel{font-size:20px;font-weight:bold;}");
+
+    missionsPath=createPath("Missions");
+    if(!QDir(missionsPath).exists()){
+        QDir().mkdir(missionsPath);
+    }
 
 
     projectList= new QListWidget();
@@ -71,11 +77,6 @@ intro::intro(QWidget *parent) :
     layout->addWidget(newMission,3,1,1,2);//,Qt::AlignTop);
     layout->addWidget(btnNew,4,1,1,2);//,Qt::AlignTop);
     layout->addWidget(projectList,5,1,2,2,Qt::AlignTop);
-
-
-    if(!QDir("./Missions").exists()){
-        QDir().mkdir("./Missions");
-    }
 
 
 
@@ -135,7 +136,7 @@ void  intro::showMessage(QString message){
 
 void intro::createProjectList(){
 
-    QDirIterator it("./Missions",QDir::NoDotAndDotDot | QDir::AllDirs);
+    QDirIterator it(missionsPath,QDir::NoDotAndDotDot | QDir::AllDirs);
 
     while (it.hasNext()) {
         QFileInfo Info(it.next());
@@ -195,7 +196,7 @@ void intro::deleteMission(QString missionName,QListWidgetItem *item){
        qDebug() <<"delete "+missionName;
 #endif
 
-          QString dirName=QString("./Missions/%1").arg(missionName);
+          QString dirName=QString("%1/%2").arg(missionsPath).arg(missionName);
 
           QDir dir(dirName);
 

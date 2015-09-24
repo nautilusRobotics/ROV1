@@ -19,6 +19,7 @@
 #include "missionexplorer.h"
 #include "exportmanager.h"
 
+
 class intro : public QWidget
 {
     Q_OBJECT
@@ -42,7 +43,9 @@ public slots:
     QListWidget *projectList;
     MissionWidget *mission;
     ExportManager *exm;
+    QString missionsPath;
     void showMessage(QString message);
+
 
 };
 

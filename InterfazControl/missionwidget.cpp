@@ -1,12 +1,14 @@
 #include "missionwidget.h"
 #include "intro.h"
 
+extern QString createPath(QString path);
 
 MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     QWidget(parent)
 {
      this->missionName=missionName;
-     m_sSettingsFile = QString("./Missions/%1/settings.ini").arg(missionName);
+
+     m_sSettingsFile = QString("%1/%2/settings.ini").arg(createPath("Missions")).arg(missionName);
      loadSettings();
      /*Qt::WindowFlags flags(Qt::Window | Qt::CustomizeWindowHint | Qt::TitleBarArea);
 
@@ -15,13 +17,13 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
      //this->setWindowState( Qt::WindowFullScreen );
 
      //Create Mission Folder.
-     QString missionFolder="./Missions/"+missionName;
+     QString missionFolder=QString("%1/%2").arg(createPath("Missions")).arg(missionName);
      if(!QDir(missionFolder).exists()){
          QDir().mkdir(missionFolder);
      }
 
 
-     QIcon icon("./icons/nautilus.svg");
+     QIcon icon(createPath("icons/nautilus.svg"));
      setWindowIcon(icon);
      setWindowTitle(missionName);
 
@@ -45,11 +47,11 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
 
     /******************************** ToolBar Buttons  *********************************************/
     button_control = new QPushButton();
-    button_control->setIcon(QIcon("./icons/control.png"));
+    button_control->setIcon(QIcon(createPath("icons/control.png")));
     button_control->setIconSize(QSize(32,32));
 
     button_home = new QPushButton();
-    button_home->setIcon(QIcon("./icons/home.png"));
+    button_home->setIcon(QIcon(createPath("icons/home.png")));
     button_home->setIconSize(QSize(32,32));
     connect(button_home,SIGNAL(released()),this,SLOT(handleButtonHome()));
 
@@ -60,11 +62,11 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
 
 
     button_camara = new QPushButton();
-    button_camara->setIcon(QIcon("./icons/camara.png"));
+    button_camara->setIcon(QIcon(createPath("icons/camara.png")));
     button_camara->setIconSize(QSize(32,32));
 
     button_off = new QPushButton();
-    button_off->setIcon(QIcon("./icons/off.png"));
+    button_off->setIcon(QIcon(createPath("icons/off.png")));
     button_off->setIconSize(QSize(32,32));
     connect(button_off,SIGNAL(released()),this,SLOT(handleButtonOff()));
 
@@ -190,7 +192,7 @@ void MissionWidget::takeScreenshot(){
    int y=this->y();
    QPixmap pxm = screen->grabWindow(QApplication::desktop()->winId(),x+OFFSET_X,y+OFFSET_Y,SCREEN_SHOT_LR,SCREEN_SHOT_UD);
 
-   QString picFolder=QString("./Missions/%1/pic_%2.jpeg").arg(missionName).arg(numPic);
+   QString picFolder=QString("%1/%2/pic_%3.jpeg").arg(createPath("Missions")).arg(missionName).arg(numPic);
    qDebug()<<picFolder;
    QFile file(picFolder);
    file.open(QIODevice::WriteOnly);

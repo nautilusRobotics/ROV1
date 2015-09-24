@@ -1,6 +1,6 @@
-#include <QApplication>
-#include <missionwidget.h>
-#include <intro.h>
+#include <main.h>
+
+
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +12,12 @@ int main(int argc, char *argv[])
     welcomeScreen.show();
 
 
-   return app.exec();
+    return app.exec();
+}
+
+QString createPath(QString path){
+  QString fullPath=QDir::currentPath();
+  return QString("%1/%2").arg(fullPath).arg(path);
 }
 
 
