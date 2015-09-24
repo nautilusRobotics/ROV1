@@ -36,7 +36,7 @@ intro::intro(QWidget *parent) :
     layout=new QGridLayout(this);
     this->setLayout(layout);
 
-    logo=new QLabel(QString("<img src=\"%1/icons/nautilus128x128.svg\">").arg(QDir::currentPath()));
+    logo=new QLabel(QString("<img src=\"%1\">").arg(createPath("icons/nautilus128x128.svg")));
 
 
 

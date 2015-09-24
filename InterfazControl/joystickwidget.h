@@ -27,8 +27,16 @@
 #include "sendaction.h"
 #include "player.h"
 
-#define JS1 1
-#define JS2 2
+
+#ifdef Q_PROCESSOR_X86
+#define JS 1
+#endif
+
+#ifdef Q_PROCESSOR_ARM
+#define JS 0
+#endif
+
+
 #define axis_left_horizontal  "LH"
 #define axis_left_vertical    "LV"
 #define axis_right_horizontal "RH"

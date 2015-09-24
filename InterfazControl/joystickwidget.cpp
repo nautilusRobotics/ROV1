@@ -85,7 +85,7 @@ SendAction* JoystickWidget::getSendAction(){
 }
 
 void JoystickWidget::setController(){
-   QGameController *temp_controller=new QGameController(JS1, this);
+   QGameController *temp_controller=new QGameController(JS, this);
 
    if(temp_controller->isValid() && gameController==NULL){
 
