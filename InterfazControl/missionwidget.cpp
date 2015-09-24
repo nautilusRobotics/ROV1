@@ -151,9 +151,10 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     setGeometry(QStyle::alignedRect(
             Qt::LeftToRight,
             Qt::AlignCenter,
-            this->size(),
+            QSize(1200,300),
             qApp->desktop()->availableGeometry()
      ));
+     //setGeometry(0,0,1200,300);
 
 
 

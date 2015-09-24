@@ -101,8 +101,6 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
 
 
 
-
-
 }
 
 
@@ -134,6 +132,9 @@ void MissionExplorer::createPreviewList(){
              if(createThumbs){
               QProcess buildThumbs;
               QString exec=QString("sh %1thumb.sh %2").arg(missionPath).arg(thumbPath);
+                #ifdef DEBUG_EXPLORER
+                qDebug() <<exec;
+                #endif
               buildThumbs.start(exec);
               buildThumbs.waitForFinished();
              }

@@ -4,5 +4,6 @@
 #include <intro.h>
 
 QString createPath(QString path);
+QString fullPath;
 
 #endif // MAIN_H
