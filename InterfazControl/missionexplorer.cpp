@@ -18,6 +18,8 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
 
     //argumentos.push_back("-vf");
     //argumentos.push_back("screenshot");
+    argumentos.push_back("-vc");
+    argumentos.push_back("ffh264");
     argumentos.push_back("-fps");
     argumentos.push_back("20");
     argumentos.push_back("-osdlevel");

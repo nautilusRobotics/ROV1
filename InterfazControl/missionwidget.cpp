@@ -14,7 +14,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
 
      this->setWindowFlags(flags);*/
 
-     //this->setWindowState( Qt::WindowFullScreen );
+     this->setWindowState( Qt::WindowFullScreen );
 
      //Create Mission Folder.
      QString missionFolder=QString("%1/%2").arg(createPath("Missions")).arg(missionName);
@@ -77,7 +77,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     toolbar->addWidget(button_camara);
     toolbar->addWidget(button_off);
 
-    layout->addWidget(toolbar,0,0);
+
 
     /***********************************************************************************************/
 
@@ -86,6 +86,9 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     QStringList argumentos;
     //argumentos.push_back("-vf");
     //argumentos.push_back("screenshot");
+
+    argumentos.push_back("-vc");
+    argumentos.push_back("ffh264");
     argumentos.push_back("-fps");
     argumentos.push_back("20");
 
@@ -95,9 +98,9 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     statusPlayer=new QLabel();
     //player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", &widget);
     player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", this);
-    player->setFixedSize(1280,720);
+    player->setFixedSize(1600,600);
     connect(player,SIGNAL(updateStatus(bool)),this,SLOT(updatePlayerStatus(bool)));
-    layout->addWidget(player, 1, 0,1,3);
+
     /***********************************************************************************************/
 
 
@@ -120,40 +123,47 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     connect(sendAction,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
     connect(rtsp,SIGNAL(isRecording(bool)),this,SLOT(updateRecording(bool)));
 
-    layout->addWidget(robotDepth,2,0);
+
    /***********************************************************************************************/
 
     battery=new QProgressBar();
     battery->setValue(100);
     battery->setStyleSheet("QProgressBar {border: 2px solid black;border-radius: 10px; text-align: center;padding: 1px;}  QProgressBar::chunk { width: 10px;  background: qlineargradient(x1: 0, y1: 0, x2: 5, y2: 0, stop: 0 green, stop: 1 white);}");
     battery->setFixedSize(200,25);
-    layout->addWidget(battery,2,1);
+
 
     depth=new QProgressBar();
     depth->setValue(50);
     depth->setStyleSheet("QProgressBar {border: 2px solid black;border-radius: 10px; text-align: center;padding: 1px;}  QProgressBar::chunk { width: 10px;  background: qlineargradient(x1: 0, y1: 0, x2: 5, y2: 0, stop: 0 green, stop: 1 white);}");
 
     depth->setFixedSize(200,25);
-    layout->addWidget(depth,2,2);
+
 
 
     statusRobot=new QLabel();
     statusRobot->setText("Robot: Conectado");
-    layout->addWidget(statusRobot,3,0);
+
 
     statusRecording=new QLabel();
     statusRecording->setText("Recording Off");
+
+    layout->addWidget(toolbar,0,0);
+    layout->addWidget(player, 1, 0,1,4);
+    layout->addWidget(robotDepth,2,0);
+    layout->addWidget(battery,2,1);
+    layout->addWidget(depth,2,2);
+    layout->addWidget(statusRobot,3,0);
     layout->addWidget(statusRecording,3,1);
     layout->addWidget(statusPlayer,3,2);
     layout->addWidget(statusJoystick,4,0);
 
     adjustSize();
-    setGeometry(QStyle::alignedRect(
+    /*setGeometry(QStyle::alignedRect(
             Qt::LeftToRight,
             Qt::AlignCenter,
             QSize(1200,300),
             qApp->desktop()->availableGeometry()
-     ));
+     ));*/
      //setGeometry(0,0,1200,300);
 
 
