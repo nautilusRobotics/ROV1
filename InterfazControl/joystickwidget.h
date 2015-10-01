@@ -29,7 +29,7 @@
 
 
 #ifdef Q_PROCESSOR_X86
-#define JS 1
+#define JS 0
 #endif
 
 #ifdef Q_PROCESSOR_ARM

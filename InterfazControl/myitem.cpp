@@ -9,6 +9,15 @@ myItem::myItem(QWidget *parent, QString name) :
     nameLabel=new QLabel(name);
     missionName=name;
 
+    QString missionsPath=createPath("Missions");
+    QString missionPath=QString("%1/%2/").arg(missionsPath).arg(missionName);
+    QString m_sSettingsFile = QString("%1/%2/settings.ini").arg(missionsPath).arg(missionName);
+    QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
+    int pics = settings.value("pics", "").toInt();
+    int videos = settings.value("videos", "").toInt();
+    bool exploreAndExport=!(pics==0 && videos ==0);
+
+
     btnContinue=new QPushButton("Continue");
     btnContinue->setIcon(QIcon( createPath("icons/continue.png")));
     btnContinue->setIconSize(QSize(25,25));
@@ -25,12 +34,14 @@ myItem::myItem(QWidget *parent, QString name) :
     btnExplore->setIcon(QIcon( createPath("icons/explore.png")));
     btnExplore->setIconSize(QSize(25,25));
     btnExplore->setFocusPolicy(Qt::NoFocus);
+    btnExplore->setEnabled(exploreAndExport);
     connect(btnExplore,SIGNAL(released()),this,SLOT(handleExplore()));
 
     btnExport=new QPushButton("Export");
     btnExport->setIcon(QIcon( createPath("icons/export.png")));
     btnExport->setIconSize(QSize(25,25));
     btnExport->setFocusPolicy(Qt::NoFocus);
+    btnExport->setEnabled(exploreAndExport);
     connect(btnExport,SIGNAL(released()),this,SIGNAL(exportSignal()));
 
 

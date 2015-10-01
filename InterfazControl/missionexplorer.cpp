@@ -4,12 +4,14 @@
 
 extern QString createPath(QString path);
 
-MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
+MissionExplorer::MissionExplorer(QWidget *parent, QString missionName,QWidget *home) :
     QWidget(parent)
 {
     QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
-    setWindowTitle("Nautilus Mission Explorer");
+    setWindowTitle("Nautilus Mission Explorer");    
+
+
     QString missionsPath=createPath("Missions");
     missionPath=QString("%1/%2/").arg(missionsPath).arg(missionName);
     m_sSettingsFile = QString("%1/%2/settings.ini").arg(missionsPath).arg(missionName);
@@ -18,10 +20,10 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
 
     //argumentos.push_back("-vf");
     //argumentos.push_back("screenshot");
-    argumentos.push_back("-vc");
-    argumentos.push_back("ffh264");
+   // argumentos.push_back("-vc");
+    //argumentos.push_back("ffh264");
     argumentos.push_back("-fps");
-    argumentos.push_back("20");
+    argumentos.push_back("30");
     argumentos.push_back("-osdlevel");
     argumentos.push_back("0");
 
@@ -66,6 +68,11 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
     exm=new ExportManager(this,missionName);
     connect(btn_export,SIGNAL(released()),exm,SLOT(launchDialog()));
 
+    button_home = new QPushButton("Home");
+    button_home->setIcon(QIcon(createPath("icons/home.png")));
+    button_home->setIconSize(QSize(32,32));
+    connect(button_home,SIGNAL(released()),this,SLOT(handleButtonHome()));
+
     /***********************************************************************************************/
     layout=new QGridLayout();
     layout->addWidget(defaultLbl,0,0,1,3);
@@ -73,8 +80,9 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
     layout->addWidget(playButton,1,0);
     layout->addWidget(reloadButton,1,1);
     layout->addWidget(videoSlider,1,2);
-    layout->addWidget(listFiles,0,4,1,1);
+    layout->addWidget(listFiles,0,4,1,2);
     layout->addWidget(btn_export,1,4,1,1);
+    layout->addWidget(button_home,1,5,1,1);
     this->setLayout(layout);
 
 
@@ -101,10 +109,9 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName) :
 
     createPreviewList();
 
-
-
+    this->home=home;
+    this->setWindowState( Qt::WindowFullScreen );
 }
-
 
 void MissionExplorer::createPreviewList(){
 
@@ -231,7 +238,7 @@ void MissionExplorer::displaySource(){
 
        delete(toKill);
 
-       player->setFixedSize(1280,720);
+       player->setFixedSize(1650,1000);
 
 
        connect(this, SIGNAL(play()), player, SLOT(play()));
@@ -249,15 +256,23 @@ void MissionExplorer::displaySource(){
       reloadButton->setEnabled(false);
       videoSlider->setEnabled(false);
 
+      /*
       QString picToShow=QString("<img src=\"%1\">").arg(fileToShow);
       picLbl=new QLabel(picToShow);
-      picLbl->setFixedSize(1280,720);
+      picLbl->setFixedSize(1650,900);*/
+
+
+      QImage img(fileToShow);
+      QImage *image =new QImage( img.scaled(1650, 900, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+      picLbl= new QLabel("");
+      QPixmap pixmap = QPixmap::fromImage(*image);
+      picLbl->setPixmap(pixmap);
+
       layout->addWidget(picLbl,0,0,1,3,Qt::AlignCenter);
    }
 
 
 }
-
 
 void MissionExplorer::setState(QMediaPlayer::State state)
 {
@@ -298,7 +313,10 @@ void MissionExplorer::playCLiked(){
    }
 }
 
-
-
+void MissionExplorer::handleButtonHome(){
+       this->close();
+       home->show();
+       delete(this);
+}
 
 

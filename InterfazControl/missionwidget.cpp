@@ -1,20 +1,19 @@
 #include "missionwidget.h"
-#include "intro.h"
+
 
 extern QString createPath(QString path);
 
-MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
+MissionWidget::MissionWidget(QWidget *parent, QString missionName, QWidget *home) :
     QWidget(parent)
 {
      this->missionName=missionName;
 
      m_sSettingsFile = QString("%1/%2/settings.ini").arg(createPath("Missions")).arg(missionName);
      loadSettings();
-     /*Qt::WindowFlags flags(Qt::Window | Qt::CustomizeWindowHint | Qt::TitleBarArea);
+    // Qt::WindowFlags flags(Qt::Window | Qt::CustomizeWindowHint | Qt::TitleBarArea);
+    //this->setWindowFlags(flags);
+     //this->showMaximized();
 
-     this->setWindowFlags(flags);*/
-
-     this->setWindowState( Qt::WindowFullScreen );
 
      //Create Mission Folder.
      QString missionFolder=QString("%1/%2").arg(createPath("Missions")).arg(missionName);
@@ -86,19 +85,16 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
     QStringList argumentos;
     //argumentos.push_back("-vf");
     //argumentos.push_back("screenshot");
+   // argumentos.push_back("-vc");
+   // argumentos.push_back("ffh264");
 
-    argumentos.push_back("-vc");
-    argumentos.push_back("ffh264");
     argumentos.push_back("-fps");
-    argumentos.push_back("20");
+    argumentos.push_back("30");
 
-    //widget.setGeometry(400,Qt::AlignCenter,1280,720);
-   // widget.setFixedSize(1280,720);
 
-    statusPlayer=new QLabel();
-    //player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", &widget);
-    player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554//Streaming/Channels/1", this);
-    player->setFixedSize(1600,600);
+    statusPlayer=new QLabel();   
+    player=new Player(argumentos, "rtsp://admin:12345@10.5.5.110:554", this);
+    player->setFixedSize(1890,900);
     connect(player,SIGNAL(updateStatus(bool)),this,SLOT(updatePlayerStatus(bool)));
 
     /***********************************************************************************************/
@@ -166,8 +162,9 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName) :
      ));*/
      //setGeometry(0,0,1200,300);
 
+    this->home=home;
 
-
+    this->setWindowState( Qt::WindowFullScreen );
 
 
 }
@@ -198,6 +195,7 @@ void MissionWidget::updateControlStatus(bool isConnected){
 }
 
 void MissionWidget::takeScreenshot(){
+   qDebug()<<"ScreenShot-----------------------------------";
    QScreen *screen = QGuiApplication::primaryScreen();
    int x=this->x();
    int y=this->y();
@@ -209,6 +207,7 @@ void MissionWidget::takeScreenshot(){
    file.open(QIODevice::WriteOnly);
    pxm.save(&file, "JPG",100);
    numPic++;
+   qDebug()<<"--------------------------------------------";
 
 }
 
@@ -229,12 +228,9 @@ void MissionWidget::updateRecording(bool isRecording){
 }
 
 void MissionWidget::handleButtonHome(){    
-
     this->close();
-
-    /*intro welcomeScreen;
-    welcomeScreen.show();*/
-
+    home->show();
+    delete(this);
 }
 
 void MissionWidget::handleButtonOff(){

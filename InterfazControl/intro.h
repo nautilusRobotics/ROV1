@@ -16,6 +16,8 @@
 #include <myitem.h>
 #include <QDirIterator>
 #include <QFileInfo>
+#include <QShowEvent>
+#include <QGraphicsScene>
 #include "missionexplorer.h"
 #include "exportmanager.h"
 
@@ -34,17 +36,23 @@ public slots:
     void runMission(QString missionName);
     void exploreMission(QString missionName);
     void deleteMission(QString missionName,QListWidgetItem *item);
+    void reOpen();
+    void handleButtonOff();
 
     private:
     QGridLayout *layout;
     QLabel *welcomeTxt,*logo,*namelbl,*openlbl;
-    QPushButton *btnNew;
+    QPushButton *btnNew, *button_off;
     QLineEdit *newMission;
     QListWidget *projectList;
     MissionWidget *mission;
     ExportManager *exm;
     QString missionsPath;
     void showMessage(QString message);
+    bool isOpen;
+
+protected:
+      void showEvent(QShowEvent *ev);
 
 
 };

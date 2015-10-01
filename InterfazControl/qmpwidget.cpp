@@ -235,9 +235,9 @@ public:
         myargs += "-nomouseinput";
         /*myargs += "-nokeepaspect";
         myargs += "-monitorpixelaspect";
-        myargs += "1";*/
+        myargs += "1";
         myargs += "-vo";
-        myargs += "gl";
+        myargs += "gl";*/
         myargs += "-geometry";
         myargs += "50%:50%";
 

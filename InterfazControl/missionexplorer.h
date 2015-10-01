@@ -19,7 +19,7 @@ class MissionExplorer : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MissionExplorer(QWidget *parent = 0, QString missionPath="Untitled");
+    explicit MissionExplorer(QWidget *parent = 0, QString missionPath="Untitled",QWidget *home=NULL);
 
 signals:
     void play();
@@ -28,6 +28,7 @@ public slots:
     void displaySource();
     void playCLiked();
     void setState(QMediaPlayer::State);
+    void handleButtonHome();
 private:
     QGridLayout *layout; 
     Player *player;    
@@ -41,13 +42,14 @@ private:
     bool createThumbs;
     QAbstractButton *playButton,*reloadButton;
     QAbstractSlider *videoSlider;
-    QPushButton *btn_export;
+    QPushButton *btn_export,*button_home;
     QMediaPlayer::State playerState;
     void createPreviewList();
     void addPreviewItem(QString preThumb, bool type);
     void loadSettings();
     void saveSettings();
     ExportManager *exm;
+    QWidget *home;
 
 protected:
      void closeEvent(QCloseEvent *event);

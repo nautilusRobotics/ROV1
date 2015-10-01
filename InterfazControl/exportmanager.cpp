@@ -1,5 +1,5 @@
 #include "exportmanager.h"
-//#define DEBUG_EXPORT
+#define DEBUG_EXPORT
 
 extern QString createPath(QString path);
 
@@ -10,20 +10,22 @@ ExportManager::ExportManager(QWidget *parent,QString mission) :
 }
 
 
-void ExportManager::getExternalDevices(){
+bool ExportManager::getExternalDevices(){
+    bool usbConnected=false;
     QProcess usbList;
 
-    QString run= "df -h";
+    QString run= "df";
     usbList.start(run);
     usbList.waitForFinished();
     QString output( usbList.readAllStandardOutput());
+    usbList.close();
 
 #ifdef DEBUG_EXPORT
       qDebug("-----------EXTERNAL DEVICES-------------");
       qDebug()<<output;
 #endif
 
-    usbList.close();
+
 
 
     QList<QString> tempListNames=output.split("\n");
@@ -38,22 +40,45 @@ void ExportManager::getExternalDevices(){
 
     for(int i=0;i<tempListNames.length();i++){
         QString tempName=tempListNames.at(i);
-        QList<QString> tempNames=tempName.split("/media/");
+        QList<QString> tempNames=tempName.split("/media/");        
 
+
+       #ifdef Q_PROCESSOR_X86_64
         if(tempNames.size()==2){
           names.append(tempNames.at(tempNames.length()-1));
-          QList<QString> tempfreeSpace=tempNames.at(0).split(" ", QString::SkipEmptyParts);
-          freeSpace.append(tempfreeSpace.at(tempfreeSpace.length()-2));          
+          QList<QString> tempfreeSpace=tempNames.at(0).split(" ", QString::SkipEmptyParts);          
+          bytesFreeSpace.append((tempfreeSpace.at(tempfreeSpace.length()-2)).toUInt());
+          usbConnected=true;
         }
+       #endif
+
+        #ifdef Q_PROCESSOR_ARM
+        if(tempNames.size()==2){
+          names.append(tempNames.at(tempNames.length()-1));
+
+          if(names.at(0).compare("6B4C-FFFD")){
+          QList<QString> tempfreeSpace=tempNames.at(0).split(" ", QString::SkipEmptyParts);
+          bytesFreeSpace.append((tempfreeSpace.at(tempfreeSpace.length()-2)).toUInt());
+          usbConnected=true;
+          }
+          else
+           names.removeFirst();
+        }
+       #endif
+
 #ifdef DEBUG_EXPORT
         qDebug()<<tempName;
 #endif
-    }
-
-    for(int i=0;i<freeSpace.length();i++)
-       bytesFreeSpace.append(toBytes(freeSpace.at(i)));
+      }
 
 
+#ifdef DEBUG_EXPORT
+    for(int i=0;i<bytesFreeSpace.length();i++)
+        qDebug()<< bytesFreeSpace.at(i);
+
+#endif
+
+   return usbConnected;
 }
 
 quint64 ExportManager::toBytes(QString str){
@@ -138,34 +163,53 @@ void ExportManager::setMissionName(QString missionName){
 }
 
 void ExportManager::launchDialog(){
-    getExternalDevices();
+
 
     int x =parentWidget()->x();
     int y = parentWidget()->y();
     int h= parentWidget()->height();
     int w=parentWidget()->width();
     msgBox.setGeometry(x+(w/3),y+(h/2),500,100);
-    msgBox.setWindowTitle("Export to:");
-    msgBox.setFixedSize(msgBox.width(), msgBox.height());
+    //msgBox.setFixedSize(msgBox.width(), msgBox.height());
 
     QGridLayout *layout=new QGridLayout();
 
 
-
-     for(int i=0; i<names.length();i++){
-         myWidgetUsb *btn=new myWidgetUsb(this,i,checkUsb(i),names.at(i));
-         connect(btn,SIGNAL(usbSelected(int)),this,SLOT(saveUsb(int)));
-         layout->addWidget(btn);
+    if(getExternalDevices()){
+         msgBox.setWindowTitle("Export to:");
+        for(int i=0; i<names.length();i++){
+            myWidgetUsb *btn=new myWidgetUsb(this,i,checkUsb(i),names.at(i));
+            btn->setFixedSize(500,60);
+            connect(btn,SIGNAL(usbSelected(int)),this,SLOT(saveUsb(int)));
+            layout->addWidget(btn);
+        }
     }
+    else
+    msgBox.setWindowTitle("No USB devices");
+
+   /****************Close Button********************************************/
+    QPushButton *closeBtn=new QPushButton(" Close");
+    closeBtn->setIcon(QIcon(createPath("icons/close.png")));
+    closeBtn->setIconSize(QSize(32,32));
+    closeBtn->setFocusPolicy(Qt::NoFocus);
+    closeBtn->setStyleSheet("QPushButton{font-size:15px;font-weight:bold;color:black;background:#EE4545}");
+    closeBtn->setFixedSize(482,45);
+    connect(closeBtn,SIGNAL(released()),this,SLOT(cancelDialog()));
+
+    layout->addWidget(closeBtn,layout->rowCount(),0,1,1,Qt::AlignCenter);
+   /************************************************************/
 
 
     msgBox.setLayout(layout);
+    msgBox.adjustSize();
     msgBox.exec();
 
 
 }
 
-
+void ExportManager::cancelDialog(){
+    msgBox.accept();
+}
 
 
 

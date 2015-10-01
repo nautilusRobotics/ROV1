@@ -6,6 +6,8 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QListWidgetItem>
+#include <QSettings>
+#include <QDebug>
 
 class myItem : public QWidget
 {

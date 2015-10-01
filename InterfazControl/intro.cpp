@@ -9,21 +9,11 @@ intro::intro(QWidget *parent) :
     QWidget(parent)
 {
 
-
     QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
     setWindowTitle("Nautilus Commander");
     const QRect rec = QApplication::desktop()->screenGeometry();
     setGeometry(rec);
-
-    /*setGeometry(0,0,1000,1000);
-    setGeometry(
-    QStyle::alignedRect(
-            Qt::LeftToRight,
-            Qt::AlignCenter,
-            this->size(),
-            qApp->desktop()->availableGeometry()
-        ));*/
 
 
     QPixmap bkgnd(createPath("icons/intro.jpeg"));
@@ -71,15 +61,24 @@ intro::intro(QWidget *parent) :
     projectList->setFixedHeight(150);
 
 
+    button_off = new QPushButton();
+    button_off->setIcon(QIcon(createPath("icons/off.png")));
+    button_off->setIconSize(QSize(32,32));
+    connect(button_off,SIGNAL(released()),this,SLOT(handleButtonOff()));
+
+
     layout->addWidget(logo,0,0,1,4,Qt::AlignCenter);
+    layout->addWidget(button_off,0,0,1,4,Qt::AlignLeft);
     layout->addWidget(welcomeTxt,1,0,1,4,Qt::AlignCenter);
     layout->addWidget(namelbl,2,1,1,2,Qt::AlignBottom);
     layout->addWidget(newMission,3,1,1,2);//,Qt::AlignTop);
     layout->addWidget(btnNew,4,1,1,2);//,Qt::AlignTop);
-    layout->addWidget(projectList,5,1,2,2,Qt::AlignTop);
+    layout->addWidget(projectList,5,1,3,2,Qt::AlignTop);
 
 
+    isOpen=false;
 
+    this->setWindowState( Qt::WindowFullScreen );
 
 }
 
@@ -169,9 +168,10 @@ void intro::runMission(QString missionName){
       qDebug() <<"continue "+missionName;
 #endif
 
-   this->mission=new MissionWidget(0,missionName);
+   this->mission=new MissionWidget(0,missionName,this);
    this->close();
    mission->show();
+
 }
 
 void intro::exploreMission(QString missionName){
@@ -179,7 +179,7 @@ void intro::exploreMission(QString missionName){
 #ifdef DEBUG_INTRO
       qDebug() <<"explore "+missionName;
 #endif
-  MissionExplorer *missionExplorer=new MissionExplorer(0,missionName);
+  MissionExplorer *missionExplorer=new MissionExplorer(0,missionName,this);
   this->close();
   missionExplorer->show();
 }
@@ -213,6 +213,37 @@ void intro::deleteMission(QString missionName,QListWidgetItem *item){
             #endif
           }
       }
+
+}
+
+void intro::reOpen(){
+
+    qDebug("RE OPEN");
+    delete(projectList);
+    projectList= new QListWidget();
+    projectList->setSelectionMode (QAbstractItemView::NoSelection);
+    projectList->setFixedHeight(150);
+    createProjectList();
+    layout->addWidget(projectList,5,1,2,2,Qt::AlignTop);
+
+}
+
+void intro::showEvent(QShowEvent *ev){
+    qDebug("Show Event");
+
+    if(isOpen)
+       reOpen();
+
+    isOpen=true;
+}
+
+
+void intro::handleButtonOff(){
+    QString msg=QString("Are you sure? \n The robot is save? \n the system is going to turning off");
+    QMessageBox::StandardButton reply;
+
+    reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
+    if (reply == QMessageBox::Ok)this->close();
 
 }
 

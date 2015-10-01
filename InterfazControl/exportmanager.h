@@ -19,15 +19,14 @@ class ExportManager : public QWidget
 public:
     explicit ExportManager(QWidget *parent = 0, QString mission="");
 private:
-    QList<QString> names;
-    QList<QString> freeSpace;
+    QList<QString> names;    
     QList<quint64> bytesFreeSpace;
     QString missionName;
     quint64 toBytes(QString str);
-    void getExternalDevices();
+    bool getExternalDevices();
     quint64 dir_size(const QString & str);
     QDialog msgBox;
-    bool checkUsb(int indexUSB);
+    bool checkUsb(int indexUSB);    
     bool copyDir(const QString &srcFilePath, const QString &tgtFilePath);
 
 signals:
@@ -37,6 +36,7 @@ public:
 public slots:
    void launchDialog();
    bool saveUsb(int indexUSB );
+   void cancelDialog();
 
 
 

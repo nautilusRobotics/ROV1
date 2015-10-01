@@ -26,11 +26,12 @@
 #include "openrtsp.h"
 
 
+
 /*---------ScreenShot definitions-----------*/
 #define OFFSET_X 10
 #define OFFSET_Y 90
-#define SCREEN_SHOT_LR 1260 //Let-Right
-#define SCREEN_SHOT_UD 550 //up-down
+#define SCREEN_SHOT_LR 1900 //Let-Right
+#define SCREEN_SHOT_UD 850 //up-down
 /*-----------------------------------------*/
 
 
@@ -41,7 +42,7 @@ class MissionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled"); 
+    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled", QWidget *home=NULL);
 signals:
 
 public slots:
@@ -66,6 +67,7 @@ private:
     QString missionName;
     openRTSP *rtsp;    
     QString m_sSettingsFile;
+    QWidget *home;
 
     int numPic,numVideos;
     void loadSettings();
