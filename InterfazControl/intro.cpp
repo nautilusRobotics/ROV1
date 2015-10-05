@@ -78,7 +78,7 @@ intro::intro(QWidget *parent) :
 
     isOpen=false;
 
-    this->setWindowState( Qt::WindowFullScreen );
+    //this->setWindowState( Qt::WindowFullScreen );
 
 }
 

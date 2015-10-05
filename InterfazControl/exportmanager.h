@@ -25,9 +25,10 @@ private:
     quint64 toBytes(QString str);
     bool getExternalDevices();
     quint64 dir_size(const QString & str);
-    QDialog msgBox;
+    QDialog *msgBox;
     bool checkUsb(int indexUSB);    
     bool copyDir(const QString &srcFilePath, const QString &tgtFilePath);
+    QGridLayout *layout;
 
 signals:
    void success(bool);

@@ -7,10 +7,15 @@ ExportManager::ExportManager(QWidget *parent,QString mission) :
     QWidget(parent)
 {
   missionName=mission;
+  layout=new QGridLayout();
+  msgBox=new QDialog();
 }
 
 
 bool ExportManager::getExternalDevices(){
+    names.clear();
+    bytesFreeSpace.clear();
+
     bool usbConnected=false;
     QProcess usbList;
 
@@ -145,7 +150,7 @@ bool ExportManager::saveUsb(int indexUSB ){
    fixFiles.waitForFinished();
 
 
-    msgBox.accept();
+    msgBox->accept();
 
     return true;
 
@@ -169,14 +174,27 @@ void ExportManager::launchDialog(){
     int y = parentWidget()->y();
     int h= parentWidget()->height();
     int w=parentWidget()->width();
-    msgBox.setGeometry(x+(w/3),y+(h/2),500,100);
-    //msgBox.setFixedSize(msgBox.width(), msgBox.height());
 
-    QGridLayout *layout=new QGridLayout();
+    delete(msgBox);
+    msgBox=new QDialog();
+    msgBox->setGeometry(x+(w/3),y+(h/2),500,100);
+    //msgBox.setFixedSize(msgBox.width(), msgBox.height());
+    msgBox->setWindowFlags( Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint );
+
+    //delete(layout);
+    layout=new QGridLayout();
+
+    /*
+    int rowCount=layout->rowCount();
+    qDebug()<<"ROW COUNT"+rowCount;
+    for(int i=0; i<rowCount ;i++){
+       layout->takeAt(i);
+       delete(layout->itemAt(i));
+    }*/
 
 
     if(getExternalDevices()){
-         msgBox.setWindowTitle("Export to:");
+         msgBox->setWindowTitle("Export to:");
         for(int i=0; i<names.length();i++){
             myWidgetUsb *btn=new myWidgetUsb(this,i,checkUsb(i),names.at(i));
             btn->setFixedSize(500,60);
@@ -185,7 +203,7 @@ void ExportManager::launchDialog(){
         }
     }
     else
-    msgBox.setWindowTitle("No USB devices");
+    msgBox->setWindowTitle("No USB devices");
 
    /****************Close Button********************************************/
     QPushButton *closeBtn=new QPushButton(" Close");
@@ -195,20 +213,21 @@ void ExportManager::launchDialog(){
     closeBtn->setStyleSheet("QPushButton{font-size:15px;font-weight:bold;color:black;background:#EE4545}");
     closeBtn->setFixedSize(482,45);
     connect(closeBtn,SIGNAL(released()),this,SLOT(cancelDialog()));
-
+    qDebug()<<"ROW COUNT POSt"+layout->rowCount();
     layout->addWidget(closeBtn,layout->rowCount(),0,1,1,Qt::AlignCenter);
    /************************************************************/
 
 
-    msgBox.setLayout(layout);
-    msgBox.adjustSize();
-    msgBox.exec();
+    msgBox->setLayout(layout);
+    msgBox->adjustSize();
+    msgBox->exec();
 
 
 }
 
 void ExportManager::cancelDialog(){
-    msgBox.accept();
+    msgBox->accept();
+
 }
 
 

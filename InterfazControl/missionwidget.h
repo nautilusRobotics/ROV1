@@ -53,6 +53,7 @@ public slots:
     void updateRecording(bool isRecording);
     void handleButtonOff();
     void handleButtonHome();
+    void handleButtonCamera();
 
 private:
    // QMPwidget widget;

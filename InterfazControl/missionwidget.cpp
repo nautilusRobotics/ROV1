@@ -63,6 +63,8 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, QWidget *home
     button_camara = new QPushButton();
     button_camara->setIcon(QIcon(createPath("icons/camara.png")));
     button_camara->setIconSize(QSize(32,32));
+    connect(button_camara,SIGNAL(released()),this,SLOT(handleButtonCamera()));
+
 
     button_off = new QPushButton();
     button_off->setIcon(QIcon(createPath("icons/off.png")));
@@ -164,7 +166,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, QWidget *home
 
     this->home=home;
 
-    this->setWindowState( Qt::WindowFullScreen );
+    //this->setWindowState( Qt::WindowFullScreen );
 
 
 }
@@ -239,6 +241,17 @@ void MissionWidget::handleButtonOff(){
 
     reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
     if (reply == QMessageBox::Ok)this->close();
+
+}
+
+void MissionWidget::handleButtonCamera(){
+#ifdef Q_PROCESSOR_ARM
+    QString run= "import -window root screenshot.jpg";
+    qDebug() << run;
+    QProcess procRun;
+    procRun.start(run);
+    procRun.waitForFinished();
+#endif
 
 }
 
