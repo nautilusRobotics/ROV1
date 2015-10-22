@@ -55,7 +55,7 @@ void QGameControllerPrivate::readGameController()
 {
     if (!Valid)
         return;
-//    qDebug() << "readJoystick";
+  //qDebug() << "readJoystick";
     struct js_event e;
     while (read (fd, &e, sizeof(e)) > 0) {
         process_event (e);
@@ -69,8 +69,8 @@ void QGameControllerPrivate::readGameController()
         event=new QGameControllerDisconnectEvent(ID,false);
         emit(q->gameControllerDisconnectEvent((QGameControllerDisconnectEvent*)event));
     }
-//    else
-//        qDebug() << "No event";
+  //else
+    //    qDebug() << "No event";
 }
 
 void QGameControllerPrivate::process_event(js_event e)
@@ -79,19 +79,19 @@ void QGameControllerPrivate::process_event(js_event e)
     QGameControllerEvent *event = NULL;
     if (e.type & JS_EVENT_INIT)
     {
-//        qDebug() << "process_event" << "event was a JS_EVENT_INIT" << e.number << e.value << e.type;
+      //qDebug() << "process_event" << "event was a JS_EVENT_INIT" << e.number << e.value << e.type;
     }
     qint16 value = e.value;
-//    qDebug() << "process_event" << e.number << value << e.type;
-    if (e.type & JS_EVENT_BUTTON)
+      //qDebug() << "process_event" << e.number << value << e.type;
+    if (e.type & JS_EVENT_BUTTON && !(e.type & JS_EVENT_INIT) )
     {
         if (e.value==1)
         {
-//            qDebug("Button %i pressed.", e.number);
+          // qDebug("Button %i pressed.", e.number);
         }
         else
         {
-//            qDebug("Button %i released.", e.number);
+          // qDebug("Button %i released.", e.number);
         }
         event=new QGameControllerButtonEvent(ID, e.number, value);
         ButtonValues.insert(e.number, value);

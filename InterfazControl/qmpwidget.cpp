@@ -16,7 +16,7 @@
 #endif // QMP_USE_YUVPIPE
 
 
-#define QMP_DEBUG_OUTPUT
+//#define QMP_DEBUG_OUTPUT
 
 // A plain video widget
 class QMPPlainVideoWidget : public QWidget

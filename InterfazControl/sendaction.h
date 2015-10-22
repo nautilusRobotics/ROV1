@@ -35,6 +35,7 @@ public:
 
 private:
      QString sendComando(QString comando);
+     QString mapSpeed(int value);
      QProcess procRun;
      QString robotIp;
      QTextEdit txt;

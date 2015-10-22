@@ -10,15 +10,21 @@
 
 #define CLOSE_ROBOT    "clse"  //kill the robot and server process
 #define POWEROFF_ROBOT "pwof"  //Turn off the robot
-#define STRAIGHT_ROBOT "goro"  //Move robot straight
+#define FORWARD_ROBOT "goro"  //Move robot straight
 #define BACK_ROBOT     "back"  //Move robot back
 #define UP_ROBOT       "upro"  //Move robot up
 #define DOWN_ROBOT     "dwnr"  //Move robot down
 #define RIGHT_ROBOT    "rgro"  //Move robot right
 #define LEFT_ROBOT     "lfro"  //Move robot left
 #define GET_DEPTH      "gdpt"  //Request the depth value of the robot
-#define TAKE_PIC       "tkpc"  //Take picture with go pro camera
-#define TAKE_VID       "tkvd"  //Take video with go pro camera
-#define STOP_VID       "stvd"  //Stop video with go pro camera
+#define UP_CAMARA      "upcm"  //UP SERVO CAMERA
+#define NULL_CMD       "null"  //Null Command
+#define DOWN_CAMARA    "dwcm"  //DOWN SERVO CAMERA
+#define TOGGLE_LIGHT   "tglh"  //Toggle Robot lights
+
+#define maxESCms 1500
+#define minESCms 1060
+#define maxControl 999
+#define minControl 0
 
 #endif /* COM_H_ */
