@@ -22,9 +22,10 @@
 #define DOWN_CAMARA    "dwcm"  //DOWN SERVO CAMERA
 #define TOGGLE_LIGHT   "tglh"  //Toggle Robot lights
 
-#define maxESCms 1500
-#define minESCms 1060
-#define maxControl 999
-#define minControl 0
+#define maxESCms 1700
+#define minESCms 1300
+
+#define maxControl  1000
+#define minControl -1000
 
 #endif /* COM_H_ */

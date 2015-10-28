@@ -1,6 +1,8 @@
 #include "sendaction.h"
 
 #define USER_DEBUG_SA
+//#define OFFLINE_SA
+
 extern QString createPath(QString path);
 
 SendAction::SendAction(QWidget *parent) : QWidget(parent){
@@ -19,11 +21,13 @@ void SendAction::axisEvent(QString axis,int value){
 //            sendComando(UP_ROBOT);
     }
     else if(axis==axis_left_vertical){
-        if(value<=0){
             QString mappedSpeed=mapSpeed(-value);
+
             QString strToSend=QString("%1%2").arg(FORWARD_ROBOT).arg(mappedSpeed);
             sendComando(strToSend);
-        }
+            if(value==0 || value==maxControl || value ==minESCms) //Se repite el comando para asegurar que se realice
+                sendComando(strToSend);
+
     }
     else if(axis==axis_cross_vertical && value<0){
             sendComando(UP_CAMARA);
@@ -102,15 +106,22 @@ void SendAction::buttonEvent(QString button, QGameControllerButtonEvent *event){
 QString SendAction::sendComando(QString comando){
     QString run= createPath("cliente.o ")+robotIp+comando;
     qDebug() << run;
-    procRun.start(run);
-    procRun.waitForFinished();
-    QString output( procRun.readAllStandardOutput());
-#ifdef USER_DEBUG_SA
-      qDebug()<<output;
+
+#ifndef OFFLINE_SA
+        procRun.start(run);
+        procRun.waitForFinished();
+        QString output( procRun.readAllStandardOutput());
+    #ifdef USER_DEBUG_SA
+          qDebug()<<output;
+    #endif
+        output=output.mid(output.size()-5,output.size());
+        procRun.close();
+        return output;
+#else
+    return "offline";
 #endif
-    output=output.mid(output.size()-5,output.size());
-    procRun.close();
-    return output;
+
+
 }
 
 

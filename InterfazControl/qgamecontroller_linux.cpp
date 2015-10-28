@@ -62,7 +62,7 @@ void QGameControllerPrivate::readGameController()
     }
     /* EAGAIN is returned when the queue is empty */
     if (errno != EAGAIN) {
-        qDebug() << "Error";
+        qDebug() << "Joystick Error"; //REVISAAAAAAAAR
         Valid=false;
         Q_Q(QGameController);
         QGameControllerEvent *event = NULL;
@@ -79,7 +79,7 @@ void QGameControllerPrivate::process_event(js_event e)
     QGameControllerEvent *event = NULL;
     if (e.type & JS_EVENT_INIT)
     {
-      //qDebug() << "process_event" << "event was a JS_EVENT_INIT" << e.number << e.value << e.type;
+      qDebug() << "process_event" << "event was a JS_EVENT_INIT" << e.number << e.value << e.type;
     }
     qint16 value = e.value;
       //qDebug() << "process_event" << e.number << value << e.type;
@@ -99,12 +99,13 @@ void QGameControllerPrivate::process_event(js_event e)
     } else if (e.type & JS_EVENT_AXIS) {
         float Value;
         if (value<0)
-            Value = (float)value/32768.0;
-        else
             Value = (float)value/32767.0;
+        else
+            Value = (float)value/32767.0;//32767.0;
         AxisValues.insert(e.number, Value);
         event=new QGameControllerAxisEvent(ID, e.number, Value);
-//        qDebug("Axis %i moved to %f.", e.number , Value);
+        qDebug("Axis %i moved to %f.", e.number , Value);
+        qDebug()<<e.value;
         emit(q->gameControllerAxisEvent((QGameControllerAxisEvent*)event));
     }
     emit(q->gameControllerEvent(event));

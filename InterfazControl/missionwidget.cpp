@@ -198,7 +198,7 @@ void MissionWidget::updateControlStatus(bool isConnected){
 
 void MissionWidget::takeScreenshot(){
    qDebug()<<"ScreenShot-----------------------------------";
-   QScreen *screen = QGuiApplication::primaryScreen();
+  /* QScreen *screen = QGuiApplication::primaryScreen();
    int x=this->x();
    int y=this->y();
    QPixmap pxm = screen->grabWindow(QApplication::desktop()->winId(),x+OFFSET_X,y+OFFSET_Y,SCREEN_SHOT_LR,SCREEN_SHOT_UD);
@@ -208,6 +208,14 @@ void MissionWidget::takeScreenshot(){
    QFile file(picFolder);
    file.open(QIODevice::WriteOnly);
    pxm.save(&file, "JPG",100);
+   numPic++;*/
+
+   QProcess procRTSP;
+   QString run=QString("sh rtspShot.sh %1/%2 pic_%3.png").arg(createPath("Missions")).arg(missionName).arg(numPic);
+   qDebug()<<run;
+   procRTSP.start(run);
+   procRTSP.waitForFinished();
+  //QString output( procRTSP.readAllStandardOutput());
    numPic++;
    qDebug()<<"--------------------------------------------";
 

@@ -1,6 +1,6 @@
 #include "missionexplorer.h"
 
-#define DEBUG_EXPLORER
+//#define DEBUG_EXPLORER
 
 extern QString createPath(QString path);
 
@@ -148,7 +148,7 @@ void MissionExplorer::createPreviewList(){
               buildThumbs.waitForFinished();
              }
          }
-         else if(!fileType.compare("jpeg") ){
+         else if(!fileType.compare(".png") ){
              QString thumbPath=QString("%1%2").arg(missionPath).arg(fileName);
              files.prepend(thumbPath);
              isVideoFile.prepend(false);
