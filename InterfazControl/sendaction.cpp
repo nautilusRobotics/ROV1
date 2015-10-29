@@ -22,7 +22,7 @@ void SendAction::axisEvent(QString axis,int value){
     }
     else if(axis==axis_left_vertical){
             QString mappedSpeed=mapSpeed(-value);
-
+            qDebug()<<"MappedSpeed"+mappedSpeed;
             QString strToSend=QString("%1%2").arg(FORWARD_ROBOT).arg(mappedSpeed);
             sendComando(strToSend);
             if(value==0 || value==maxControl || value ==minESCms) //Se repite el comando para asegurar que se realice

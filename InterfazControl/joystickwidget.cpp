@@ -19,7 +19,7 @@
 
 #include "joystickwidget.h" 
 
-//#define USER_DEBUG_J
+#define USER_DEBUG_J
 
 JoystickWidget::JoystickWidget(QWidget *parent): QWidget(parent){
 
@@ -46,7 +46,7 @@ void JoystickWidget::handleQGameControllerAxisEvent(QGameControllerAxisEvent* ev
 
     int axis = event->axis();
 
-    uint value=event->value()*1000;
+    uint value=(uint)event->value()*1000.0;
 #ifdef USER_DEBUG_J_J
     qDebug("handleQGameControllerAxisEvent");
     qDebug("Value %d", value );
