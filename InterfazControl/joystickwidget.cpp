@@ -19,7 +19,7 @@
 
 #include "joystickwidget.h" 
 
-#define USER_DEBUG_J
+//#define USER_DEBUG_J
 
 JoystickWidget::JoystickWidget(QWidget *parent): QWidget(parent){
 
@@ -45,11 +45,11 @@ void JoystickWidget::handleQGameControllerAxisEvent(QGameControllerAxisEvent* ev
 {
 
     int axis = event->axis();
-
-    uint value=(uint)event->value()*1000.0;
-#ifdef USER_DEBUG_J_J
+    float num=1000;
+    int value=(int)(event->value()*num);
+#ifdef USER_DEBUG_J
     qDebug("handleQGameControllerAxisEvent");
-    qDebug("Value %d", value );
+    qDebug("Value In joysctick %d", value );
 #endif
     sendAction->axisEvent(axisXbox.at(axis),value);
     delete event;   //QGameControllerEvents unlike QEvents are not deleted automatically.

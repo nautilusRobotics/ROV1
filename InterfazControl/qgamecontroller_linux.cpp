@@ -104,8 +104,8 @@ void QGameControllerPrivate::process_event(js_event e)
             Value = (float)value/32767.0;//32767.0;
         AxisValues.insert(e.number, Value);
         event=new QGameControllerAxisEvent(ID, e.number, Value);
-        qDebug("Axis %i moved to %f.", e.number , Value);
-        qDebug()<<e.value;
+        qDebug()<<"Raw value"<<e.value;
+        qDebug("Axis %i moved to %f.", e.number , Value);        
         emit(q->gameControllerAxisEvent((QGameControllerAxisEvent*)event));
     }
     emit(q->gameControllerEvent(event));
