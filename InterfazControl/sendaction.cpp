@@ -1,7 +1,7 @@
 #include "sendaction.h"
 
 #define USER_DEBUG_SA
-//#define OFFLINE_SA
+#define OFFLINE_SA
 
 extern QString createPath(QString path);
 
@@ -104,7 +104,15 @@ void SendAction::buttonEvent(QString button, QGameControllerButtonEvent *event){
 }
 
 QString SendAction::sendComando(QString comando){
-    QString run= createPath("cliente.o ")+robotIp+comando;
+
+#ifdef Q_PROCESSOR_X86
+     QString run= createPath("cliente.o ")+robotIp+comando;
+#endif
+
+#ifdef Q_PROCESSOR_ARM
+    QString run= createPath("clienteOlimex.o ")+robotIp+comando;
+#endif
+
     qDebug() << run;
 
 #ifndef OFFLINE_SA
