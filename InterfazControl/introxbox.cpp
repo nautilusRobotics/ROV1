@@ -23,6 +23,8 @@ IntroXbox::IntroXbox(QWidget *parent) :
     lblHelp = ui.lblHelp;
     lblHelp->setStyleSheet(QLABEL_STYLE_HELP);
 
+    projectList=ui.listWidget;
+    projectList->setVisible(false);
 
     /********************************  Joystick *****************************************************/
     joystick=new JoystickWidget();
@@ -217,6 +219,13 @@ void IntroXbox::handleJoystickButtonEvent(QString button,QGameControllerButtonEv
            break;
        }
     }
+    else if(button==button_B && !event->pressed()){
+      exm=new ExportManager(this);
+      createProjectList();
+      projectList->setSelectionMode (QAbstractItemView::NoSelection);
+      projectList->setVisible(true);
+    }
+
    }
 }
 
