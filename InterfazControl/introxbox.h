@@ -25,6 +25,7 @@
 #include "qgamecontroller.h"
 #include "widgetKeyBoard.h"
 #include "ui_Intro.h"
+#include <QBitArray>
 
 #define maxOptions 3
 #define QPUSH_STYLE_START "QPushButton{color:white;border: 0px; border-radius:6px;font: bold;outline: none}QPushButton:focus:!pressed{border-style: outset;border-width: 4px;border-color: #555555;}"
@@ -56,29 +57,32 @@ public slots:
     void closeToast();
 
     private:    
-    QPushButton *btnNew, *btnOff, *btnOpen;
-    QLabel *lblHelp;
-    QLineEdit *newMission;
-    QListWidget *projectList;
-    JoystickWidget *joystick;
-    SendAction* sendAction;
-    MissionWidget *mission;
-    ExportManager *exm;
-    QString missionsPath;
-    QStringList     *keysList;
-    QVBoxLayout *keyBoardLayout;
-    widgetKeyBoard *keyboard;
-    QLineEdit *resultTextBox;
-    QMessageBox *toast;
-    bool isKeyboard;
-    int focused;
-    void showMessage(QString message);
-    QPushButton *createNewKey(QString keyValue);
-    QVBoxLayout *generateKeyboard(void);
-    void lauchKeyBoard();
-    void showToast(QString message, int time);
-    bool isOpen;
-    Ui::NautilusCommander ui;
+        QPushButton *btnNew, *btnOff, *btnOpen;
+        QLabel *lblHelp, *lblListWidget, *lblTitle;
+        QLineEdit *newMission;
+        QListWidget *projectList;
+        JoystickWidget *joystick;
+        SendAction* sendAction;
+        MissionWidget *mission;
+        ExportManager *exm;
+        QString missionsPath;
+        QStringList     *keysList;
+        QVBoxLayout *keyBoardLayout;
+        widgetKeyBoard *keyboard;
+        QLineEdit *resultTextBox;
+        QMessageBox *toast;
+        QStringList *projectListStrings;
+        QBitArray *projectListBools;
+
+        bool isKeyboard, isOpenProjectMenu;
+        int focused, openProjectRow;
+        void showMessage(QString message);
+        QPushButton *createNewKey(QString keyValue);
+        QVBoxLayout *generateKeyboard(void);
+        void lauchKeyBoard();
+        void showToast(QString message, int time);
+        bool isOpen;
+        Ui::NautilusCommander ui;
 
 protected:
       void showEvent(QShowEvent *ev);

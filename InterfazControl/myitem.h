@@ -8,6 +8,7 @@
 #include <QListWidgetItem>
 #include <QSettings>
 #include <QDebug>
+#define LW_STYLE "background-color: rgba(255, 255, 255, 0);"
 
 class myItem : public QWidget
 {
@@ -15,26 +16,18 @@ class myItem : public QWidget
 public:
     explicit myItem(QWidget *parent = 0, QString name="");
 
-signals:
-    void continueSignal(QString);
-    void deleteSignal(QString,QListWidgetItem*);
-    void exploreSignal(QString);
-    void exportSignal();
 
-public slots:
-    void handleContinue();
-    void handleDelete();
-    void handleExplore();
-
-public:
-    void setWItem(QListWidgetItem *item);
+public:    
+    QString getMissionName();
+    bool isExploreAndExport();
 
 private:
     QGridLayout *layout;
-    QPushButton *btnContinue,*btnDelete,*btnExplore,*btnExport;
+    QPushButton *btnContinue,*btnDelete,*btnExplore,*btnExport, *btnProject;
     QLabel *nameLabel,*icon;
     QString missionName;
     QListWidgetItem *itemW;
+    bool exploreAndExport;
 
 };
 

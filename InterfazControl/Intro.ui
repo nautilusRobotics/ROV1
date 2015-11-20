@@ -23,9 +23,9 @@
    <property name="geometry">
     <rect>
      <x>850</x>
-     <y>658</y>
-     <width>555</width>
-     <height>85</height>
+     <y>654</y>
+     <width>556</width>
+     <height>89</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -40,9 +40,9 @@ font: bold 13pt;</string>
    <property name="geometry">
     <rect>
      <x>850</x>
-     <y>465</y>
-     <width>555</width>
-     <height>85</height>
+     <y>464</y>
+     <width>556</width>
+     <height>87</height>
     </rect>
    </property>
    <property name="font">
@@ -69,10 +69,10 @@ font: bold 12pt;
   <widget class="QPushButton" name="btnOff">
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>758</y>
-     <width>555</width>
-     <height>85</height>
+     <x>848</x>
+     <y>753</y>
+     <width>558</width>
+     <height>87</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -99,7 +99,7 @@ font: bold 13pt;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
      <x>970</x>
@@ -249,7 +249,7 @@ text-decoration: underline;</string>
      <x>830</x>
      <y>340</y>
      <width>591</width>
-     <height>601</height>
+     <height>561</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -259,12 +259,28 @@ text-decoration: underline;</string>
     <string notr="true">background-color: rgb(245, 245, 245);</string>
    </property>
   </widget>
+  <widget class="QLabel" name="lblListWidget">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>910</y>
+     <width>565</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/new/prefix1/helpOpen.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>btnOpen</zorder>
   <zorder>btnNew</zorder>
   <zorder>btnOff</zorder>
   <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
+  <zorder>lblTitle</zorder>
   <zorder>label_4</zorder>
   <zorder>label_5</zorder>
   <zorder>label_6</zorder>
@@ -272,6 +288,7 @@ text-decoration: underline;</string>
   <zorder>label_8</zorder>
   <zorder>lblHelp</zorder>
   <zorder>listWidget</zorder>
+  <zorder>lblListWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>btnNew</tabstop>

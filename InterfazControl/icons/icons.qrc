@@ -3,5 +3,6 @@
         <file>nautilusBack.png</file>
         <file>nautilus128x128.svg</file>
         <file>nautilusBack1920x1080.png</file>
+        <file>helpOpen.png</file>
     </qresource>
 </RCC>

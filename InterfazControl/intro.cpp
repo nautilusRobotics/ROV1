@@ -155,7 +155,7 @@ void intro::createProjectList(){
         connect(myListItem,SIGNAL(exploreSignal(QString)),this,SLOT(exploreMission(QString)));
         exm->setMissionName(missionName);
         connect(myListItem,SIGNAL(exportSignal()),exm,SLOT(launchDialog()));
-        myListItem->setWItem(item);
+
 
 
         projectList->addItem(item);

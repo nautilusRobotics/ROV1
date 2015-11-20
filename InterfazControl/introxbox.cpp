@@ -9,6 +9,7 @@ IntroXbox::IntroXbox(QWidget *parent) :
     QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
     setWindowTitle("Nautilus Commander");
+    setWindowState( Qt::WindowFullScreen );
     ui.setupUi(this);
 
     btnNew=ui.btnNew;
@@ -24,7 +25,15 @@ IntroXbox::IntroXbox(QWidget *parent) :
     lblHelp->setStyleSheet(QLABEL_STYLE_HELP);
 
     projectList=ui.listWidget;
+    exm=new ExportManager(this);
+    projectListStrings=new QStringList();
+    projectListBools=new QBitArray();
     projectList->setVisible(false);
+
+    lblListWidget=ui.lblListWidget;
+    lblListWidget->setVisible(false);
+
+    lblTitle=ui.lblTitle;
 
     /********************************  Joystick *****************************************************/
     joystick=new JoystickWidget();
@@ -43,6 +52,9 @@ IntroXbox::IntroXbox(QWidget *parent) :
     keyBoardLayout=this->generateKeyboard();
     isKeyboard=false;
     isOpen=false;
+    isOpenProjectMenu=false;
+    openProjectRow=0;
+
 
 }
 
@@ -92,7 +104,10 @@ void IntroXbox::closeToast(){
 void IntroXbox::createProjectList(){
 
     QDirIterator it(missionsPath,QDir::NoDotAndDotDot | QDir::AllDirs);
-
+    projectListStrings->clear();
+    projectList->clear();
+    projectListBools->clear();
+    int idx=0;
     while (it.hasNext()) {
         QFileInfo Info(it.next());
         QString missionName = QString(Info.fileName());
@@ -106,16 +121,14 @@ void IntroXbox::createProjectList(){
         item->setSizeHint(QSize(item->sizeHint().width(), 60));
 
         myItem *myListItem = new myItem(0,missionName);
-        connect(myListItem,SIGNAL(continueSignal(QString)),this,SLOT(runMission(QString)));
-        connect(myListItem,SIGNAL(deleteSignal(QString,QListWidgetItem*)),this,SLOT(deleteMission(QString,QListWidgetItem*)));
-        connect(myListItem,SIGNAL(exploreSignal(QString)),this,SLOT(exploreMission(QString)));
-        exm->setMissionName(missionName);
-        connect(myListItem,SIGNAL(exportSignal()),exm,SLOT(launchDialog()));
-        myListItem->setWItem(item);
-
+        projectListStrings->append(missionName);
+        projectListBools->resize(idx+1);
+        projectListBools->setBit(idx,myListItem->isExploreAndExport());
+        idx++;
+        exm->setMissionName(missionName);     
 
         projectList->addItem(item);
-        projectList->setItemWidget(item, myListItem );
+        projectList->setItemWidget(item, myListItem);
     }
 }
 
@@ -131,7 +144,6 @@ void IntroXbox::runMission(QString missionName){
 }
 
 void IntroXbox::exploreMission(QString missionName){
-
 #ifdef DEBUG_INTRO
       qDebug() <<"explore "+missionName;
 #endif
@@ -174,11 +186,7 @@ void IntroXbox::deleteMission(QString missionName,QListWidgetItem *item){
 
 void IntroXbox::reOpen(){
 
-    qDebug("RE OPEN");
-    delete(projectList);
-    projectList= new QListWidget();
-    projectList->setSelectionMode (QAbstractItemView::NoSelection);
-    projectList->setFixedHeight(150);
+    qDebug("RE OPEN");      
     createProjectList();
 }
 
@@ -201,36 +209,65 @@ void IntroXbox::handleButtonOff(){
 }
 
 void IntroXbox::handleJoystickButtonEvent(QString button,QGameControllerButtonEvent* event){
-   if(!isKeyboard){
+   if(!isKeyboard && !isOpenProjectMenu){
     if(button==button_A && !event->pressed()){
        switch(focused){
           case 0:
-            qDebug("option0");
+            qDebug("option Start");
             lauchKeyBoard();
            break;
           case 1:
-           qDebug("option1");
+               qDebug("option Open");
+               isOpenProjectMenu=true;
+               openProjectRow=0;
+               createProjectList();
+               projectList->setCurrentRow(openProjectRow);
+               lblTitle->setText("Open Previous Mission");
+               projectList->setVisible(true);
+               lblListWidget->setVisible(true);
             break;
           case 2:
-           qDebug("option2");
+            qDebug("option Off");
+            this->close();
             break;
           case maxOptions:
-           qDebug("option3");
+           qDebug("option Help");
            break;
        }
     }
-    else if(button==button_B && !event->pressed()){
-      exm=new ExportManager(this);
-      createProjectList();
-      projectList->setSelectionMode (QAbstractItemView::NoSelection);
-      projectList->setVisible(true);
+   }
+   else if(isOpenProjectMenu){
+    if(button==button_A && !event->pressed()){
+        int item= projectList->currentRow();
+        runMission(projectListStrings->at(item));
     }
+    else if(button==button_X && !event->pressed()){
+        int item= projectList->currentRow();
 
+        if(projectListBools->at(item))
+            exploreMission(projectListStrings->at(item));
+    }
+    else if(button==button_B && !event->pressed()){
+        int item= projectList->currentRow();
+        deleteMission(projectListStrings->at(item),projectList->currentItem());
+    }
+    else if(button==button_Y && !event->pressed()){
+        int item= projectList->currentRow();
+
+       // if(projectListBools->at(item))
+           // exploreMission(projectListStrings->at(item));
+    }
+    else if(button==button_back && !event->pressed()){
+       isOpenProjectMenu=false;
+       lblTitle->setText("Welcome to Nautilus Commander");
+       projectList->setVisible(false);
+       lblListWidget->setVisible(false);
+    }
    }
 }
 
 void IntroXbox::handleJoystickAxisEvent(QString axis, int value){   
-    if(!isKeyboard){
+    if(!isKeyboard && !isOpenProjectMenu){
         if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
           this->focusNextChild();        
           focused++;
@@ -241,6 +278,15 @@ void IntroXbox::handleJoystickAxisEvent(QString axis, int value){
            focused--;
            focused=(focused<0)?maxOptions:focused;
         }
+    }
+    else if(isOpenProjectMenu){
+        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
+           openProjectRow=(openProjectRow+1>projectList->count()-1)?0:openProjectRow+1;
+        }
+        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){
+            openProjectRow=(openProjectRow-1<0)?0:openProjectRow-1;
+        }
+        projectList->setCurrentRow(openProjectRow);
     }
 
 
