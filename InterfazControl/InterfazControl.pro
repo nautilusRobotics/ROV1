@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     missionexplorer.cpp \
     thumbviewer.cpp \
     exportmanager.cpp \
-    mywidgetusb.cpp
+    mywidgetusb.cpp \
+    introxbox.cpp \
+    widgetKeyBoard.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -47,9 +49,15 @@ HEADERS  += \
     thumbviewer.h \
     exportmanager.h \
     mywidgetusb.h \
-    main.h
+    main.h \
+    introxbox.h \
+    widgetKeyBoard.h
 
-FORMS    +=
+FORMS    += \
+    Intro.ui
+
+RESOURCES += \
+    icons/icons.qrc
 
 
 

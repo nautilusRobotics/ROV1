@@ -237,7 +237,6 @@ void intro::showEvent(QShowEvent *ev){
     isOpen=true;
 }
 
-
 void intro::handleButtonOff(){
     QString msg=QString("Are you sure? \n The robot is save? \n the system is going to turning off");
     QMessageBox::StandardButton reply;

@@ -48,7 +48,7 @@ QString SendAction::mapSpeed(int value){
    double b=minESCms-(m*minControl);
    int speed=m*value+b;
 
-   return QString("%1").arg(speed-1);
+   return QString("%1").arg(speed);
 }
 
 void SendAction::buttonEvent(QString button, QGameControllerButtonEvent *event){
@@ -130,8 +130,6 @@ QString SendAction::sendComando(QString comando){
 
 
 }
-
-
 
 SendAction::~SendAction (){
 

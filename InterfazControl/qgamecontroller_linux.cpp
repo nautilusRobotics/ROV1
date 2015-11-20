@@ -29,7 +29,7 @@ QGameControllerPrivate::QGameControllerPrivate(uint id, QGameController *q) :
     Valid=false;
     Axis=0;
     Buttons=0;
-    qDebug("QGameController::QGameController(%i)", ID);
+     qDebug("QGameController::QGameController(%i)", ID);
     char number_of_axes=0;
     char number_of_buttons=0;
     QString filename = QString("/dev/input/js%1").arg(QString::number(id));
@@ -62,7 +62,7 @@ void QGameControllerPrivate::readGameController()
     }
     /* EAGAIN is returned when the queue is empty */
     if (errno != EAGAIN) {
-        qDebug() << "Joystick Error"; //REVISAAAAAAAAR
+       // qDebug() << "Joystick Error"; //REVISAAAAAAAAR
         Valid=false;
         Q_Q(QGameController);
         QGameControllerEvent *event = NULL;
@@ -79,7 +79,7 @@ void QGameControllerPrivate::process_event(js_event e)
     QGameControllerEvent *event = NULL;
     if (e.type & JS_EVENT_INIT)
     {
-      qDebug() << "process_event" << "event was a JS_EVENT_INIT" << e.number << e.value << e.type;
+      //qDebug() << "process_event" << "event was a JS_EVENT_INIT" << e.number << e.value << e.type;
     }
     qint16 value = e.value;
       //qDebug() << "process_event" << e.number << value << e.type;
@@ -87,15 +87,16 @@ void QGameControllerPrivate::process_event(js_event e)
     {
         if (e.value==1)
         {
-          // qDebug("Button %i pressed.", e.number);
+           //qDebug("Button %i pressed.", e.number);
         }
         else
         {
-          // qDebug("Button %i released.", e.number);
+           //qDebug("Button %i released.", e.number);
         }
         event=new QGameControllerButtonEvent(ID, e.number, value);
         ButtonValues.insert(e.number, value);
         emit(q->gameControllerButtonEvent((QGameControllerButtonEvent*)event));
+
     } else if (e.type & JS_EVENT_AXIS) {
         float Value;
         if (value<0)
@@ -104,8 +105,8 @@ void QGameControllerPrivate::process_event(js_event e)
             Value = (float)value/32767.0;//32767.0;
         AxisValues.insert(e.number, Value);
         event=new QGameControllerAxisEvent(ID, e.number, Value);
-        qDebug()<<"Raw value"<<e.value;
-        qDebug("Axis %i moved to %f.", e.number , Value);        
+       // qDebug()<<"Raw value"<<e.value;
+       // qDebug("Axis %i moved to %f.", e.number , Value);
         emit(q->gameControllerAxisEvent((QGameControllerAxisEvent*)event));
     }
     emit(q->gameControllerEvent(event));

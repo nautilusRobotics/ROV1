@@ -29,7 +29,7 @@ public:
     explicit SendAction(QWidget *parent = 0);
     ~SendAction();
 
-public:
+private slots:
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
 

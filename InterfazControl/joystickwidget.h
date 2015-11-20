@@ -67,19 +67,22 @@ class JoystickWidget : public QWidget
 public:
     explicit JoystickWidget(QWidget *parent = 0);
     ~JoystickWidget();
-    SendAction* getSendAction();
     bool isValidController();
     void init();
-private:
-    QMap<uint, QList<QSlider*> > slidersMap;
-    QMap<uint, QList<QLabel*> > buttonLabelsMap;
-    QStringList buttonsXbox, axisXbox;
-    SendAction* sendAction;
-    QGameController *gameController;    
-    QPushButton *btnConnect;
 
 signals:
    void updateStatus(bool isConnected);
+   void joystickAxisEvent(QString axis, int value);
+   void joystickButtonEvent(QString btn, QGameControllerButtonEvent *event);
+
+private:
+    QMap<uint, QList<QSlider*> > slidersMap;
+    QMap<uint, QList<QLabel*> > buttonLabelsMap;
+    QStringList buttonsXbox, axisXbox;   
+    QGameController *gameController;    
+    QPushButton *btnConnect;
+
+
 
 private slots:
     void handleQGameControllerAxisEvent(QGameControllerAxisEvent *event);

@@ -24,7 +24,7 @@
 JoystickWidget::JoystickWidget(QWidget *parent): QWidget(parent){
 
 
-    sendAction=new SendAction();
+    //sendAction=new SendAction();
 
     /************************************DEFINICION DE MAPEO DEL CONTROL************************************************************************************/
     buttonsXbox<<  button_Y<<button_B<<button_A<<button_X<<button_LB<<button_RB<<button_LT<<button_RT<<button_back<<button_start<<button_LaBtn<<button_RaBtn;
@@ -43,7 +43,6 @@ void JoystickWidget::init(){
 
 void JoystickWidget::handleQGameControllerAxisEvent(QGameControllerAxisEvent* event)
 {
-
     int axis = event->axis();
     float num=1000;
     int value=(int)(event->value()*num);
@@ -51,7 +50,8 @@ void JoystickWidget::handleQGameControllerAxisEvent(QGameControllerAxisEvent* ev
     qDebug("handleQGameControllerAxisEvent");
     qDebug("Value In joysctick %d", value );
 #endif
-    sendAction->axisEvent(axisXbox.at(axis),value);
+    //sendAction->axisEvent(axisXbox.at(axis),value);
+    emit joystickAxisEvent(axisXbox.at(axis),value);
     delete event;   //QGameControllerEvents unlike QEvents are not deleted automatically.
 }
 
@@ -62,11 +62,13 @@ void JoystickWidget::handleQGameControllerButtonEvent(QGameControllerButtonEvent
     QString btn=buttonsXbox.at(button);
 
 
-#ifdef USER_DEBUG_J_J
+#ifdef USER_DEBUG_J
   qDebug("handleQGameControllerButtonEvent");
 #endif
 
-    sendAction->buttonEvent(btn,event);
+    //sendAction->buttonEvent(btn,event);
+    emit joystickButtonEvent(btn,event);
+
     delete event;   //QGameControllerEvents unlike QEvents are not deleted automatically.
 }
 
@@ -78,10 +80,6 @@ void JoystickWidget::handleQGameControllerDisconnectEvent(QGameControllerDisconn
     gameController=NULL;
 
     delete event;
-}
-
-SendAction* JoystickWidget::getSendAction(){
-    return sendAction;
 }
 
 void JoystickWidget::setController(){

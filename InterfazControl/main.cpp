@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
 
-    intro welcomeScreen;
+    IntroXbox welcomeScreen;
     welcomeScreen.show();
 
 

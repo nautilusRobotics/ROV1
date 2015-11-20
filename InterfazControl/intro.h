@@ -31,7 +31,7 @@ public:
 signals:
 
 public slots:
-    void handleNewBtn();    
+    void handleNewBtn();
     void createProjectList();
     void runMission(QString missionName);
     void exploreMission(QString missionName);

@@ -110,8 +110,10 @@ MissionWidget::MissionWidget(QWidget *parent, QString missionName, QWidget *home
     connect(button_control, SIGNAL (released()), joystick, SLOT (setController()));
     connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
     joystick->init();
-
-    sendAction=joystick->getSendAction();
+    //sendAction=joystick->getSendAction();
+    sendAction=new SendAction();
+    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),sendAction,SLOT(axisEvent(QString,int)));
+    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerAxisEvent*)),sendAction,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
 
     robotDepth=new QLabel();
     connect(sendAction,SIGNAL(takeScreenshot()),this,SLOT(takeScreenshot()));

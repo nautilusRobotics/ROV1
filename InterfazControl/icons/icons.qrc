@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>nautilusBack.png</file>
+        <file>nautilus128x128.svg</file>
+    </qresource>
+</RCC>
