@@ -168,9 +168,9 @@ void intro::runMission(QString missionName){
       qDebug() <<"continue "+missionName;
 #endif
 
-   this->mission=new MissionWidget(0,missionName,this);
-   this->close();
-   mission->show();
+   //this->mission=new MissionWidget(0,missionName,this);
+   //this->close();
+   //mission->show();
 
 }
 
@@ -179,9 +179,9 @@ void intro::exploreMission(QString missionName){
 #ifdef DEBUG_INTRO
       qDebug() <<"explore "+missionName;
 #endif
-  MissionExplorer *missionExplorer=new MissionExplorer(0,missionName,this);
+  //MissionExplorer *missionExplorer=new MissionExplorer(0,missionName);
   this->close();
-  missionExplorer->show();
+  //missionExplorer->show();
 }
 
 void intro::deleteMission(QString missionName,QListWidgetItem *item){

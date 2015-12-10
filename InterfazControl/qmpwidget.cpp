@@ -1054,7 +1054,7 @@ void QMPwidget::moveEvent(QMoveEvent *){
 #ifdef QMP_DEBUG_OUTPUT
     qDebug("MOVE----------------------------------------------------");
 #endif
-     m_widget->resize(1280, 720);
+    // m_widget->resize(1280, 720);
 
 }
 
@@ -1119,7 +1119,7 @@ void QMPwidget::mpVolumeChanged(int volume)
 
 
 void QMPwidget::fixRepaint(){
-    m_widget->resize(1280, 720);
+    m_widget->resize(1920, 1080);
 
 }
 

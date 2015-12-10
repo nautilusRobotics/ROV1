@@ -15,15 +15,12 @@
 #include <QMessageBox>
 #include <QStyle>
 #include <QSettings>
-//#include <QWidget>
-
-
-#include "player.h"
-#include "qmpwidget.h"
 #include "qgamecontroller.h"
 #include "joystickwidget.h"
 #include "qgamecontroller.h"
 #include "openrtsp.h"
+#include "ui_Intro.h"
+#include "com.h"
 
 
 
@@ -34,7 +31,7 @@
 #define SCREEN_SHOT_UD 850 //up-down
 /*-----------------------------------------*/
 
-
+#define centerCamera 11
 
 
 
@@ -42,37 +39,45 @@ class MissionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MissionWidget(QWidget *parent = 0, QString missionName="Untitled", QWidget *home=NULL);
+    explicit MissionWidget(QWidget *parent = 0, QString mName="Untitled",  JoystickWidget *joystick= 0, Ui::NautilusCommander *gui=0);
 signals:
+    void returnToHome();
+    void saveVideo(void);
+
 
 public slots:
     void updatePlayerStatus(bool isConnected);
-    void updateControlStatus(bool isConnected);
-    void takeScreenshot(void);
+    void updateControlStatus(bool isConnected);    
     void updateRobotDepth(double value);
-    void updateRecording(bool isRecording);
-    void handleButtonOff();
-    void handleButtonHome();
-    void handleButtonCamera();
+    void updateRecording(bool isRecording);   
+    void handleButtonHome();    
+    void axisEvent(QString axis,int value);
+    void buttonEvent(QString button,QGameControllerButtonEvent* event);
+
 
 private:
-   // QMPwidget widget;
-    Player *player;
-    QPushButton *button_control,*button_1,*button_camara, *button_test, *button_off,*button_home;
-    QToolBar *toolbar;
     JoystickWidget *joystick;
-    SendAction* sendAction;
-    QGridLayout *layout;
-    QProgressBar *battery,*depth;
-    QLabel *statusRobot,  *statusPlayer, *statusJoystick,*robotDepth,*statusRecording;
+    QProgressBar *batteryROV,*batteryControl;
+    QLabel *statusJoystick,*robotDepth,*statusRecording,*missionNameLabel;
     QString missionName;
     openRTSP *rtsp;    
-    QString m_sSettingsFile;
-    QWidget *home;
-
+    QString m_sSettingsFile;         
+    QProcess procRun;
+    QString robotIp;    
+    QLabel *lblLightsOn, *lblLightsOff;
+    QProgressBar *batteryROVPB, *batteryControlPB;
+    QSlider  *panCamera, *tiltCamera;
+    QGroupBox *statusErrorBox;
+    Ui::NautilusCommander *ui;
+    QMPwidget *mplayer;
     int numPic,numVideos;
+    bool islightsOn;
+    int righLeft, upDown;
     void loadSettings();
     void saveSettings();
+    void takeScreenshot(void);
+    QString mapSpeed(int value);
+    QString sendComando(QString comando);
 
 protected:
      void closeEvent(QCloseEvent *event);

@@ -95,8 +95,7 @@
             void            enableSwitchingEcho(bool status); // if you don't want control echo from keyboard
             bool            isEnabledSwitchingEcho(void); // current status
             void            borderFrame(bool visible = true);
-            QLabel *        zoomedWidget();
-            void            setJoystick(JoystickWidget *j);
+            QLabel *        zoomedWidget();      
             void            initLayout(QStringList *kl, QVBoxLayout *klayout, QLineEdit *resultTxt);
 
         signals:

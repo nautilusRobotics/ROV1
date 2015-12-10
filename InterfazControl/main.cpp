@@ -2,6 +2,8 @@
 
 
 
+
+
 int main(int argc, char *argv[])
 {
 #ifdef Q_PROCESSOR_X86
@@ -18,8 +20,9 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
 
-    IntroXbox welcomeScreen;
+    MainApp welcomeScreen;
     welcomeScreen.show();
+
 
 
     return app.exec();

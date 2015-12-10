@@ -6,10 +6,10 @@ myItem::myItem(QWidget *parent, QString name) :
     QWidget(parent)
 {
     layout=new QGridLayout();
-
-    QString missionsPath=createPath("Missions");
-    QString missionPath=QString("%1/%2/").arg(missionsPath).arg(missionName);
-    QString m_sSettingsFile = QString("%1/%2/settings.ini").arg(missionsPath).arg(missionName);
+    missionName=name;
+    QString missionPath=createPath("Missions");
+    QString missionsPath=QString("%1/%2/").arg(missionPath).arg(missionName);
+    QString m_sSettingsFile = QString("%1settings.ini").arg(missionsPath);
     QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
     int pics = settings.value("pics", "").toInt();
     int videos = settings.value("videos", "").toInt();

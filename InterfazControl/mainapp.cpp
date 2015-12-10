@@ -1,8 +1,12 @@
-#include "introxbox.h"
+#include "mainapp.h"
+#include <QPixmap>
+#include <QBitmap>
 
 extern QString createPath(QString path);
+#define DEBUG_INTRO
 
-IntroXbox::IntroXbox(QWidget *parent) :
+
+MainApp::MainApp(QWidget *parent) :
     QWidget(parent)
 {
 
@@ -10,7 +14,14 @@ IntroXbox::IntroXbox(QWidget *parent) :
     setWindowIcon(icon);
     setWindowTitle("Nautilus Commander");
     setWindowState( Qt::WindowFullScreen );
+
     ui.setupUi(this);
+    stackedWidget=ui.stackedWidget;
+    stackedWidget->setCurrentIndex(0);
+    initWelcomeScreen();
+}
+
+void MainApp::initWelcomeScreen(){
 
     btnNew=ui.btnNew;
     btnNew->setStyleSheet(QPUSH_STYLE_START);
@@ -28,20 +39,24 @@ IntroXbox::IntroXbox(QWidget *parent) :
     exm=new ExportManager(this);
     projectListStrings=new QStringList();
     projectListBools=new QBitArray();
-    projectList->setVisible(false);
 
     lblListWidget=ui.lblListWidget;
-    lblListWidget->setVisible(false);
 
-    lblTitle=ui.lblTitle;
+    openMissionBox=ui.openMissionBox;
+    openMissionBox->setVisible(false);
+
+    lblTitle=ui.label_title;
+
+    lblShadow=ui.lblShadow;
+    lblShadow->setVisible(false);
 
     /********************************  Joystick *****************************************************/
     joystick=new JoystickWidget();
     connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
-    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(handleJoystickButtonEvent(QString,QGameControllerButtonEvent*)));
-    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(handleJoystickAxisEvent(QString,int)));
+    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
     joystick->init();
-   /***********************************************************************************************/
+    /***********************************************************************************************/
     missionsPath=createPath("Missions");
     if(!QDir(missionsPath).exists()){
         QDir().mkdir(missionsPath);
@@ -56,27 +71,33 @@ IntroXbox::IntroXbox(QWidget *parent) :
     openProjectRow=0;
 
 
-}
-
-void IntroXbox::handleNewBtn(QString missionName){
-
-  if(missionName.compare("")){
-      QRegExp rx ("[^a-zA-Z0-9]");
-      QString fixedName =missionName.replace(rx,"");
-
-      if(fixedName.compare(""))
-          runMission(fixedName);      
-      else
-          showToast("Invalid mission name",1000);
-
-  }
-  else
-      showToast("Invalid mission name",1000);
-
 
 }
 
-void IntroXbox::showMessage(QString message){
+void MainApp::handleNewBtn(QString missionName){
+
+    if(missionName.compare("")){
+        QRegExp rx ("[^a-zA-Z0-9]");
+        QString fixedName =missionName.replace(rx,"");
+
+        if(fixedName.compare("")){
+            disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+            runMission(fixedName);
+        }
+        else
+            showToast("Invalid mission name",1000);
+
+    }
+    else
+        showToast("Invalid mission name",1000);
+
+
+}
+
+void MainApp::showMessage(QString message, bool okCancelbtns){
+
+    lblShadow->setVisible(true);
     toast=new QMessageBox();
     toast->setText(message);
     toast->setIcon(QMessageBox::Warning);
@@ -85,23 +106,36 @@ void IntroXbox::showMessage(QString message){
 
     QSpacerItem* horizontalSpacer = new QSpacerItem(1000, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
     QGridLayout* layout = (QGridLayout*)toast->layout();
+
     layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
 
-    toast->exec();
+
+    if(okCancelbtns){
+
+        QLabel *tempLbl=new QLabel(QString("<img src=\"%1\">").arg(createPath("icons/btnFoot.svg")));
+        layout->addWidget(tempLbl,layout->rowCount(), 0, 1, layout->columnCount());
+
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
+    }
+    toast->show();
+    //toast->exec();
+}
+void MainApp::showToast(QString message, int time){
+    QTimer::singleShot(time,Qt::PreciseTimer ,this, SLOT(closeMessage()));
+    showMessage(message,false);
 }
 
-void IntroXbox::showToast(QString message, int time){
-    QTimer::singleShot(time,Qt::PreciseTimer ,this, SLOT(closeToast()));
-    showMessage(message);
-}
-
-void IntroXbox::closeToast(){
-    qDebug()<<"Timer Off";
+void MainApp::closeMessage(){
+    qDebug()<<"closeMessage";
+    lblShadow->setVisible(false);
     toast->close();
-
 }
 
-void IntroXbox::createProjectList(){
+
+void MainApp::createProjectList(){
 
     QDirIterator it(missionsPath,QDir::NoDotAndDotDot | QDir::AllDirs);
     projectListStrings->clear();
@@ -131,34 +165,34 @@ void IntroXbox::createProjectList(){
         projectList->setItemWidget(item, myListItem);
     }
 }
+void MainApp::runMission(QString missionName){
 
-void IntroXbox::runMission(QString missionName){
 #ifdef DEBUG_INTRO
       qDebug() <<"continue "+missionName;
 #endif
 
-   this->mission=new MissionWidget(0,missionName,this);
-   this->close();
-   mission->show();
+   disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
 
+   missionWidget=new MissionWidget(this,missionName,joystick,&ui);
+   connect(missionWidget,SIGNAL(returnToHome()),this,SLOT(showHome()));
+   stackedWidget->setCurrentIndex(1);
 }
-
-void IntroXbox::exploreMission(QString missionName){
+void MainApp::exploreMission(QString missionName){
 #ifdef DEBUG_INTRO
       qDebug() <<"explore "+missionName;
 #endif
-  MissionExplorer *missionExplorer=new MissionExplorer(0,missionName,this);
-  this->close();
-  missionExplorer->show();
+
+  disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
+  disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+  disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+
+  missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
+  connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
+  stackedWidget->setCurrentIndex(2);
+
 }
 
-void IntroXbox::deleteMission(QString missionName,QListWidgetItem *item){
-
-    QString msg=QString("Are you sure?\nThe Mission %1 including all files are going to be deleted").arg(missionName);
-    QMessageBox::StandardButton reply;
-
-      reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
-      if (reply == QMessageBox::Ok) {
+void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
 
 #ifdef DEBUG_INTRO
        qDebug() <<"delete "+missionName;
@@ -180,26 +214,17 @@ void IntroXbox::deleteMission(QString missionName,QListWidgetItem *item){
                       qDebug()<<"no delete";
             #endif
           }
-      }
+
 
 }
 
-void IntroXbox::reOpen(){
-
-    qDebug("RE OPEN");      
-    createProjectList();
+void MainApp::showHome(){
+   connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
+   connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+   connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+   stackedWidget->setCurrentIndex(0);
 }
-
-void IntroXbox::showEvent(QShowEvent *ev){
-    qDebug("Show Event");
-
-    if(isOpen)
-       reOpen();
-
-    isOpen=true;
-}
-
-void IntroXbox::handleButtonOff(){
+void MainApp::handleButtonOff(){
     QString msg=QString("Are you sure? \n The robot is save? \n the system is going to turning off");
     QMessageBox::StandardButton reply;
 
@@ -207,24 +232,24 @@ void IntroXbox::handleButtonOff(){
     if (reply == QMessageBox::Ok)this->close();
 
 }
-
-void IntroXbox::handleJoystickButtonEvent(QString button,QGameControllerButtonEvent* event){
-   if(!isKeyboard && !isOpenProjectMenu){
-    if(button==button_A && !event->pressed()){
+void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event){
+   if(button==button_A && !event->pressed()){
        switch(focused){
           case 0:
             qDebug("option Start");
             lauchKeyBoard();
            break;
           case 1:
-               qDebug("option Open");
-               isOpenProjectMenu=true;
+               qDebug("option Open");               
+               disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+               disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+               connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+               connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
                openProjectRow=0;
                createProjectList();
                projectList->setCurrentRow(openProjectRow);
                lblTitle->setText("Open Previous Mission");
-               projectList->setVisible(true);
-               lblListWidget->setVisible(true);
+               openMissionBox->setVisible(true);
             break;
           case 2:
             qDebug("option Off");
@@ -235,39 +260,8 @@ void IntroXbox::handleJoystickButtonEvent(QString button,QGameControllerButtonEv
            break;
        }
     }
-   }
-   else if(isOpenProjectMenu){
-    if(button==button_A && !event->pressed()){
-        int item= projectList->currentRow();
-        runMission(projectListStrings->at(item));
-    }
-    else if(button==button_X && !event->pressed()){
-        int item= projectList->currentRow();
-
-        if(projectListBools->at(item))
-            exploreMission(projectListStrings->at(item));
-    }
-    else if(button==button_B && !event->pressed()){
-        int item= projectList->currentRow();
-        deleteMission(projectListStrings->at(item),projectList->currentItem());
-    }
-    else if(button==button_Y && !event->pressed()){
-        int item= projectList->currentRow();
-
-       // if(projectListBools->at(item))
-           // exploreMission(projectListStrings->at(item));
-    }
-    else if(button==button_back && !event->pressed()){
-       isOpenProjectMenu=false;
-       lblTitle->setText("Welcome to Nautilus Commander");
-       projectList->setVisible(false);
-       lblListWidget->setVisible(false);
-    }
-   }
 }
-
-void IntroXbox::handleJoystickAxisEvent(QString axis, int value){   
-    if(!isKeyboard && !isOpenProjectMenu){
+void MainApp::joystickAxisEventMenu(QString axis, int value){
         if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
           this->focusNextChild();        
           focused++;
@@ -277,46 +271,83 @@ void IntroXbox::handleJoystickAxisEvent(QString axis, int value){
            this->focusPreviousChild();
            focused--;
            focused=(focused<0)?maxOptions:focused;
-        }
+        }    
+}
+void MainApp::joystickAxisEventOpen(QString axis, int value){
+
+    if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000)
+       openProjectRow=(openProjectRow+1>projectList->count()-1)?0:openProjectRow+1;
+    if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000)
+        openProjectRow=(openProjectRow-1<0)?0:openProjectRow-1;
+
+    projectList->setCurrentRow(openProjectRow);
+}
+void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
+    if(button==button_A && !event->pressed()){
+        int item= projectList->currentRow();
+        runMission(projectListStrings->at(item));
+        lblTitle->setText("Welcome to Nautilus Commander");
+        openMissionBox->setVisible(false);
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+
     }
-    else if(isOpenProjectMenu){
-        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
-           openProjectRow=(openProjectRow+1>projectList->count()-1)?0:openProjectRow+1;
-        }
-        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){
-            openProjectRow=(openProjectRow-1<0)?0:openProjectRow-1;
-        }
-        projectList->setCurrentRow(openProjectRow);
+    else if(button==button_X && !event->pressed()){
+        int item= projectList->currentRow();
+
+        if(projectListBools->at(item))
+            exploreMission(projectListStrings->at(item));
     }
+    else if(button==button_B && !event->pressed()){
+        int item= projectList->currentRow();
+        QString msg=QString("Are you sure you want to delete the Mission: \"%1\"\n You can't undo this action").arg(projectListStrings->at(item));
+        showMessage(msg,true);
+    }
+    else if(button==button_Y && !event->pressed()){
+        int item= projectList->currentRow();
 
-
-
+       // if(projectListBools->at(item))
+           // exploreMission(projectListStrings->at(item));
+    }
+    else if(button==button_back && !event->pressed()){
+       disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+       disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+       connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+       connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+       lblTitle->setText("Welcome to Nautilus Commander");
+       openMissionBox->setVisible(false);
+    }
 }
 
-void IntroXbox::updateControlStatus(bool isConnected){}
+void MainApp::updateControlStatus(bool isConnected){
 
-void IntroXbox::handleCloseKeyboardEvent(bool cancelled,QString result){
+}
+void MainApp::handleCloseKeyboardEvent(bool cancelled,QString result){
+    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),keyboard,SLOT(handleJoystickAxisEvent(QString,int)));
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString ,QGameControllerButtonEvent*)),keyboard,SLOT(handleJoystickButtonEvent(QString ,QGameControllerButtonEvent*)));
+    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+
     if(!cancelled)
       handleNewBtn(result);
-
-      isKeyboard=false;
 }
-
-void IntroXbox::lauchKeyBoard(){
+void MainApp::lauchKeyBoard(){
     keyboard = new widgetKeyBoard(true);
     keyboard->setZoomFacility(false);
     keyboard->enableSwitchingEcho(false); // enable possibility to change echo through keyboard
     keyboard->initLayout(keysList,keyBoardLayout,resultTextBox);
-    connect(keyboard,SIGNAL(closeKeyboardEvent(bool,QString)),this,SLOT(handleCloseKeyboardEvent(bool,QString)));
-
     keyboard->show(NULL);
     keyboard->move(this->x()+200, this->y()/2 + this->keyboard->height()+200); // to move keyboard
-    keyboard->setJoystick(joystick);
-    isKeyboard=true;
+
+    connect(keyboard,SIGNAL(closeKeyboardEvent(bool,QString)),this,SLOT(handleCloseKeyboardEvent(bool,QString)));
+
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),keyboard,SLOT(handleJoystickAxisEvent(QString,int)));
+    connect(joystick,SIGNAL(joystickButtonEvent(QString ,QGameControllerButtonEvent*)),keyboard,SLOT(handleJoystickButtonEvent(QString ,QGameControllerButtonEvent*)));
 }
 
-QVBoxLayout * IntroXbox::generateKeyboard(void)
-{
+QVBoxLayout * MainApp::generateKeyboard(void){
     QPushButton 	*tmp = NULL;
     QVBoxLayout     *tmpVLayout = new QVBoxLayout;
     QHBoxLayout     *tmpLayout = new QHBoxLayout;
@@ -484,8 +515,7 @@ QVBoxLayout * IntroXbox::generateKeyboard(void)
 
 }
 
-QPushButton * IntroXbox::createNewKey(QString keyValue)
-{
+QPushButton * MainApp::createNewKey(QString keyValue){
     QPushButton *tmp = new QPushButton();
     QString        style = QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON);
     QSize          imageDim;
@@ -525,3 +555,30 @@ QPushButton * IntroXbox::createNewKey(QString keyValue)
 
     return (tmp);
 }
+
+
+
+
+void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEvent* event){
+
+    if(button==button_A && !event->pressed()){
+        qDebug()<<"BUTTON A message";
+        int item= projectList->currentRow();
+
+        deleteMission(projectListStrings->at(item),projectList->currentItem());
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+        closeMessage();
+    }
+    else if(button==button_B && !event->pressed()){
+        qDebug()<<"BUTTON B message";
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+        closeMessage();
+    }
+}
+
+
+

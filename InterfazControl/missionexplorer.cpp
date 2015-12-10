@@ -4,13 +4,13 @@
 
 extern QString createPath(QString path);
 
-MissionExplorer::MissionExplorer(QWidget *parent, QString missionName,QWidget *home) :
+MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickWidget *joystick, Ui::NautilusCommander *gui) :
     QWidget(parent)
 {
-    QIcon icon(createPath("icons/nautilus128x128.svg"));
-    setWindowIcon(icon);
-    setWindowTitle("Nautilus Mission Explorer");    
-
+    ui=gui;
+    this->joystick=joystick;
+    connect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
+    connect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
 
     QString missionsPath=createPath("Missions");
     missionPath=QString("%1/%2/").arg(missionsPath).arg(missionName);
@@ -18,81 +18,18 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName,QWidget *h
 
     loadSettings();
 
-    //argumentos.push_back("-vf");
-    //argumentos.push_back("screenshot");
-   // argumentos.push_back("-vc");
-    //argumentos.push_back("ffh264");
     argumentos.push_back("-fps");
     argumentos.push_back("30");
     argumentos.push_back("-osdlevel");
     argumentos.push_back("0");
 
-    /****************************Player Buttons*********************************************/
-    playButton = new QPushButton(this);
-    playButton->setIcon(QIcon(createPath("icons/playRed.png")));
-    playButton->setIconSize(QSize(32,32));
-    connect(playButton,SIGNAL(released()),this,SLOT(playCLiked()));
+    defaultLbl=ui->lblDefault;
+    picLbl=ui->lblPic;
+    mplayer=ui->mplayerEx;
+    listFiles=ui->listWidgetEx;
 
-    reloadButton = new QPushButton(this);
-    reloadButton->setIcon(QIcon(createPath("icons/reload.png")));
-    reloadButton->setIconSize(QSize(32,32));
+    fileRow=0;
 
-
-    videoSlider = new QSlider(Qt::Horizontal, this);
-    videoSlider->setRange(0, 100);
-
-    playButton->setEnabled(false);
-    reloadButton->setEnabled(false);
-    videoSlider->setEnabled(false);
-
-
-    /******************************Source Viewer********************************/
-
-    player=NULL;
-    picLbl=NULL;
-
-    QPixmap defaultPixmap(createPath("icons/explorerDefault.png"));
-    defaultLbl=new QLabel("");
-    defaultLbl->setPixmap(defaultPixmap);
-
-
-    listFiles=new QListWidget();    
-    listFiles->setFixedWidth(200);
-    connect(listFiles,SIGNAL(itemPressed(QListWidgetItem*)),this,SLOT(displaySource()));
-
-    /***********************************************************************************************/
-
-    btn_export = new QPushButton("Export");
-    btn_export->setIcon(QIcon(createPath("icons/export.png")));
-    btn_export->setIconSize(QSize(32,32));
-    exm=new ExportManager(this,missionName);
-    connect(btn_export,SIGNAL(released()),exm,SLOT(launchDialog()));
-
-    button_home = new QPushButton("Home");
-    button_home->setIcon(QIcon(createPath("icons/home.png")));
-    button_home->setIconSize(QSize(32,32));
-    connect(button_home,SIGNAL(released()),this,SLOT(handleButtonHome()));
-
-    /***********************************************************************************************/
-    layout=new QGridLayout();
-    layout->addWidget(defaultLbl,0,0,1,3);
-
-    layout->addWidget(playButton,1,0);
-    layout->addWidget(reloadButton,1,1);
-    layout->addWidget(videoSlider,1,2);
-    layout->addWidget(listFiles,0,4,1,2);
-    layout->addWidget(btn_export,1,4,1,1);
-    layout->addWidget(button_home,1,5,1,1);
-    this->setLayout(layout);
-
-
-    adjustSize();
-    setGeometry(QStyle::alignedRect(
-            Qt::LeftToRight,
-            Qt::AlignCenter,
-            this->size(),
-            qApp->desktop()->availableGeometry()
-     ));
 
     QString thumbsPath=QString("%1thumb.sh").arg(missionPath);
     QFileInfo checkFile(thumbsPath);
@@ -109,8 +46,6 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName,QWidget *h
 
     createPreviewList();
 
-    this->home=home;
-    this->setWindowState( Qt::WindowFullScreen );
 }
 
 void MissionExplorer::createPreviewList(){
@@ -203,11 +138,6 @@ void MissionExplorer::saveSettings(){
  settings.setValue("isThumbnailed", true);
 }
 
-void MissionExplorer::closeEvent(QCloseEvent *event) {
-    saveSettings();
-    event->accept();
-}
-
 void MissionExplorer::displaySource(){
    int index=listFiles->currentRow();
    QString fileToShow=files.at(index);
@@ -221,20 +151,20 @@ void MissionExplorer::displaySource(){
        picLbl->setVisible(false);
        picLbl->clear();
    }
-   if(player!=NULL){
+   /*if(player!=NULL){
 
        player->setVisible(false);
 
 
-   }
+   }*/
 
 
    if(isVideoFile.at(index)){
 
        /********************************  Player  *****************************************************/
-       Player *toKill=player;
+     /*  QMPwidget *toKill=player;
 
-       player=new Player(argumentos, fileToShow, this);
+       player=new QMPwidget(argumentos, fileToShow, this);
 
        delete(toKill);
 
@@ -248,7 +178,7 @@ void MissionExplorer::displaySource(){
        player->setSeekSlider(videoSlider);
 
        layout->addWidget(player,0,0,1,3);
-       this->setState(QMediaPlayer::PlayingState);
+       this->setState(QMediaPlayer::PlayingState);*/
 
    }
    else{
@@ -313,10 +243,26 @@ void MissionExplorer::playCLiked(){
    }
 }
 
-void MissionExplorer::handleButtonHome(){
-       this->close();
-       home->show();
-       delete(this);
+
+void MissionExplorer::axisEvent(QString axis,int value){
+   if(axis==axis_cross_vertical && value==1000)
+       fileRow=(fileRow+1>listFiles->count()-1)?0:fileRow+1;
+   else if(axis==axis_cross_vertical && value==-1000)
+       fileRow=(fileRow-1<0)?0:fileRow-1;
+
+   listFiles->setCurrentRow(fileRow);
+}
+
+void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *event){
+    if(button==button_back && !event->pressed()){
+        disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
+        disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
+        saveSettings();
+        emit returnToHome();
+     }
+    else if(button==button_A && !event->pressed()){
+      displaySource();
+    }
 }
 
 

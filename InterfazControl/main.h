@@ -2,7 +2,7 @@
 #define MAIN_H
 #include <QApplication>
 //#include <intro.h>
-#include <introxbox.h>
+#include <mainapp.h>
 
 QString createPath(QString path);
 QString fullPath;

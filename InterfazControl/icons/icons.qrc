@@ -4,5 +4,43 @@
         <file>nautilus128x128.svg</file>
         <file>nautilusBack1920x1080.png</file>
         <file>helpOpen.png</file>
+        <file>box.png</file>
+        <file>camara.png</file>
+        <file>xboxA.png</file>
+        <file>xboxB.png</file>
+        <file>xboxY.png</file>
+        <file>xboxX.png</file>
+        <file>backVideo.svg</file>
+        <file>xboxcntrl55.svg</file>
+        <file>xboxCross.png</file>
+        <file>xboxCross32.png</file>
+        <file>xboxCross50.png</file>
+        <file>xboxA32.png</file>
+        <file>xobxB32.png</file>
+        <file>xboxY32.png</file>
+        <file>xboxX32.png</file>
+        <file>xboxLt32.png</file>
+        <file>xboxLb32.png</file>
+        <file>xboxRb32.png</file>
+        <file>xboxRt32.png</file>
+        <file>ok.png</file>
+        <file>alert.png</file>
+        <file>depth.png</file>
+        <file>temp.png</file>
+        <file>recordOff.png</file>
+        <file>recordOn.png</file>
+        <file>xboxLud.png</file>
+        <file>xboxRud.png</file>
+        <file>xboxRlr.png</file>
+        <file>xboxLlr.png</file>
+        <file>camera.png</file>
+        <file>camera50x50.png</file>
+        <file>switchOn.png</file>
+        <file>switchOff.png</file>
+        <file>dot.png</file>
+        <file>dotOrange.png</file>
+        <file>dotGray.png</file>
+        <file>dotGreen.png</file>
+        <file>explorerDefault2.png</file>
     </qresource>
 </RCC>

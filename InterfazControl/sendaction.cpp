@@ -1,7 +1,7 @@
 #include "sendaction.h"
 
 #define USER_DEBUG_SA
-//#define OFFLINE_SA
+#define OFFLINE_SA
 
 extern QString createPath(QString path);
 
@@ -29,10 +29,10 @@ void SendAction::axisEvent(QString axis,int value){
 
     }
     else if(axis==axis_cross_vertical && value<0){
-            sendComando(UP_CAMARA);
+             //sendComando(UP_CAMARA);
     }
     else if(axis==axis_cross_vertical && value>0){
-            sendComando(DOWN_CAMARA);
+            //sendComando(DOWN_CAMARA);
     }
     else if(axis==axis_cross_vertical && value==0){
             sendComando(NULL_CMD);

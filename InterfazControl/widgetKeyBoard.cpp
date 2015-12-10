@@ -18,7 +18,7 @@
 #include <QScreen>
 #include <QKeyEvent>
 #include <QDir>
-
+#include <QWidget>
 
 
 
@@ -33,7 +33,7 @@ widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidg
 {        
     this->m_zoomedKey = NULL;
     this->m_clipboard->clear();
-    this->setWindowIcon(QPixmap(":/TastieraVirtuale/logo"));
+   // this->setWindowIcon(QPixmap(":/TastieraVirtuale/logo"));
     resultTextBox=new QLineEdit();
     resultTextBox->setEchoMode(QLineEdit::Normal);
     focused=0;
@@ -78,11 +78,7 @@ bool widgetKeyBoard::isZoomFacilityEnable(void)
     return (this->m_zoomFacilityEmbedded);
 }
 
-void widgetKeyBoard::setJoystick(JoystickWidget *j){
-    joystick=j;
-    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(handleJoystickAxisEvent(QString,int)));
-    connect(joystick,SIGNAL(joystickButtonEvent(QString ,QGameControllerButtonEvent*)),this,SLOT(handleJoystickButtonEvent(QString ,QGameControllerButtonEvent*)));
-}
+
 
 QPushButton * widgetKeyBoard::createNewKey(QString keyValue)
 {
@@ -190,8 +186,7 @@ void widgetKeyBoard::receiptChildKey(QString key, QLineEdit *focusThisControl, b
     int     tmpPos = nextInput->cursorPosition();
 
     if (IS_RETURN(newKey) == true) { // trattasi di TAB, si sposta alla text successiva        
-        setVisible(false);
-        joystick=NULL;
+        setVisible(false);        
         emit closeKeyboardEvent(false,resultTextBox->text());
     }
     else if (IS_BACK(newKey) == true || IS_BACK_EMB(newKey) == true) { // trattasi di CANCELLARE carattere, elimina il carattere a sinistra
@@ -203,8 +198,7 @@ void widgetKeyBoard::receiptChildKey(QString key, QLineEdit *focusThisControl, b
         }
     }
     else if (IS_CANC(newKey) == true) { // trattasi di CANC carattere, elimina il carattere a destra
-       setVisible(false);
-       joystick=NULL;
+       setVisible(false);     
        emit closeKeyboardEvent(true,"");
     }
     else if (IS_CLEAR_ALL(newKey) == true) { // trattasi di CANC carattere, elimina il carattere a destra
@@ -300,8 +294,8 @@ void widgetKeyBoard::show(QWidget *activeForm)
     this->m_clipboard->clear();
     this->move(20, QGuiApplication::screens()[0]->availableGeometry().height() - this->height() - 200);
     this->borderFrame(false);
-
-    QWidget::show();
+    this->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
+    QWidget::showFullScreen();
 
     this->focusNextChild();
     this->focusNextChild();

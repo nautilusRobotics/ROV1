@@ -28,8 +28,8 @@ SOURCES += main.cpp\
     thumbviewer.cpp \
     exportmanager.cpp \
     mywidgetusb.cpp \
-    introxbox.cpp \
-    widgetKeyBoard.cpp
+    widgetKeyBoard.cpp \
+    mainapp.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -50,8 +50,8 @@ HEADERS  += \
     exportmanager.h \
     mywidgetusb.h \
     main.h \
-    introxbox.h \
-    widgetKeyBoard.h
+    widgetKeyBoard.h \
+    mainapp.h
 
 FORMS    += \
     Intro.ui

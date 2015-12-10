@@ -17,10 +17,22 @@
 #define RIGHT_ROBOT    "rgro"  //Move robot right
 #define LEFT_ROBOT     "lfro"  //Move robot left
 #define GET_DEPTH      "gdpt"  //Request the depth value of the robot
-#define UP_CAMARA      "upcm"  //UP SERVO CAMERA
-#define NULL_CMD       "null"  //Null Command
-#define DOWN_CAMARA    "dwcm"  //DOWN SERVO CAMERA
+#define PAN_CAMARA     "pncm"  //PAN CAMERA
+#define TILT_CAMARA    "ticm"  //TILT CAMERA
+#define CENTER_CAMARA  "ctcm"  //TILT CAMERA
+#define NULL_CMD       "null"  //null COMMNAD
 #define TOGGLE_LIGHT   "tglh"  //Toggle Robot lights
+#define OFF_LIGHT      "tglh2000"  //OFF Robot lights
+#define ON_LIGHT       "tglh1000"  //ON Robot lights
+
+
+#define TILT_UP        "ticmA"
+#define TILT_DOWN      "ticmB"
+#define TILT_STOP      "ticmC"
+
+#define PAN_UP         "pncmD"
+#define PAN_DOWN       "pncmE"
+#define PAN_STOP       "pncmF"
 
 #define maxESCms 1670
 #define minESCms 1330
