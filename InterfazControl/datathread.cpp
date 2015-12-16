@@ -6,7 +6,9 @@ DataThread::DataThread(QProgressBar *bc)
 {
    timer=new QTimer();
    batteryControl=bc;
-   valueTest=0;
+   batteryControl->setStyleSheet(QSTYLE_PROGRESS_BATT_CONTROL);
+   valueTest=10;
+   update();
 }
 
 
@@ -28,9 +30,9 @@ void DataThread::update(){
         procRun.start(run);
         procRun.waitForFinished();
         QString output(procRun.readAllStandardOutput());
+        output=output.mid(0,output.size()-2);
         qDebug()<<"ControlBattery Level: "+output;
-        batteryControl->setValue(output.toInt());
-        //output=output.mid(output.size()-5,output.size());
+        batteryControl->setValue(output.toInt());        
         procRun.close();
 #endif
 #ifndef Q_PROCESSOR_ARM

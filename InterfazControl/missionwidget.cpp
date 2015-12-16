@@ -45,7 +45,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     missionNameLabel=ui->lblMissionName;
     missionNameLabel->setText(missionName);
 
-    batteryROVPB=ui->progressBattRov;
+    batteryROVPB=ui->progressBattRov;    
     panCamera=ui->panCamera;
     tiltCamera=ui->tiltCamera;
 
@@ -164,23 +164,6 @@ void MissionWidget::axisEvent(QString axis,int value){
 
     }
     else if((axis==axis_cross_vertical)&& value==-1000){
-      /* int sliderValue=tiltCamera->value();
-       qDebug()<<QString("sliderValue %1").arg(sliderValue);
-
-       if(sliderValue==tiltCamera->minimum()){
-           sliderValue=sliderValue+2;
-          tiltCamera->setValue(sliderValue);
-           QString strToSend=QString("%1%2%3").arg(PAN_CAMARA).arg("0").arg(sliderValue);
-           sendComando(strToSend);
-       }
-       if(sliderValue+1<=panCamera->maximum()){
-            panCamera->setValue(sliderValue+1);
-            qDebug()<<QString("sliderValue+1 %1").arg(panCamera->value());
-            QString strToSend=QString("%1%2%3").arg(PAN_CAMARA).arg("0").arg(sliderValue);
-            sendComando(strToSend);
-            sendComando(NULL_CMD);
-
-       }*/
        sendComando(TILT_UP);
        sendComando(NULL_CMD);
 
@@ -189,37 +172,11 @@ void MissionWidget::axisEvent(QString axis,int value){
        sendComando(TILT_STOP);
        sendComando(NULL_CMD);
     }
-    else if((axis==axis_cross_vertical)&& value==1000){
-      /*  int sliderValue=panCamera->value();
-        qDebug()<<QString("sliderValue %1").arg(sliderValue);
-
-        if(sliderValue==panCamera->maximum()){
-            sliderValue=sliderValue-2;
-            panCamera->setValue(sliderValue);
-            QString strToSend=QString("%1%2%3").arg(PAN_CAMARA).arg("0").arg(sliderValue);
-            sendComando(strToSend);
-        }
-        if(sliderValue-1>=panCamera->minimum()){
-          panCamera->setValue(sliderValue-1);
-          qDebug()<<QString("sliderValue-1 %1").arg(panCamera->value());
-          QString strToSend=QString("%1%2%3").arg(PAN_CAMARA).arg("0").arg(sliderValue);
-          sendComando(strToSend);
-          sendComando(NULL_CMD);
-
-        }*/
+    else if((axis==axis_cross_vertical)&& value==1000){  
         sendComando(TILT_DOWN);
         sendComando(NULL_CMD);
     }
-    else if((axis==axis_cross_horizontal)&& value==-1000){
-      /* int sliderValue=tiltCamera->value();
-
-       if(sliderValue+1<=tiltCamera->maximum()){
-
-        tiltCamera->setValue(sliderValue+1);
-        QString strToSend=QString("%1%2%3").arg(TILT_CAMARA).arg("0").arg(sliderValue);
-        sendComando(strToSend);
-        sendComando(NULL_CMD);
-       }*/
+    else if((axis==axis_cross_horizontal)&& value==-1000){     
         sendComando(PAN_UP);
         sendComando(NULL_CMD);
     }
@@ -227,17 +184,7 @@ void MissionWidget::axisEvent(QString axis,int value){
        sendComando(PAN_STOP);
        sendComando(NULL_CMD);
     }
-    else if((axis==axis_cross_horizontal)&& value==1000){
-       /* int sliderValue=tiltCamera->value();
-
-        if(sliderValue-1>=tiltCamera->minimum()){
-
-           tiltCamera->setValue(sliderValue-1);
-           QString strToSend=QString("%1%2%3").arg(TILT_CAMARA).arg("0").arg(sliderValue);
-           sendComando(strToSend);
-           sendComando(NULL_CMD);
-
-        }*/
+    else if((axis==axis_cross_horizontal)&& value==1000){ 
         sendComando(PAN_DOWN);
         sendComando(NULL_CMD);
     }

@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QObject>
 
+#define QSTYLE_PROGRESS_BATT_CONTROL "QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); } QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}"
+
 class DataThread : public QThread
 {
      Q_OBJECT

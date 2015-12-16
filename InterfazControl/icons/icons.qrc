@@ -42,5 +42,6 @@
         <file>dotGray.png</file>
         <file>dotGreen.png</file>
         <file>explorerDefault2.png</file>
+        <file>backWhite.png</file>
     </qresource>
 </RCC>
