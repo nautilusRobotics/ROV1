@@ -21,6 +21,7 @@
 #include "openrtsp.h"
 #include "ui_Intro.h"
 #include "com.h"
+#include "datathread.h"
 
 
 
@@ -70,6 +71,7 @@ private:
     QGroupBox *statusErrorBox;
     Ui::NautilusCommander *ui;
     QMPwidget *mplayer;
+    DataThread *dataThread;
     int numPic,numVideos;
     bool islightsOn;
     int righLeft, upDown;

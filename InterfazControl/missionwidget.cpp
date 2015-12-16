@@ -1,6 +1,6 @@
 #include "missionwidget.h"
 #define USER_DEBUG_SA
-//#define OFFLINE_SA
+#define OFFLINE_SA
 
 extern QString createPath(QString path);
 
@@ -55,7 +55,8 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     mplayer->start(argumentos);
     mplayer->load("rtsp://admin:12345@10.5.5.110:554");
 
-
+    dataThread=new DataThread(ui->progressBattControl);
+    dataThread->start();
 }
 
 
