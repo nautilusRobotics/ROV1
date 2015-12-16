@@ -30,7 +30,7 @@ void DataThread::update(){
         procRun.start(run);
         procRun.waitForFinished();
         QString output(procRun.readAllStandardOutput());
-        output=output.mid(0,output.size()-2);
+        output=output.mid(0,output.size()-3);
         qDebug()<<"ControlBattery Level: "+output;
         batteryControl->setValue(output.toInt());        
         procRun.close();
