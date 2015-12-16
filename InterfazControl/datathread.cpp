@@ -1,5 +1,6 @@
 #include "datathread.h"
 
+
 extern QString createPath(QString path);
 
 DataThread::DataThread(QProgressBar *bc)
@@ -31,12 +32,12 @@ void DataThread::update(){
         procRun.waitForFinished();
         QString output(procRun.readAllStandardOutput());
 
-        if(!output.compare("100 "))
-            output=output.mid(0,output.size()-1);
+        if(output.compare("100\n"))
+            output=output.mid(0,output.size()-3);
         else
-         output=output.mid(0,output.size()-3);
+         output=output.mid(0,output.size()-1);
 
-        qDebug()<<"ControlBattery Level: "+output;
+        //qDebug()<<"ControlBattery Level: "+output;
 
         batteryControl->setValue(output.toInt());        
         procRun.close();
