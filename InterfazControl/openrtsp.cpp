@@ -20,7 +20,6 @@ void openRTSP::saveVideo(){
        qDebug() << run;
 #endif
        procSave.start(run);
-       emit isRecording(true);
 
    }
    else{
@@ -37,7 +36,7 @@ void openRTSP::saveVideo(){
        kill.waitForFinished();
        kill.kill();
 
-       emit isRecording(false);
+
    }
  }
 

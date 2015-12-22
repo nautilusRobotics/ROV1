@@ -2,7 +2,7 @@
 
 extern QString createPath(QString path);
 
-myItem::myItem(QWidget *parent, QString name) :
+myItem::myItem(QWidget *parent, QString name, bool isConnected) :
     QWidget(parent)
 {
     layout=new QGridLayout();
@@ -26,6 +26,7 @@ myItem::myItem(QWidget *parent, QString name) :
     btnContinue->setIconSize(QSize(25,25));
     btnContinue->setFocusPolicy(Qt::NoFocus);
     btnContinue->setStyleSheet(LW_STYLE);
+    btnContinue->setEnabled(isConnected);
 
     btnDelete=new QPushButton("Delete");
     btnDelete->setIcon(QIcon( createPath("icons/xboxB.png")));

@@ -10,13 +10,14 @@
 
 #define CLOSE_ROBOT    "clse"  //kill the robot and server process
 #define POWEROFF_ROBOT "pwof"  //Turn off the robot
-#define FORWARD_ROBOT "goro"  //Move robot straight
-#define BACK_ROBOT     "back"  //Move robot back
-#define UP_ROBOT       "upro"  //Move robot up
-#define DOWN_ROBOT     "dwnr"  //Move robot down
+#define STOP_ROBOT     "stop"  //Stop the robot wait for reStart
+#define CHECK_ROBOT    "Gcrb"  // Check if the robot is online
+#define GO_ROBOT       "goro"  //Move robot fordward-backwards
+#define UPDOWN_ROBOT   "upro"  //Move robot up-down
 #define RIGHT_ROBOT    "rgro"  //Move robot right
 #define LEFT_ROBOT     "lfro"  //Move robot left
-#define GET_DEPTH      "gdpt"  //Request the depth value of the robot
+#define GET_DEPTH      "Gdpt"  //Request the depth value of the robot
+#define GET_BATTERY    "Gbtt"   //Request the battery Status of the robot
 #define PAN_CAMARA     "pncm"  //PAN CAMERA
 #define TILT_CAMARA    "ticm"  //TILT CAMERA
 #define CENTER_CAMARA  "ctcm"  //TILT CAMERA
@@ -24,6 +25,8 @@
 #define TOGGLE_LIGHT   "tglh"  //Toggle Robot lights
 #define OFF_LIGHT      "tglh2000"  //OFF Robot lights
 #define ON_LIGHT       "tglh1000"  //ON Robot lights
+#define REQUEST_KEY    "G"  //ON Robot lights
+
 
 
 #define TILT_UP        "ticmA"

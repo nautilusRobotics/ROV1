@@ -42,5 +42,11 @@
         <file>dotGray.png</file>
         <file>dotGreen.png</file>
         <file>explorerDefault2.png</file>
+        <file>gamepadError.png</file>
+        <file>repairMessage.png</file>
+        <file>backspace.png</file>
+        <file>eraser.png</file>
+        <file>backspaceBlack.png</file>
+        <file>eraserBlack.png</file>
     </qresource>
 </RCC>

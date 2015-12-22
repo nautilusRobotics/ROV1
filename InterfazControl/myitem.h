@@ -14,7 +14,7 @@ class myItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit myItem(QWidget *parent = 0, QString name="");
+    explicit myItem(QWidget *parent = 0, QString name="", bool isConnected=false);
 
 
 public:    

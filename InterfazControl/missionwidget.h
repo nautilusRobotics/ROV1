@@ -15,6 +15,8 @@
 #include <QMessageBox>
 #include <QStyle>
 #include <QSettings>
+#include <QScreen>
+#include <QDesktopWidget>
 #include "qgamecontroller.h"
 #include "joystickwidget.h"
 #include "qgamecontroller.h"
@@ -22,6 +24,8 @@
 #include "ui_Intro.h"
 #include "com.h"
 #include "datathread.h"
+#include "sendaction.h"
+
 
 
 
@@ -49,17 +53,17 @@ signals:
 public slots:
     void updatePlayerStatus(bool isConnected);
     void updateControlStatus(bool isConnected);    
-    void updateRobotDepth(double value);
-    void updateRecording(bool isRecording);   
+    void updateRobotDepth(double value);     
     void handleButtonHome();    
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
+    void searchCamera(void);
 
 
 private:
     JoystickWidget *joystick;
     QProgressBar *batteryROV,*batteryControl;
-    QLabel *statusJoystick,*robotDepth,*statusRecording,*missionNameLabel;
+    QLabel *statusJoystick,*robotDepth,*statusRecording,*missionNameLabel, *lblError;
     QString missionName;
     openRTSP *rtsp;    
     QString m_sSettingsFile;         
@@ -68,21 +72,18 @@ private:
     QLabel *lblLightsOn, *lblLightsOff;
     QProgressBar *batteryROVPB, *batteryControlPB;
     QSlider  *panCamera, *tiltCamera;
-    QGroupBox *statusErrorBox;
+    QGroupBox *statusErrorBox, *statusVideoOff;
     Ui::NautilusCommander *ui;
     QMPwidget *mplayer;
     DataThread *dataThread;
+    SendAction *sendAction;
     int numPic,numVideos;
-    bool islightsOn;
-    int righLeft, upDown;
-    void loadSettings();
-    void saveSettings();
-    void takeScreenshot(void);
+    bool islightsOn, isRecording, isCameraOnline;
+    int righLeft, upDown;    
+    void loadSettings(void);
+    void saveSettings(void);
+    void takeScreenshot(void);    
     QString mapSpeed(int value);
-    QString sendComando(QString comando);
-
-protected:
-     void closeEvent(QCloseEvent *event);
 
 
 };

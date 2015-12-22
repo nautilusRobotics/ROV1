@@ -232,14 +232,11 @@ public:
         myargs += "-idle";
         myargs += "-noquiet";
         myargs += "-identify";
-        myargs += "-nomouseinput";
-        /*myargs += "-nokeepaspect";
-        myargs += "-monitorpixelaspect";
-        myargs += "1";
-        myargs += "-vo";
-        myargs += "gl";*/
+        myargs += "-nomouseinput";       
         myargs += "-geometry";
         myargs += "50%:50%";
+        myargs += "-fps";
+        myargs += "30";
 
 
 
@@ -281,7 +278,7 @@ public:
             myargs += QString("yuv4mpeg:file=%1").arg(m_yuvReader->m_pipe);
 #endif
         }
-        myargs += args;
+        //myargs += args;
 #ifdef QMP_DEBUG_OUTPUT
         qDebug() << myargs;
 #endif

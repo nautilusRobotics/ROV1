@@ -106,6 +106,41 @@ void JoystickWidget::setController(){
    }
 }
 
+bool JoystickWidget::reconnect(){
+
+    QGameController *temp_controller=new QGameController(JS, this);
+    bool resp=true;
+    if(temp_controller->isValid() && gameController==NULL){
+
+     gameController=temp_controller;
+     connect(gameController, SIGNAL(gameControllerAxisEvent(QGameControllerAxisEvent*)), this, SLOT(handleQGameControllerAxisEvent(QGameControllerAxisEvent*)));
+     connect(gameController, SIGNAL(gameControllerButtonEvent(QGameControllerButtonEvent*)), this, SLOT(handleQGameControllerButtonEvent(QGameControllerButtonEvent*)));
+     connect(gameController, SIGNAL(gameControllerDisconnectEvent(QGameControllerDisconnectEvent*)), this, SLOT(handleQGameControllerDisconnectEvent(QGameControllerDisconnectEvent*)));
+
+     QTimer *timer = new QTimer(this);
+     timer->setInterval(15);
+     connect(timer, SIGNAL(timeout()), gameController, SLOT(readGameController()));
+     timer->start();
+
+#ifdef Q_PROCESSOR_ARM
+        QString run=createPath("controlOn.py");
+        QProcess initControl;
+        initControl.start(run);
+        initControl.waitForFinished();
+        initControl.close();
+#endif
+
+    }
+    else
+    {
+        resp=false;
+        delete temp_controller;
+    }
+
+    return resp;
+
+}
+
 bool JoystickWidget::isValidController(){
   if(gameController==NULL)
       return false;

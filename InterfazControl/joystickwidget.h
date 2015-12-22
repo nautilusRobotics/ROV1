@@ -69,6 +69,7 @@ public:
     ~JoystickWidget();
     bool isValidController();
     void init();
+    bool reconnect();
 
 signals:
    void updateStatus(bool isConnected);

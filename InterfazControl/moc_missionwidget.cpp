@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'missionwidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.1.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,15 +12,15 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'missionwidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.1.1. It"
+#error "This file was generated using the moc from 5.2.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MissionWidget_t {
-    QByteArrayData data[18];
-    char stringdata[226];
+    QByteArrayData data[17];
+    char stringdata[211];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,23 +38,21 @@ QT_MOC_LITERAL(5, 57, 11),
 QT_MOC_LITERAL(6, 69, 19),
 QT_MOC_LITERAL(7, 89, 16),
 QT_MOC_LITERAL(8, 106, 5),
-QT_MOC_LITERAL(9, 112, 15),
-QT_MOC_LITERAL(10, 128, 11),
-QT_MOC_LITERAL(11, 140, 16),
-QT_MOC_LITERAL(12, 157, 9),
-QT_MOC_LITERAL(13, 167, 4),
-QT_MOC_LITERAL(14, 172, 11),
-QT_MOC_LITERAL(15, 184, 6),
-QT_MOC_LITERAL(16, 191, 27),
-QT_MOC_LITERAL(17, 219, 5)
+QT_MOC_LITERAL(9, 112, 16),
+QT_MOC_LITERAL(10, 129, 9),
+QT_MOC_LITERAL(11, 139, 4),
+QT_MOC_LITERAL(12, 144, 11),
+QT_MOC_LITERAL(13, 156, 6),
+QT_MOC_LITERAL(14, 163, 27),
+QT_MOC_LITERAL(15, 191, 5),
+QT_MOC_LITERAL(16, 197, 12)
     },
     "MissionWidget\0returnToHome\0\0saveVideo\0"
     "updatePlayerStatus\0isConnected\0"
     "updateControlStatus\0updateRobotDepth\0"
-    "value\0updateRecording\0isRecording\0"
-    "handleButtonHome\0axisEvent\0axis\0"
+    "value\0handleButtonHome\0axisEvent\0axis\0"
     "buttonEvent\0button\0QGameControllerButtonEvent*\0"
-    "event\0"
+    "event\0searchCamera\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -72,17 +70,17 @@ static const uint qt_meta_data_MissionWidget[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x05,
-       3,    0,   60,    2, 0x05,
+       1,    0,   59,    2, 0x06,
+       3,    0,   60,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
        4,    1,   61,    2, 0x0a,
        6,    1,   64,    2, 0x0a,
        7,    1,   67,    2, 0x0a,
-       9,    1,   70,    2, 0x0a,
-      11,    0,   73,    2, 0x0a,
-      12,    2,   74,    2, 0x0a,
-      14,    2,   79,    2, 0x0a,
+       9,    0,   70,    2, 0x0a,
+      10,    2,   71,    2, 0x0a,
+      12,    2,   76,    2, 0x0a,
+      16,    0,   81,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void,
@@ -92,10 +90,10 @@ static const uint qt_meta_data_MissionWidget[] = {
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Double,    8,
-    QMetaType::Void, QMetaType::Bool,   10,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString, QMetaType::Int,   13,    8,
-    QMetaType::Void, QMetaType::QString, 0x80000000 | 16,   15,   17,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int,   11,    8,
+    QMetaType::Void, QMetaType::QString, 0x80000000 | 14,   13,   15,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -110,10 +108,10 @@ void MissionWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 2: _t->updatePlayerStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 3: _t->updateControlStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 4: _t->updateRobotDepth((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 5: _t->updateRecording((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: _t->handleButtonHome(); break;
-        case 7: _t->axisEvent((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 8: _t->buttonEvent((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 5: _t->handleButtonHome(); break;
+        case 6: _t->axisEvent((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 7: _t->buttonEvent((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 8: _t->searchCamera(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

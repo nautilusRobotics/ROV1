@@ -8,6 +8,9 @@
 #include <QDebug>
 #include <QObject>
 
+#include "com.h"
+#include "sendaction.h"
+
 #define QSTYLE_PROGRESS_BATT_CONTROL "QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); } QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}"
 
 class DataThread : public QThread
@@ -15,13 +18,15 @@ class DataThread : public QThread
      Q_OBJECT
 
 public:
-    DataThread(QProgressBar *bc);
+    DataThread(QProgressBar *bc, QProgressBar *br);
 
 private:
     QTimer *timer;
-    QProgressBar *batteryControl;
+    QProgressBar *batteryControl, *batteryRobot;
     QProcess procRun;
-    int valueTest;
+    int valueTest;    
+    SendAction *sendAction;
+    QString sendComando(QString comando);
 
 public slots:
     void update();

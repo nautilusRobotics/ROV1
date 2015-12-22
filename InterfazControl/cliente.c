@@ -48,8 +48,7 @@ null-terminated and includes the newline character if it was read in the
 first (n - 1) bytes. The function return value is the number of bytes
 placed in buffer (which includes the newline character if encountered,
 but excludes the terminating null byte). */
-ssize_t readLine(int fd, void *buffer, size_t n){
-	printf("into readLine\n");
+ssize_t readLine(int fd, void *buffer, size_t n){	
 
 	ssize_t numRead; /* # of bytes fetched by last read() */
 	size_t totRead; /* Total bytes read so far */
@@ -57,14 +56,15 @@ ssize_t readLine(int fd, void *buffer, size_t n){
 	char ch;
 	if (n <= 0 || buffer == NULL) {
 		errno = EINVAL;
+		 printf(" EINVAL\n");
 		return -1;
 	}
 	buf = buffer; /* No pointer arithmetic on "void *" */
 	totRead = 0;
 	for (;;) {
-
+        
 		numRead = read(fd, &ch, 1);
-
+        
 
 		if (numRead == -1) {
 
@@ -92,63 +92,71 @@ ssize_t readLine(int fd, void *buffer, size_t n){
 	*buf = '\0';
 	return totRead;
 }
-int
-main(int argc, char *argv[])
+
+int main(int argc, char *argv[])
 {
+	
+	if (argc < 2 || strcmp(argv[1], "--help") == 0){
+	  printf("%s server-host [sequence-len]\n", argv[0]);
+	  exit(1);
+	}
+		
 	//Descriptores de archivos y valores de retorno
-	char LenStr[INT_LEN]; /* Length of requested sequence */
-	char *reqLenStr; /* Requested length of sequence */
-	int cfd;
-	struct addrinfo hints;
-	struct addrinfo *result, *rp;
-	if (argc < 2 || strcmp(argv[1], "--help") == 0)
-		printf("%s server-host [sequence-len]\n", argv[0]);
-	/* Call getaddrinfo() to obtain a list of addresses that
-we can try connecting to */
-	memset(&hints, 0, sizeof(struct addrinfo));
-	hints.ai_canonname = NULL;
-	hints.ai_addr = NULL;
-	hints.ai_next = NULL;
-	hints.ai_family = AF_UNSPEC; /* Allows IPv4 or IPv6 */
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_NUMERICSERV;
-	if (getaddrinfo(argv[1], PORT_NUM, &hints, &result) != 0)
-		printf("getaddrinfo");
-	/* Walk through returned list until we find an address structure
-that can be used to successfully connect a socket */
-	for (rp = result; rp != NULL; rp = rp->ai_next) {
-		cfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-		if (cfd == -1)
-			continue; /* On error, try next address */
-		if (connect(cfd, rp->ai_addr, rp->ai_addrlen) != -1)
-			break; /* Success */
-		/* Connect failed: close this socket and try next address */
-		close(cfd);
+   char server_resp[INT_LEN]; /* Length of requested sequence */
+   char *command; /* Requested length of sequence */
+
+   int sockfd, portno, n;
+   struct sockaddr_in serv_addr;
+   struct hostent *server;
+   
+   char buffer[256];
+   	
+   portno = atoi(PORT_NUM);
+   
+   /* Create a socket point */
+   sockfd = socket(AF_INET, SOCK_STREAM, 0);   
+   if (sockfd < 0) {
+      printf("ERROR_socket\n");
+      exit(EXIT_FAILURE);	
+   }
+	
+   server = gethostbyname(argv[1]);   
+   if (server == NULL) {
+      printf("ERROR_host\n");
+      exit(EXIT_FAILURE);
+   }
+   
+   bzero((char *) &serv_addr, sizeof(serv_addr));
+   serv_addr.sin_family = AF_INET;
+   bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+   serv_addr.sin_port = htons(portno);
+   
+   /* Now connect to the server */
+   if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+      printf("ERROR_connecting\n");
+      exit(EXIT_FAILURE);
+   }
+
+   command = argv[2]; //See com.h-> defines with commands
+    		
+    if (write(sockfd, command, strlen(command)) == -1){
+		printf("ERROR_writting\n");   
+		exit(EXIT_FAILURE);	
+    } 	
+		
+	if(strspn(command, REQUEST_KEY)==1){		
+	    shutdown(sockfd,SHUT_WR);          // Half-Close Socket			
+		if(readLine(sockfd, server_resp, INT_LEN)<=0) //Read Robot Resp
+		   printf("ERROR_readLine\n");
+		else
+		  printf("%s\n",server_resp);          //PrintIt       
 	}
-	if (rp == NULL)
-		printf("Could not connect socket to any address");
-	freeaddrinfo(result);
-	/* Send requested sequence length, with terminating newline */
-
-
-	reqLenStr = argv[2]; //See com.h-> defines with commands
-
-	if (write(cfd, reqLenStr, strlen(reqLenStr)) == -1)
-		printf("Partial/failed write (reqLenStr)");
-
-
-	//Read and display sequence number returned by server
-	if(strcmp(reqLenStr,GET_DEPTH)==0){
-		shutdown(cfd,SHUT_WR);          // Half-Close Socket
-		readLine(cfd, LenStr, INT_LEN); //Read Robot Resp
-		printf("%s\n",LenStr);          //PrintIt
-	}
-
 
 	//Cerrar archivo
-	if(close(cfd) == -1){
-		perror("close");
+	if(close(sockfd) == -1){
+		printf("ERROR_closing\n");
 		exit(EXIT_FAILURE);
 	}
+	
 	exit(EXIT_SUCCESS);
 }

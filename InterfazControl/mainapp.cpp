@@ -2,6 +2,7 @@
 #include <QPixmap>
 #include <QBitmap>
 
+
 extern QString createPath(QString path);
 #define DEBUG_INTRO
 
@@ -9,7 +10,6 @@ extern QString createPath(QString path);
 MainApp::MainApp(QWidget *parent) :
     QWidget(parent)
 {
-
     QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
     setWindowTitle("Nautilus Commander");
@@ -50,6 +50,14 @@ void MainApp::initWelcomeScreen(){
     lblShadow=ui.lblShadow;
     lblShadow->setVisible(false);
 
+    lblGamepadError=ui.lblGamepad;
+    lblGamepadError->setVisible(false);
+
+    lblRepairMessage=ui.lblRepair;
+    lblRepairMessage->setVisible(false);
+
+
+
     /********************************  Joystick *****************************************************/
     joystick=new JoystickWidget();
     connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
@@ -57,42 +65,45 @@ void MainApp::initWelcomeScreen(){
     connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
     joystick->init();
     /***********************************************************************************************/
+
     missionsPath=createPath("Missions");
     if(!QDir(missionsPath).exists()){
         QDir().mkdir(missionsPath);
     }
 
-    focused=0;
-    keysList=new QStringList();
-    keyBoardLayout=this->generateKeyboard();
-    isKeyboard=false;
-    isOpen=false;
-    isOpenProjectMenu=false;
+    focused=0;        
     openProjectRow=0;
 
+    secretKey=0;
+    secretKeyList=new QStringList();
+    secretKeyList->append(button_Y); secretKeyList->append(button_X);secretKeyList->append(button_B); secretKeyList->append(button_LB); secretKeyList->append(button_RB); secretKeyList->append(button_RB);  secretKeyList->append(button_LB);  secretKeyList->append(button_B);  secretKeyList->append(button_B);  secretKeyList->append(button_B);
 
+    keyBoardBox=ui.keyboardGroup;
+    keyBoardBox->setVisible(false);
+
+
+    keyboardMatrix[0][0]=ui.keyQ; keyboardMatrix[0][1]=ui.keyW;  keyboardMatrix[0][2]=ui.keyE; keyboardMatrix[0][3]=ui.keyR; keyboardMatrix[0][4]=ui.keyT; keyboardMatrix[0][5]=ui.keyY; keyboardMatrix[0][6]=ui.keyU; keyboardMatrix[0][7]=ui.keyI; keyboardMatrix[0][8]=ui.keyO; keyboardMatrix[0][9]=ui.keyP;
+    keyboardMatrix[1][0]=ui.keyA; keyboardMatrix[1][1]=ui.keyS;  keyboardMatrix[1][2]=ui.keyD; keyboardMatrix[1][3]=ui.keyF; keyboardMatrix[1][4]=ui.keyG; keyboardMatrix[1][5]=ui.keyH; keyboardMatrix[1][6]=ui.keyJ; keyboardMatrix[1][7]=ui.keyK; keyboardMatrix[1][8]=ui.keyL; keyboardMatrix[1][9]=ui.keyL;
+    keyboardMatrix[2][0]=ui.keyErase; keyboardMatrix[2][1]=ui.keyZ;  keyboardMatrix[2][2]=ui.keyX; keyboardMatrix[2][3]=ui.keyC; keyboardMatrix[2][4]=ui.keyV; keyboardMatrix[2][5]=ui.keyB; keyboardMatrix[2][6]=ui.keyN; keyboardMatrix[2][7]=ui.keyM; keyboardMatrix[2][8]=ui.keyBackspace; keyboardMatrix[2][9]=ui.keyBackspace;
+    keyboardMatrix[3][0]=ui.keyCancel; keyboardMatrix[3][1]=ui.keyCancel;  keyboardMatrix[3][2]=ui.keySpace; keyboardMatrix[3][3]=ui.keySpace; keyboardMatrix[3][4]=ui.keySpace; keyboardMatrix[3][5]=ui.keySpace; keyboardMatrix[3][6]=ui.keySpace; keyboardMatrix[3][7]=ui.keyEnter; keyboardMatrix[3][8]=ui.keyEnter; keyboardMatrix[3][9]=ui.keyEnter;
+    keyRow=0;
+    keyCol=0;
+    resultKeyBoard=ui.keyboardLine;
+
+
+    sendAction=new SendAction();
 
 }
 
 void MainApp::handleNewBtn(QString missionName){
 
-    if(missionName.compare("")){
-        QRegExp rx ("[^a-zA-Z0-9]");
-        QString fixedName =missionName.replace(rx,"");
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
 
-        if(fixedName.compare("")){
-            disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
-            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
-            runMission(fixedName);
-        }
-        else
-            showToast("Invalid mission name",1000);
-
-    }
+    if(missionName.compare(""))
+        runMission(missionName);
     else
         showToast("Invalid mission name",1000);
-
-
 }
 
 void MainApp::showMessage(QString message, bool okCancelbtns){
@@ -111,29 +122,36 @@ void MainApp::showMessage(QString message, bool okCancelbtns){
 
 
     if(okCancelbtns){
-
         QLabel *tempLbl=new QLabel(QString("<img src=\"%1\">").arg(createPath("icons/btnFoot.svg")));
         layout->addWidget(tempLbl,layout->rowCount(), 0, 1, layout->columnCount());
-
-        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
-        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
-
-        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
     }
     toast->show();
     //toast->exec();
 }
-void MainApp::showToast(QString message, int time){
-    QTimer::singleShot(time,Qt::PreciseTimer ,this, SLOT(closeMessage()));
-    showMessage(message,false);
+
+void MainApp::showToast(QString message, int time){    
+    QTimer::singleShot(time,Qt::PreciseTimer ,this, SLOT(preCloseMessage()));
+    showMessage(message,false);        
 }
 
-void MainApp::closeMessage(){
+void MainApp::preCloseMessage(){
+    closeMessage(true);
+}
+
+void MainApp::closeMessage(bool reconectMenu){
     qDebug()<<"closeMessage";
     lblShadow->setVisible(false);
     toast->close();
-}
 
+    if(reconectMenu){
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+    }
+    else{
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+    }
+}
 
 void MainApp::createProjectList(){
 
@@ -142,6 +160,9 @@ void MainApp::createProjectList(){
     projectList->clear();
     projectListBools->clear();
     int idx=0;
+
+    bool isConnected=checkRobot();
+
     while (it.hasNext()) {
         QFileInfo Info(it.next());
         QString missionName = QString(Info.fileName());
@@ -154,7 +175,7 @@ void MainApp::createProjectList(){
         QListWidgetItem *item = new QListWidgetItem();
         item->setSizeHint(QSize(item->sizeHint().width(), 60));
 
-        myItem *myListItem = new myItem(0,missionName);
+        myItem *myListItem = new myItem(0,missionName,isConnected);
         projectListStrings->append(missionName);
         projectListBools->resize(idx+1);
         projectListBools->setBit(idx,myListItem->isExploreAndExport());
@@ -165,6 +186,7 @@ void MainApp::createProjectList(){
         projectList->setItemWidget(item, myListItem);
     }
 }
+
 void MainApp::runMission(QString missionName){
 
 #ifdef DEBUG_INTRO
@@ -177,6 +199,7 @@ void MainApp::runMission(QString missionName){
    connect(missionWidget,SIGNAL(returnToHome()),this,SLOT(showHome()));
    stackedWidget->setCurrentIndex(1);
 }
+
 void MainApp::exploreMission(QString missionName){
 #ifdef DEBUG_INTRO
       qDebug() <<"explore "+missionName;
@@ -224,21 +247,33 @@ void MainApp::showHome(){
    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
    stackedWidget->setCurrentIndex(0);
 }
+
 void MainApp::handleButtonOff(){
-    QString msg=QString("Are you sure? \n The robot is save? \n the system is going to turning off");
-    QMessageBox::StandardButton reply;
 
-    reply = QMessageBox::warning(this, "Alert", msg, QMessageBox::Ok|QMessageBox::Cancel);
-    if (reply == QMessageBox::Ok)this->close();
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
 
+    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOffMessage(QString,QGameControllerButtonEvent*)));
+    showMessage("Are you sure? \n The robot is save? \n the system is going to turning off",true);
 }
+
 void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event){
    if(button==button_A && !event->pressed()){
        switch(focused){
-          case 0:
+          case 0:{
             qDebug("option Start");
-            lauchKeyBoard();
+            if(checkRobot()){
+              sendAction->sendComando(NULL_CMD);
+              launchKeyBoard();
+            }
+            else{
+              disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+              disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+              showToast("The Robot is not Online",1000);
+            }
+
            break;
+           }
           case 1:
                qDebug("option Open");               
                disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
@@ -251,16 +286,29 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
                lblTitle->setText("Open Previous Mission");
                openMissionBox->setVisible(true);
             break;
+
           case 2:
             qDebug("option Off");
-            this->close();
+            handleButtonOff();
             break;
+
           case maxOptions:
            qDebug("option Help");
            break;
        }
     }
+    else if(!event->pressed()){
+      secretKey=(button==secretKeyList->at(secretKey))?secretKey+1:0;
+
+#ifdef DEBUG_INTRO
+      qDebug()<<QString("Secret Key %1").arg(secretKey);
+#endif
+
+      if(secretKey==secretKeyList->length())
+          this->close();
+    }
 }
+
 void MainApp::joystickAxisEventMenu(QString axis, int value){
         if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
           this->focusNextChild();        
@@ -273,6 +321,7 @@ void MainApp::joystickAxisEventMenu(QString axis, int value){
            focused=(focused<0)?maxOptions:focused;
         }    
 }
+
 void MainApp::joystickAxisEventOpen(QString axis, int value){
 
     if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000)
@@ -282,6 +331,7 @@ void MainApp::joystickAxisEventOpen(QString axis, int value){
 
     projectList->setCurrentRow(openProjectRow);
 }
+
 void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
     if(button==button_A && !event->pressed()){
         int item= projectList->currentRow();
@@ -295,12 +345,22 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
     else if(button==button_X && !event->pressed()){
         int item= projectList->currentRow();
 
-        if(projectListBools->at(item))
+        if(projectListBools->at(item)){
+            disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
             exploreMission(projectListStrings->at(item));
+            lblTitle->setText("Welcome to Nautilus Commander");
+            openMissionBox->setVisible(false);
+        }
     }
     else if(button==button_B && !event->pressed()){
         int item= projectList->currentRow();
         QString msg=QString("Are you sure you want to delete the Mission: \"%1\"\n You can't undo this action").arg(projectListStrings->at(item));
+
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
+
         showMessage(msg,true);
     }
     else if(button==button_Y && !event->pressed()){
@@ -320,244 +380,70 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
 }
 
 void MainApp::updateControlStatus(bool isConnected){
+    if(!isConnected){
+        lblShadow->setVisible(true);
+        lblGamepadError->setVisible(true);
+        qDebug()<<"Trying to reconnect";
+        QTimer::singleShot(2000,Qt::PreciseTimer ,this, SLOT(reconnectJoystick()));
+    }
 
 }
+
+void MainApp::reconnectJoystick(){
+    int maxTries=5;
+    bool succes=false;
+    for(int i=0;i<maxTries;i++){
+     if(joystick->reconnect()){
+         succes=true;
+         break;
+     }
+    }
+
+    lblGamepadError->setVisible(false);
+
+    if(succes)
+        lblShadow->setVisible(false);
+    else{
+        qDebug()<<"CONTROLLER NOT FOUND";
+        lblRepairMessage->setVisible(true);
+        QTimer::singleShot(5000,Qt::PreciseTimer ,this, SLOT(controlCrash()));
+    }
+}
+
+void MainApp::controlCrash(){
+      //QCoreApplication::exit();
+      this->close();
+}
+
 void MainApp::handleCloseKeyboardEvent(bool cancelled,QString result){
-    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),keyboard,SLOT(handleJoystickAxisEvent(QString,int)));
-    disconnect(joystick,SIGNAL(joystickButtonEvent(QString ,QGameControllerButtonEvent*)),keyboard,SLOT(handleJoystickButtonEvent(QString ,QGameControllerButtonEvent*)));
+    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventKeyBoard(QString,int)));
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString ,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventKeyBoard(QString,QGameControllerButtonEvent*)));
     connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+
+    keyBoardBox->setVisible(false);
+    lblShadow->setVisible(false);
+    setNormalkey();
 
     if(!cancelled)
       handleNewBtn(result);
 }
-void MainApp::lauchKeyBoard(){
-    keyboard = new widgetKeyBoard(true);
-    keyboard->setZoomFacility(false);
-    keyboard->enableSwitchingEcho(false); // enable possibility to change echo through keyboard
-    keyboard->initLayout(keysList,keyBoardLayout,resultTextBox);
-    keyboard->show(NULL);
-    keyboard->move(this->x()+200, this->y()/2 + this->keyboard->height()+200); // to move keyboard
 
-    connect(keyboard,SIGNAL(closeKeyboardEvent(bool,QString)),this,SLOT(handleCloseKeyboardEvent(bool,QString)));
+void MainApp::launchKeyBoard(){
+
+    keyBoardBox->setVisible(true);
+    lblShadow->setVisible(true);
+    keyRow=0; keyCol=0;
+    keyboardMatrix[keyRow][keyCol]->setStyleSheet(QKEY_SELECT_STYLE);
+    resultKeyBoard->setText("");
 
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
-    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),keyboard,SLOT(handleJoystickAxisEvent(QString,int)));
-    connect(joystick,SIGNAL(joystickButtonEvent(QString ,QGameControllerButtonEvent*)),keyboard,SLOT(handleJoystickButtonEvent(QString ,QGameControllerButtonEvent*)));
-}
 
-QVBoxLayout * MainApp::generateKeyboard(void){
-    QPushButton 	*tmp = NULL;
-    QVBoxLayout     *tmpVLayout = new QVBoxLayout;
-    QHBoxLayout     *tmpLayout = new QHBoxLayout;
-    QString         tmpStyle = QString::null;
-
-
-
-    tmpLayout->addWidget(createNewKey(""));
-    for (short i = 49; i <= 57; i++) {
-        tmpLayout->addWidget(createNewKey(QChar(i)));
-    }
-    tmpLayout->addWidget(createNewKey(tr("0")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-
-    tmpStyle = QString(KEY_BACKSPACE_EMBEDDED);
-
-
-
-    tmp = createNewKey(tmpStyle);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmpLayout->addWidget(tmp);
-    tmpStyle = QString(KEY_CANC);
-
-
-     tmpStyle = tmpStyle.toLower();
-
-    tmp = createNewKey(tmpStyle);
-    tmp->setMaximumWidth(tmp->maximumWidth());
-    tmp->setMinimumWidth(tmp->minimumWidth());
-    tmpLayout->addWidget(tmp);
-
-    tmpVLayout->insertLayout(0, tmpLayout);
-    //
-    // Stampa linea della "Q":
-    tmpLayout = new QHBoxLayout;
-    QVBoxLayout *layoutReturn = new QVBoxLayout;
-    tmp = createNewKey(KEY_TAB);
-    tmp->setMaximumWidth(tmp->maximumWidth() *1.5);
-    tmp->setMinimumWidth(tmp->minimumWidth() *1.5);
-    tmpLayout->addWidget(tmp);
-    tmpLayout->addWidget(createNewKey(tr("Q")));
-    tmpLayout->addWidget(createNewKey(tr("W")));
-    tmpLayout->addWidget(createNewKey(tr("E")));
-    tmpLayout->addWidget(createNewKey(tr("R")));
-    tmpLayout->addWidget(createNewKey(tr("T")));
-    tmpLayout->addWidget(createNewKey(tr("Y")));
-    tmpLayout->addWidget(createNewKey(tr("U")));
-    tmpLayout->addWidget(createNewKey(tr("I")));
-    tmpLayout->addWidget(createNewKey(tr("O")));
-    tmpLayout->addWidget(createNewKey(tr("P")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-
-    layoutReturn->insertLayout(0, tmpLayout, 1); // inserisce la riga della "Q"
-    //
-    // Stampa linea della "A":
-    tmpLayout = new QHBoxLayout;
-    tmp = createNewKey(KEY_CAPS);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2 + 5);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2 + 5);
-
-     tmpStyle = QString(EMBEDDED_KEYBOARD);
-
-    tmp->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON) + tmpStyle); // segnalato come attivo
-    tmpLayout->addWidget(tmp);
-    tmpLayout->addWidget(createNewKey(tr("A")));
-    tmpLayout->addWidget(createNewKey(tr("S")));
-    tmpLayout->addWidget(createNewKey(tr("D")));
-    tmpLayout->addWidget(createNewKey(tr("F")));
-    tmpLayout->addWidget(createNewKey(tr("G")));
-    tmpLayout->addWidget(createNewKey(tr("H")));
-    tmpLayout->addWidget(createNewKey(tr("J")));
-    tmpLayout->addWidget(createNewKey(tr("K")));
-    tmpLayout->addWidget(createNewKey(tr("L")));
-    tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("").toUtf8())));
-    tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("").toUtf8())));
-    tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("").toUtf8())));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->insertStretch(-1, 1);
-
-    layoutReturn->insertLayout(1, tmpLayout, 1); // inserisce la riga della "A"
-    //
-    // inserisce il vertical layout all'interno di un horizontal:
-    tmpLayout = new QHBoxLayout;
-    tmpLayout->insertLayout(0, layoutReturn, 1);
-    //
-    // inserisce anche il tasto invio:
-    tmp = createNewKey(KEY_RETURN);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmp->setMinimumHeight(tmp->minimumHeight() * 2);
-    tmp->setMaximumHeight(tmp->maximumHeight() * 2);
-    tmpLayout->addWidget(tmp);
-    //
-    // inserisce l'horizontal all'interno del layout verticale principale:
-    tmpVLayout->insertLayout(1, tmpLayout);
-    //
-    // Stampa linea della "Z":
-    tmpLayout = new QHBoxLayout;
-    tmp = createNewKey(KEY_CUT_LEFT);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmpLayout->addWidget(tmp);
-    tmpLayout->addWidget(createNewKey(tr("_")));
-    tmpLayout->addWidget(createNewKey(tr("Z")));
-    tmpLayout->addWidget(createNewKey(tr("X")));
-    tmpLayout->addWidget(createNewKey(tr("C")));
-    tmpLayout->addWidget(createNewKey(tr("V")));
-    tmpLayout->addWidget(createNewKey(tr("B")));
-    tmpLayout->addWidget(createNewKey(tr("N")));
-    tmpLayout->addWidget(createNewKey(tr("M")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmpLayout->addWidget(createNewKey(tr("")));
-    tmp = createNewKey(KEY_CLEAR_ALL);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 3 + 5);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 3 + 5);
-    tmpLayout->addWidget(tmp);
-    tmpVLayout->insertLayout(2, tmpLayout);
-    //
-    // Stampa linea dello SPACE:
-    tmpLayout = new QHBoxLayout;
-    tmp = createNewKey(KEY_COPY);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmpLayout->addWidget(tmp);
-    tmp = createNewKey(KEY_ALT);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmpLayout->addWidget(tmp);
-    tmp = createNewKey(KEY_SPACE);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 10);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 10);
-    tmpLayout->addWidget(tmp);
-    // password echo button:
-    tmpStyle = QString(KEY_HIDECHAR_EMBEDDED);
-
-    tmp = createNewKey(tmpStyle);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmpLayout->addWidget(tmp);
-    //
-    tmp = createNewKey(KEY_PASTE);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-    tmpLayout->addWidget(tmp);
-    tmpVLayout->insertLayout(3, tmpLayout);
-
-    tmpLayout = new QHBoxLayout;
-    resultTextBox=new QLineEdit();
-    tmpLayout->addWidget(resultTextBox);
-    tmpVLayout->insertLayout(0, tmpLayout);
-
-    tmpLayout = new QHBoxLayout;
-    tmpLayout->addWidget(new QLabel("Enter the name of the new mission:"));
-    tmpVLayout->insertLayout(0, tmpLayout);
-    //
-    return tmpVLayout;
-
+    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventKeyBoard(QString,QGameControllerButtonEvent*)));
+    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventKeyBoard(QString,int)));
 
 }
-
-QPushButton * MainApp::createNewKey(QString keyValue){
-    QPushButton *tmp = new QPushButton();
-    QString        style = QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON);
-    QSize          imageDim;
-    int            width = 0, height = 0;
-
-
-    imageDim.setWidth(128);
-    imageDim.setHeight(128);
-
-    tmp->setText(keyValue);
-    width = KEY_WIDTH_EMBEDDED;
-    height = KEY_HEIGHT_EMBEDDED;
-    style += QString(EMBEDDED_KEYBOARD);
-    /*if (this->isEmbeddedKeyboard() == true) {
-        width = KEY_WIDTH_EMBEDDED;
-        height = KEY_HEIGHT_EMBEDDED;
-        style += QString(EMBEDDED_KEYBOARD);
-    }
-    else {
-        width = 54;
-        height = 40;
-    }*/
-    tmp->setObjectName(keyValue);
-    tmp->setMinimumSize(width, height);
-    tmp->setMaximumSize(width, height);
-    tmp->setStyleSheet(style);
-    //tmp->setVisible(true);
-
-
-    if(!keyValue.compare("")){
-        tmp->setEnabled(false);
-    }
-    else{
-        tmp->setEnabled(true);
-        keysList->append(tmp->text());
-    }
-
-    return (tmp);
-}
-
-
-
 
 void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEvent* event){
 
@@ -567,18 +453,153 @@ void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEve
 
         deleteMission(projectListStrings->at(item),projectList->currentItem());
         disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
-        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
-        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
-        closeMessage();
+        closeMessage(false);
     }
     else if(button==button_B && !event->pressed()){
         qDebug()<<"BUTTON B message";
-        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));
-        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
-        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
-        closeMessage();
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));        
+        closeMessage(false);
     }
 }
 
+void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButtonEvent* event){
 
+    if(button==button_A && !event->pressed()){        
+    sendAction->sendComando(POWEROFF_ROBOT);
+
+#ifdef Q_PROCESSOR_ARM
+        run="poweroff";
+        powerOff.start(run);
+        powerOff.waitForFinished();
+        powerOff.close();
+#endif
+        this->close();
+        closeMessage(true);
+    }
+    else if(button==button_B && !event->pressed()){
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOffMessage(QString,QGameControllerButtonEvent*)));        
+        closeMessage(true);
+    }
+}
+
+void MainApp::joystickAxisEventKeyBoard(QString axis, int value){
+        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
+            setNormalkey();
+            keyRow=(keyRow+1>3)?3:keyRow+1;
+            setSelectkey();
+        }
+        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){
+            setNormalkey();
+            keyRow=(keyRow-1<0)?0:keyRow-1;
+            setSelectkey();
+        }
+        if((!axis.compare(axis_cross_horizontal) || !axis.compare(axis_left_horizontal) || !axis.compare(axis_right_horizontal)) && value==1000){
+            setNormalkey();
+
+            if(keyRow==3 && (keyCol>=2 && keyCol <=6))
+             keyCol=9;
+            else if(keyRow==3 && keyCol==0)
+              keyCol=2;
+            else
+            keyCol=(keyCol+1>9)?9:keyCol+1;
+
+            setSelectkey();
+        }
+        if((!axis.compare(axis_cross_horizontal) || !axis.compare(axis_left_horizontal) || !axis.compare(axis_right_horizontal)) && value==-1000){
+            setNormalkey();
+
+            if(keyRow==3 && (keyCol>=2 && keyCol <=6))
+             keyCol=0;
+            else if((keyRow==3  || keyRow==2 ) && keyCol==9)
+              keyCol=7;
+            else
+            keyCol=(keyCol-1<0)?0:keyCol-1;
+
+            setSelectkey();
+        }
+}
+
+void MainApp::setNormalkey(){
+    QString style;
+    if( keyRow==2 && keyCol==0 )
+       style=QKEY_NORMAL_ERASE_STYLE;
+    else if( keyRow==2 && (keyCol==8 || keyCol==9))
+       style=QKEY_NORMAL_BACKSPACE_STYLE;
+    else
+       style=QKEY_NORMAL_STYLE;
+
+    keyboardMatrix[keyRow][keyCol]->setStyleSheet(style);
+}
+
+void MainApp::setSelectkey(){
+
+    QString style;
+    if( keyRow==2 && keyCol==0 )
+       style=QKEY_SELECT_ERASE_STYLE;
+    else if( keyRow==2 && (keyCol==8 || keyCol==9))
+       style=QKEY_SELECT_BACKSPACE_STYLE;
+    else
+       style=QKEY_SELECT_STYLE;
+
+    keyboardMatrix[keyRow][keyCol]->setStyleSheet(style);
+}
+
+void MainApp::joystickButtonEventKeyBoard(QString button,QGameControllerButtonEvent* event){
+
+    if(button==button_A && !event->pressed()){
+         QString newKey = keyboardMatrix[keyRow][keyCol]->text();
+         QString tmpReceiptString = resultKeyBoard->text();
+
+         int tmpPos = resultKeyBoard->cursorPosition();
+
+
+        if(!newKey.compare("Cancel")){
+            handleCloseKeyboardEvent(true,resultKeyBoard->text());
+        }
+        else if(!newKey.compare("Enter")){
+            handleCloseKeyboardEvent(false,resultKeyBoard->text());
+        }
+        else if(keyRow==2 && keyCol==0){
+            resultKeyBoard->setText("");
+        }
+        else if(keyRow==2 && (keyCol==8 || keyCol==9)){
+            if (tmpPos-1 >= 0) {
+                     tmpReceiptString = tmpReceiptString.remove(tmpPos-1, 1);
+                     resultKeyBoard->setText(tmpReceiptString);
+                     resultKeyBoard->setCursorPosition(tmpPos-1);
+                     resultKeyBoard->setSelection(tmpPos-2, 1);
+            }
+        }
+        else{
+            newKey=(!newKey.compare("space"))?" ":newKey;
+            if(tmpPos!=0)newKey=newKey.toLower();
+            tmpReceiptString = tmpReceiptString.insert(tmpPos, newKey);
+            resultKeyBoard->setText(tmpReceiptString);
+            resultKeyBoard->setCursorPosition(tmpPos+1);
+            resultKeyBoard->setSelection(tmpPos, 1);
+        }
+    }
+}
+
+bool MainApp::checkRobot(){
+    QString resp=sendAction->sendComando(CHECK_ROBOT);
+
+#ifdef DEBUG_INTRO
+qDebug()<< "New Mission Server "+resp;
+#endif
+
+    if(!resp.compare("okok\n")||!resp.compare("offline")){
+        QProcess procRun;
+        procRun.start("sh checkCam.sh");
+        procRun.waitForFinished( );
+        QString output( procRun.readAllStandardOutput());
+        procRun.close();
+        usleep(5000);
+        return !output.compare("live\n");
+        return true;
+    }
+    else
+        return false;
+
+}
 

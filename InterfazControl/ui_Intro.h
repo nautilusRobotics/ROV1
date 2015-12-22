@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'Intro.ui'
 **
-** Created by: Qt User Interface Compiler version 5.1.1
+** Created by: Qt User Interface Compiler version 5.2.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -17,6 +17,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
@@ -48,6 +49,45 @@ public:
     QListWidget *listWidget;
     QLabel *lblListWidget;
     QLabel *lblShadow;
+    QLabel *lblGamepad;
+    QLabel *lblRepair;
+    QLabel *label_Tips;
+    QLabel *label_tipA;
+    QLabel *label_TipCross;
+    QGroupBox *keyboardGroup;
+    QLineEdit *keyboardLine;
+    QPushButton *keyQ;
+    QPushButton *keyW;
+    QPushButton *keyE;
+    QPushButton *keyR;
+    QPushButton *keyT;
+    QPushButton *keyY;
+    QPushButton *keyU;
+    QPushButton *keyI;
+    QPushButton *keyO;
+    QPushButton *keyP;
+    QPushButton *keyA;
+    QPushButton *keyS;
+    QPushButton *keyD;
+    QPushButton *keyF;
+    QPushButton *keyG;
+    QPushButton *keyH;
+    QPushButton *keyJ;
+    QPushButton *keyK;
+    QPushButton *keyL;
+    QPushButton *keyB;
+    QPushButton *keyZ;
+    QPushButton *keyC;
+    QPushButton *keyX;
+    QPushButton *keyM;
+    QPushButton *keyV;
+    QPushButton *keyN;
+    QPushButton *keySpace;
+    QPushButton *keyBackspace;
+    QPushButton *keyCancel;
+    QPushButton *keyEnter;
+    QPushButton *keyErase;
+    QLabel *label_tipKeyB;
     QWidget *mission_page;
     QMPwidget *mplayerWG;
     QLabel *label_goHome;
@@ -82,7 +122,7 @@ public:
     QLabel *label_Controls_3;
     QLabel *label_2;
     QGroupBox *statusErrorBox;
-    QLabel *label_Controls_5;
+    QLabel *lblError;
     QLabel *label_4;
     QLabel *labelControlBatt_2;
     QLabel *lblMissionName;
@@ -91,10 +131,10 @@ public:
     QLabel *labelControlBatt_4;
     QLabel *labelControlBatt_5;
     QLabel *label_depthIco_2;
-    QGroupBox *statusVideoOn;
+    QGroupBox *statusVideoOff;
     QLabel *label_Controls_6;
     QLabel *label_5;
-    QGroupBox *statusVideoOff;
+    QGroupBox *statusVideoOn;
     QLabel *label_Controls_7;
     QLabel *label_6;
     QLabel *label_leftRL;
@@ -233,6 +273,349 @@ public:
         lblShadow->setObjectName(QStringLiteral("lblShadow"));
         lblShadow->setGeometry(QRect(0, 0, 1920, 1080));
         lblShadow->setStyleSheet(QStringLiteral("background-color: rgba(0, 0, 0, 128);"));
+        lblGamepad = new QLabel(intro_page);
+        lblGamepad->setObjectName(QStringLiteral("lblGamepad"));
+        lblGamepad->setEnabled(true);
+        lblGamepad->setGeometry(QRect(0, 0, 1920, 1080));
+        lblGamepad->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/gamepadError.png);"));
+        lblGamepad->setFrameShape(QFrame::NoFrame);
+        lblRepair = new QLabel(intro_page);
+        lblRepair->setObjectName(QStringLiteral("lblRepair"));
+        lblRepair->setGeometry(QRect(0, 0, 1920, 1080));
+        lblRepair->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/repairMessage.png);"));
+        label_Tips = new QLabel(intro_page);
+        label_Tips->setObjectName(QStringLiteral("label_Tips"));
+        label_Tips->setGeometry(QRect(860, 905, 401, 31));
+        label_Tips->setStyleSheet(QLatin1String("color: rgb(58, 58, 58);\n"
+""));
+        label_tipA = new QLabel(intro_page);
+        label_tipA->setObjectName(QStringLiteral("label_tipA"));
+        label_tipA->setGeometry(QRect(896, 907, 32, 32));
+        label_tipA->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxA32.png);"));
+        label_TipCross = new QLabel(intro_page);
+        label_TipCross->setObjectName(QStringLiteral("label_TipCross"));
+        label_TipCross->setGeometry(QRect(1072, 905, 32, 32));
+        label_TipCross->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxCross32.png);"));
+        keyboardGroup = new QGroupBox(intro_page);
+        keyboardGroup->setObjectName(QStringLiteral("keyboardGroup"));
+        keyboardGroup->setGeometry(QRect(620, 290, 771, 481));
+        keyboardGroup->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(39, 43, 44);"));
+        keyboardLine = new QLineEdit(keyboardGroup);
+        keyboardLine->setObjectName(QStringLiteral("keyboardLine"));
+        keyboardLine->setGeometry(QRect(0, 40, 771, 31));
+        keyboardLine->setCursor(QCursor(Qt::PointingHandCursor));
+        keyboardLine->setFocusPolicy(Qt::NoFocus);
+        keyboardLine->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        keyQ = new QPushButton(keyboardGroup);
+        keyQ->setObjectName(QStringLiteral("keyQ"));
+        keyQ->setGeometry(QRect(30, 90, 60, 83));
+        keyQ->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyW = new QPushButton(keyboardGroup);
+        keyW->setObjectName(QStringLiteral("keyW"));
+        keyW->setGeometry(QRect(100, 90, 60, 83));
+        keyW->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+""));
+        keyE = new QPushButton(keyboardGroup);
+        keyE->setObjectName(QStringLiteral("keyE"));
+        keyE->setGeometry(QRect(170, 90, 60, 83));
+        keyE->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyR = new QPushButton(keyboardGroup);
+        keyR->setObjectName(QStringLiteral("keyR"));
+        keyR->setGeometry(QRect(240, 90, 60, 83));
+        keyR->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyT = new QPushButton(keyboardGroup);
+        keyT->setObjectName(QStringLiteral("keyT"));
+        keyT->setGeometry(QRect(310, 90, 60, 83));
+        keyT->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyY = new QPushButton(keyboardGroup);
+        keyY->setObjectName(QStringLiteral("keyY"));
+        keyY->setGeometry(QRect(380, 90, 60, 83));
+        keyY->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyU = new QPushButton(keyboardGroup);
+        keyU->setObjectName(QStringLiteral("keyU"));
+        keyU->setGeometry(QRect(450, 90, 60, 83));
+        keyU->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyI = new QPushButton(keyboardGroup);
+        keyI->setObjectName(QStringLiteral("keyI"));
+        keyI->setGeometry(QRect(520, 90, 60, 83));
+        keyI->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyO = new QPushButton(keyboardGroup);
+        keyO->setObjectName(QStringLiteral("keyO"));
+        keyO->setGeometry(QRect(590, 90, 60, 83));
+        keyO->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyP = new QPushButton(keyboardGroup);
+        keyP->setObjectName(QStringLiteral("keyP"));
+        keyP->setGeometry(QRect(660, 90, 60, 83));
+        keyP->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyA = new QPushButton(keyboardGroup);
+        keyA->setObjectName(QStringLiteral("keyA"));
+        keyA->setGeometry(QRect(60, 190, 60, 83));
+        keyA->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyS = new QPushButton(keyboardGroup);
+        keyS->setObjectName(QStringLiteral("keyS"));
+        keyS->setGeometry(QRect(130, 190, 60, 83));
+        keyS->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyD = new QPushButton(keyboardGroup);
+        keyD->setObjectName(QStringLiteral("keyD"));
+        keyD->setGeometry(QRect(200, 190, 60, 83));
+        keyD->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyF = new QPushButton(keyboardGroup);
+        keyF->setObjectName(QStringLiteral("keyF"));
+        keyF->setGeometry(QRect(270, 190, 60, 83));
+        keyF->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyG = new QPushButton(keyboardGroup);
+        keyG->setObjectName(QStringLiteral("keyG"));
+        keyG->setGeometry(QRect(340, 190, 60, 83));
+        keyG->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyH = new QPushButton(keyboardGroup);
+        keyH->setObjectName(QStringLiteral("keyH"));
+        keyH->setGeometry(QRect(410, 190, 60, 83));
+        keyH->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyJ = new QPushButton(keyboardGroup);
+        keyJ->setObjectName(QStringLiteral("keyJ"));
+        keyJ->setGeometry(QRect(480, 190, 60, 83));
+        keyJ->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyK = new QPushButton(keyboardGroup);
+        keyK->setObjectName(QStringLiteral("keyK"));
+        keyK->setGeometry(QRect(550, 190, 60, 83));
+        keyK->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyL = new QPushButton(keyboardGroup);
+        keyL->setObjectName(QStringLiteral("keyL"));
+        keyL->setGeometry(QRect(620, 190, 60, 83));
+        keyL->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyB = new QPushButton(keyboardGroup);
+        keyB->setObjectName(QStringLiteral("keyB"));
+        keyB->setGeometry(QRect(410, 290, 60, 83));
+        keyB->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyZ = new QPushButton(keyboardGroup);
+        keyZ->setObjectName(QStringLiteral("keyZ"));
+        keyZ->setGeometry(QRect(130, 290, 60, 83));
+        keyZ->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyC = new QPushButton(keyboardGroup);
+        keyC->setObjectName(QStringLiteral("keyC"));
+        keyC->setGeometry(QRect(270, 290, 60, 83));
+        keyC->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyX = new QPushButton(keyboardGroup);
+        keyX->setObjectName(QStringLiteral("keyX"));
+        keyX->setGeometry(QRect(200, 290, 60, 83));
+        keyX->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyM = new QPushButton(keyboardGroup);
+        keyM->setObjectName(QStringLiteral("keyM"));
+        keyM->setGeometry(QRect(550, 290, 60, 83));
+        keyM->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyV = new QPushButton(keyboardGroup);
+        keyV->setObjectName(QStringLiteral("keyV"));
+        keyV->setGeometry(QRect(340, 290, 60, 83));
+        keyV->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyN = new QPushButton(keyboardGroup);
+        keyN->setObjectName(QStringLiteral("keyN"));
+        keyN->setGeometry(QRect(480, 290, 60, 83));
+        keyN->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keySpace = new QPushButton(keyboardGroup);
+        keySpace->setObjectName(QStringLiteral("keySpace"));
+        keySpace->setGeometry(QRect(200, 380, 351, 83));
+        keySpace->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyBackspace = new QPushButton(keyboardGroup);
+        keyBackspace->setObjectName(QStringLiteral("keyBackspace"));
+        keyBackspace->setGeometry(QRect(633, 290, 81, 83));
+        keyBackspace->setStyleSheet(QLatin1String("background-color: rgb(89, 96, 102);\n"
+"image: url(:/new/prefix1/backspace.png);\n"
+"\n"
+""));
+        keyCancel = new QPushButton(keyboardGroup);
+        keyCancel->setObjectName(QStringLiteral("keyCancel"));
+        keyCancel->setGeometry(QRect(30, 380, 161, 83));
+        keyCancel->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyEnter = new QPushButton(keyboardGroup);
+        keyEnter->setObjectName(QStringLiteral("keyEnter"));
+        keyEnter->setGeometry(QRect(560, 380, 161, 83));
+        keyEnter->setStyleSheet(QLatin1String("border: 20px; border-radius:15px;\n"
+"background-color: rgb(89, 96, 102);\n"
+"font-size: 18pt;\n"
+"font-weight: bold;\n"
+"color: rgb(255, 255, 255);\n"
+"\n"
+""));
+        keyErase = new QPushButton(keyboardGroup);
+        keyErase->setObjectName(QStringLiteral("keyErase"));
+        keyErase->setGeometry(QRect(30, 290, 81, 83));
+        keyErase->setStyleSheet(QLatin1String("background-color: rgb(89, 96, 102);\n"
+"image: url(:/new/prefix1/eraser.png);\n"
+"\n"
+""));
+        label_tipKeyB = new QLabel(keyboardGroup);
+        label_tipKeyB->setObjectName(QStringLiteral("label_tipKeyB"));
+        label_tipKeyB->setGeometry(QRect(30, 10, 361, 16));
+        label_tipKeyB->setStyleSheet(QLatin1String("font-size: 12pt;\n"
+"font-weight: bold;\n"
+"color: rgb(148, 148, 148);"));
         stackedWidget->addWidget(intro_page);
         label_bckgd->raise();
         btnNew->raise();
@@ -246,8 +629,14 @@ public:
         label_title->raise();
         label_need->raise();
         lblHelp->raise();
+        label_Tips->raise();
+        label_tipA->raise();
+        label_TipCross->raise();
         openMissionBox->raise();
         lblShadow->raise();
+        lblGamepad->raise();
+        lblRepair->raise();
+        keyboardGroup->raise();
         mission_page = new QWidget();
         mission_page->setObjectName(QStringLiteral("mission_page"));
         mission_page->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/backVideo.svg);"));
@@ -276,9 +665,9 @@ public:
         progressBattRov = new QProgressBar(mission_page);
         progressBattRov->setObjectName(QStringLiteral("progressBattRov"));
         progressBattRov->setGeometry(QRect(1720, 130, 161, 23));
-        progressBattRov->setStyleSheet(QLatin1String("QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center}\n"
+        progressBattRov->setStyleSheet(QLatin1String("QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); }\n"
 "QProgressBar::chunk {background-color: #37A2E5;width: 20px}"));
-        progressBattRov->setValue(70);
+        progressBattRov->setValue(1);
         label_rovBatt = new QLabel(mission_page);
         label_rovBatt->setObjectName(QStringLiteral("label_rovBatt"));
         label_rovBatt->setGeometry(QRect(1760, 160, 91, 31));
@@ -294,9 +683,9 @@ public:
         progressBattControl = new QProgressBar(mission_page);
         progressBattControl->setObjectName(QStringLiteral("progressBattControl"));
         progressBattControl->setGeometry(QRect(1720, 220, 161, 23));
-        progressBattControl->setStyleSheet(QLatin1String("QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center}\n"
-"QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px}"));
-        progressBattControl->setValue(80);
+        progressBattControl->setStyleSheet(QLatin1String("QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); }\n"
+"QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}"));
+        progressBattControl->setValue(1);
         label_btnA = new QLabel(mission_page);
         label_btnA->setObjectName(QStringLiteral("label_btnA"));
         label_btnA->setGeometry(QRect(25, 190, 32, 32));
@@ -442,10 +831,10 @@ public:
 "background-color: rgb(244, 244, 244);\n"
 "color: rgb(153, 153, 153);\n"
 "font: bold 11pt;"));
-        label_Controls_5 = new QLabel(statusErrorBox);
-        label_Controls_5->setObjectName(QStringLiteral("label_Controls_5"));
-        label_Controls_5->setGeometry(QRect(60, 40, 151, 16));
-        label_Controls_5->setStyleSheet(QLatin1String("\n"
+        lblError = new QLabel(statusErrorBox);
+        lblError->setObjectName(QStringLiteral("lblError"));
+        lblError->setGeometry(QRect(50, 30, 181, 31));
+        lblError->setStyleSheet(QLatin1String("\n"
 "color: rgb(163, 175, 179);\n"
 "font: bold 11pt;"));
         label_4 = new QLabel(statusErrorBox);
@@ -493,24 +882,6 @@ public:
         label_depthIco_2->setGeometry(QRect(1830, 440, 32, 32));
         label_depthIco_2->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/temp.png);"));
         label_depthIco_2->setFrameShape(QFrame::NoFrame);
-        statusVideoOn = new QGroupBox(mission_page);
-        statusVideoOn->setObjectName(QStringLiteral("statusVideoOn"));
-        statusVideoOn->setGeometry(QRect(1680, 920, 240, 80));
-        statusVideoOn->setStyleSheet(QLatin1String("background-image: url(null);\n"
-"background-color: rgb(244, 244, 244);\n"
-"color: rgb(153, 153, 153);\n"
-"font: bold 11pt;"));
-        label_Controls_6 = new QLabel(statusVideoOn);
-        label_Controls_6->setObjectName(QStringLiteral("label_Controls_6"));
-        label_Controls_6->setGeometry(QRect(60, 40, 151, 16));
-        label_Controls_6->setStyleSheet(QLatin1String("background-image: url(null);\n"
-"color: rgb(163, 175, 179);\n"
-"font: bold 11pt;"));
-        label_5 = new QLabel(statusVideoOn);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(10, 30, 32, 32));
-        label_5->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/recordOff.png);"));
-        label_5->setFrameShadow(QFrame::Plain);
         statusVideoOff = new QGroupBox(mission_page);
         statusVideoOff->setObjectName(QStringLiteral("statusVideoOff"));
         statusVideoOff->setGeometry(QRect(1680, 920, 240, 80));
@@ -518,13 +889,31 @@ public:
 "background-color: rgb(244, 244, 244);\n"
 "color: rgb(153, 153, 153);\n"
 "font: bold 11pt;"));
-        label_Controls_7 = new QLabel(statusVideoOff);
+        label_Controls_6 = new QLabel(statusVideoOff);
+        label_Controls_6->setObjectName(QStringLiteral("label_Controls_6"));
+        label_Controls_6->setGeometry(QRect(60, 40, 151, 16));
+        label_Controls_6->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(163, 175, 179);\n"
+"font: bold 11pt;"));
+        label_5 = new QLabel(statusVideoOff);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(10, 30, 32, 32));
+        label_5->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/recordOff.png);"));
+        label_5->setFrameShadow(QFrame::Plain);
+        statusVideoOn = new QGroupBox(mission_page);
+        statusVideoOn->setObjectName(QStringLiteral("statusVideoOn"));
+        statusVideoOn->setGeometry(QRect(1680, 920, 240, 80));
+        statusVideoOn->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"background-color: rgb(244, 244, 244);\n"
+"color: rgb(153, 153, 153);\n"
+"font: bold 11pt;"));
+        label_Controls_7 = new QLabel(statusVideoOn);
         label_Controls_7->setObjectName(QStringLiteral("label_Controls_7"));
         label_Controls_7->setGeometry(QRect(60, 40, 151, 16));
         label_Controls_7->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(163, 175, 179);\n"
 "font: bold 11pt;"));
-        label_6 = new QLabel(statusVideoOff);
+        label_6 = new QLabel(statusVideoOn);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(10, 30, 32, 32));
         label_6->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/recordOn.png);"));
@@ -697,8 +1086,8 @@ public:
         labelControlBatt_4->raise();
         labelControlBatt_5->raise();
         label_depthIco_2->raise();
-        statusVideoOff->raise();
         statusVideoOn->raise();
+        statusVideoOff->raise();
         label_leftRL->raise();
         label_AleftUD_3->raise();
         label_3->raise();
@@ -845,6 +1234,45 @@ public:
         openMissionBox->setTitle(QString());
         lblListWidget->setText(QString());
         lblShadow->setText(QString());
+        lblGamepad->setText(QString());
+        lblRepair->setText(QString());
+        label_Tips->setText(QApplication::translate("NautilusCommander", "Press           to Accept              Use           to Select", 0));
+        label_tipA->setText(QString());
+        label_TipCross->setText(QString());
+        keyboardGroup->setTitle(QString());
+        keyboardLine->setInputMask(QString());
+        keyQ->setText(QApplication::translate("NautilusCommander", "Q", 0));
+        keyW->setText(QApplication::translate("NautilusCommander", "W", 0));
+        keyE->setText(QApplication::translate("NautilusCommander", "E", 0));
+        keyR->setText(QApplication::translate("NautilusCommander", "R", 0));
+        keyT->setText(QApplication::translate("NautilusCommander", "T", 0));
+        keyY->setText(QApplication::translate("NautilusCommander", "Y", 0));
+        keyU->setText(QApplication::translate("NautilusCommander", "U", 0));
+        keyI->setText(QApplication::translate("NautilusCommander", "I", 0));
+        keyO->setText(QApplication::translate("NautilusCommander", "O", 0));
+        keyP->setText(QApplication::translate("NautilusCommander", "P", 0));
+        keyA->setText(QApplication::translate("NautilusCommander", "A", 0));
+        keyS->setText(QApplication::translate("NautilusCommander", "S", 0));
+        keyD->setText(QApplication::translate("NautilusCommander", "D", 0));
+        keyF->setText(QApplication::translate("NautilusCommander", "F", 0));
+        keyG->setText(QApplication::translate("NautilusCommander", "G", 0));
+        keyH->setText(QApplication::translate("NautilusCommander", "H", 0));
+        keyJ->setText(QApplication::translate("NautilusCommander", "J", 0));
+        keyK->setText(QApplication::translate("NautilusCommander", "K", 0));
+        keyL->setText(QApplication::translate("NautilusCommander", "L", 0));
+        keyB->setText(QApplication::translate("NautilusCommander", "B", 0));
+        keyZ->setText(QApplication::translate("NautilusCommander", "Z", 0));
+        keyC->setText(QApplication::translate("NautilusCommander", "C", 0));
+        keyX->setText(QApplication::translate("NautilusCommander", "X", 0));
+        keyM->setText(QApplication::translate("NautilusCommander", "M", 0));
+        keyV->setText(QApplication::translate("NautilusCommander", "V", 0));
+        keyN->setText(QApplication::translate("NautilusCommander", "N", 0));
+        keySpace->setText(QApplication::translate("NautilusCommander", "space", 0));
+        keyBackspace->setText(QString());
+        keyCancel->setText(QApplication::translate("NautilusCommander", "Cancel", 0));
+        keyEnter->setText(QApplication::translate("NautilusCommander", "Enter", 0));
+        keyErase->setText(QString());
+        label_tipKeyB->setText(QApplication::translate("NautilusCommander", "Please enter the new mission's name: ", 0));
         label_goHome->setText(QApplication::translate("NautilusCommander", "Press           Back to Home", 0));
         label_title_2->setText(QApplication::translate("NautilusCommander", "Nautilus Commander ROV Control", 0));
         label_missionName->setText(QApplication::translate("NautilusCommander", "Mission Name: ", 0));
@@ -869,7 +1297,7 @@ public:
         label_Controls_3->setText(QApplication::translate("NautilusCommander", "Running Normally", 0));
         label_2->setText(QString());
         statusErrorBox->setTitle(QApplication::translate("NautilusCommander", "Status", 0));
-        label_Controls_5->setText(QApplication::translate("NautilusCommander", "Error", 0));
+        lblError->setText(QApplication::translate("NautilusCommander", "Error", 0));
         label_4->setText(QString());
         labelControlBatt_2->setText(QApplication::translate("NautilusCommander", "Depth (m)", 0));
         lblMissionName->setText(QString());
@@ -878,10 +1306,10 @@ public:
         labelControlBatt_4->setText(QApplication::translate("NautilusCommander", "30", 0));
         labelControlBatt_5->setText(QApplication::translate("NautilusCommander", "Temperature(\302\260C)", 0));
         label_depthIco_2->setText(QString());
-        statusVideoOn->setTitle(QApplication::translate("NautilusCommander", "Video", 0));
+        statusVideoOff->setTitle(QApplication::translate("NautilusCommander", "Video", 0));
         label_Controls_6->setText(QApplication::translate("NautilusCommander", "Recording Off", 0));
         label_5->setText(QString());
-        statusVideoOff->setTitle(QApplication::translate("NautilusCommander", "Video", 0));
+        statusVideoOn->setTitle(QApplication::translate("NautilusCommander", "Video", 0));
         label_Controls_7->setText(QApplication::translate("NautilusCommander", "Recording...", 0));
         label_6->setText(QString());
         label_leftRL->setText(QString());

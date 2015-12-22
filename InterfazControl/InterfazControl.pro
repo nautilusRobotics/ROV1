@@ -11,8 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = InterfazControl
 TEMPLATE = app
 
-
-
 SOURCES += main.cpp\
     joystickwidget.cpp \
     player.cpp \
@@ -28,7 +26,6 @@ SOURCES += main.cpp\
     thumbviewer.cpp \
     exportmanager.cpp \
     mywidgetusb.cpp \
-    widgetKeyBoard.cpp \
     mainapp.cpp \
     datathread.cpp
 
@@ -51,12 +48,11 @@ HEADERS  += \
     exportmanager.h \
     mywidgetusb.h \
     main.h \
-    widgetKeyBoard.h \
-    mainapp.h \
+    mainapp.h \ 
     datathread.h
 
 
-FORMS    += \
+FORMS += \
     Intro.ui
 
 RESOURCES += \

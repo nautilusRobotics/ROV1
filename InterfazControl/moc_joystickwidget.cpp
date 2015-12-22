@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'joystickwidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.1.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'joystickwidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.1.1. It"
+#error "This file was generated using the moc from 5.2.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -74,9 +74,9 @@ static const uint qt_meta_data_JoystickWidget[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x05,
-       4,    2,   52,    2, 0x05,
-       7,    2,   57,    2, 0x05,
+       1,    1,   49,    2, 0x06,
+       4,    2,   52,    2, 0x06,
+       7,    2,   57,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
       11,    1,   62,    2, 0x08,
