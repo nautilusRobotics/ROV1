@@ -468,8 +468,8 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
     sendAction->sendComando(POWEROFF_ROBOT);
 
 #ifdef Q_PROCESSOR_ARM
-        run="poweroff";
-        powerOff.start(run);
+        QProcess powerOff;
+        powerOff.start("poweroff");
         powerOff.waitForFinished();
         powerOff.close();
 #endif
