@@ -21,6 +21,10 @@
 
 //#define USER_DEBUG_J
 
+#ifdef Q_PROCESSOR_ARM
+extern QString createPath(QString path);
+#endif
+
 JoystickWidget::JoystickWidget(QWidget *parent): QWidget(parent){
 
 
