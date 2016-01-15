@@ -81,7 +81,7 @@ private:
     QDial *speedDial;
     QString lastCommand;
     int numPic,numVideos,dialIndex;
-    int speeds[3][5];
+    int speeds[3][4];
     bool islightsOn, isRecording, isCameraOnline;
     int righLeft, upDown;    
     void loadSettings(void);

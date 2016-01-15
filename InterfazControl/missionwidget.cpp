@@ -75,9 +75,9 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     speedDial=ui->dial;
     speedDial->setNotchesVisible(false);
 
-    speeds[0][0]=1;speeds[0][1]=4;speeds[0][2]=8;speeds[0][3]=10;speeds[0][4]=13;//speeds[0][5]=15;speeds[0][6]=18;speeds[0][7]=22;
-    speeds[1][0]=1550;speeds[1][1]=1580;speeds[1][2]=1610;speeds[1][3]=1640;speeds[1][4]=1670;
-    speeds[2][0]=1490;speeds[2][1]=1420;speeds[2][2]=1390;speeds[2][3]=1360;speeds[2][4]=1330;
+    speeds[0][0]=3;speeds[0][1]=10;speeds[0][2]=14;speeds[0][3]=20;//speeds[0][4]=13;//speeds[0][5]=15;speeds[0][6]=18;speeds[0][7]=22;
+    speeds[1][0]=1580;speeds[1][1]=1610;speeds[1][2]=1640;speeds[1][3]=1670;//speeds[1][4]=1670;
+    speeds[2][0]=1420;speeds[2][1]=1390;speeds[2][2]=1360;speeds[2][3]=1330;//speeds[2][4]=1330;
     dialIndex=0;
     lastCommand="";
     speedDial->setValue(speeds[0][0]);
@@ -304,7 +304,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
          #endif
      }
      else if(button==button_RB && !event->pressed()){
-         int maxDial=speeds[0][4];
+         int maxDial=speeds[0][3];
          dialIndex=(speedDial->value()<maxDial)?dialIndex+1:dialIndex;
          speedDial->setValue(speeds[0][dialIndex]);
          resendCommand();

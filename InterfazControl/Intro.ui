@@ -2483,10 +2483,10 @@ font: bold 9pt;</string>
       <number>5</number>
      </property>
      <property name="value">
-      <number>22</number>
+      <number>20</number>
      </property>
      <property name="sliderPosition">
-      <number>22</number>
+      <number>20</number>
      </property>
      <property name="tracking">
       <bool>true</bool>
