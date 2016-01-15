@@ -16,6 +16,7 @@
 #include <QStyle>
 #include <QSettings>
 #include <QScreen>
+#include <QDial>
 #include <QDesktopWidget>
 #include "qgamecontroller.h"
 #include "joystickwidget.h"
@@ -77,12 +78,16 @@ private:
     QMPwidget *mplayer;
     DataThread *dataThread;
     SendAction *sendAction;
-    int numPic,numVideos;
+    QDial *speedDial;
+    QString lastCommand;
+    int numPic,numVideos,dialIndex;
+    int speeds[3][5];
     bool islightsOn, isRecording, isCameraOnline;
     int righLeft, upDown;    
     void loadSettings(void);
     void saveSettings(void);
-    void takeScreenshot(void);    
+    void takeScreenshot(void);
+    void resendCommand(void);
     QString mapSpeed(int value);
 
 

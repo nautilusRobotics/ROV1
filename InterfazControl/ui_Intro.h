@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDial>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
@@ -102,19 +103,15 @@ public:
     QFrame *line;
     QLabel *label_btnB;
     QLabel *label_btnX;
-    QLabel *label_btnY;
     QLabel *label;
     QLabel *label_cross;
     QLabel *label_screenshot;
     QFrame *line_2;
     QLabel *label_take;
     QFrame *line_3;
-    QLabel *label_onoff;
-    QLabel *label_lights;
     QFrame *line_4;
     QLabel *label_Record;
     QLabel *label_video;
-    QFrame *line_5;
     QLabel *label_move;
     QLabel *label_camera;
     QFrame *line_6;
@@ -157,6 +154,19 @@ public:
     QFrame *line_11;
     QLabel *label_fordward;
     QLabel *label_backwards;
+    QLabel *label_speedDown;
+    QLabel *label_speed;
+    QLabel *label_speed_down;
+    QFrame *line_13;
+    QLabel *label_speedDown_2;
+    QLabel *label_speed_2;
+    QLabel *label_speed_up;
+    QFrame *line_14;
+    QDial *dial;
+    QLabel *label_dialBack;
+    QLabel *labelControlBatt_8;
+    QLabel *labelControlBatt_9;
+    QLabel *labelControlBatt_10;
     QWidget *explore_page;
     QMPwidget *mplayerEx;
     QLabel *label_goHome_2;
@@ -664,25 +674,25 @@ public:
 "font: bold 11pt;"));
         progressBattRov = new QProgressBar(mission_page);
         progressBattRov->setObjectName(QStringLiteral("progressBattRov"));
-        progressBattRov->setGeometry(QRect(1720, 130, 161, 23));
+        progressBattRov->setGeometry(QRect(1720, 100, 161, 23));
         progressBattRov->setStyleSheet(QLatin1String("QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); }\n"
 "QProgressBar::chunk {background-color: #37A2E5;width: 20px}"));
         progressBattRov->setValue(1);
         label_rovBatt = new QLabel(mission_page);
         label_rovBatt->setObjectName(QStringLiteral("label_rovBatt"));
-        label_rovBatt->setGeometry(QRect(1760, 160, 91, 31));
+        label_rovBatt->setGeometry(QRect(1760, 130, 91, 31));
         label_rovBatt->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font:  11pt;"));
         labelControlBatt = new QLabel(mission_page);
         labelControlBatt->setObjectName(QStringLiteral("labelControlBatt"));
-        labelControlBatt->setGeometry(QRect(1740, 250, 121, 21));
+        labelControlBatt->setGeometry(QRect(1740, 200, 121, 21));
         labelControlBatt->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font: 11pt;"));
         progressBattControl = new QProgressBar(mission_page);
         progressBattControl->setObjectName(QStringLiteral("progressBattControl"));
-        progressBattControl->setGeometry(QRect(1720, 220, 161, 23));
+        progressBattControl->setGeometry(QRect(1720, 170, 161, 23));
         progressBattControl->setStyleSheet(QLatin1String("QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); }\n"
 "QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}"));
         progressBattControl->setValue(1);
@@ -711,21 +721,17 @@ public:
         label_btnX->setObjectName(QStringLiteral("label_btnX"));
         label_btnX->setGeometry(QRect(25, 340, 32, 32));
         label_btnX->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxX32.png);"));
-        label_btnY = new QLabel(mission_page);
-        label_btnY->setObjectName(QStringLiteral("label_btnY"));
-        label_btnY->setGeometry(QRect(25, 414, 32, 32));
-        label_btnY->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxY32.png);"));
         label = new QLabel(mission_page);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(10, 90, 55, 55));
         label->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxcntrl55.svg);"));
         label_cross = new QLabel(mission_page);
         label_cross->setObjectName(QStringLiteral("label_cross"));
-        label_cross->setGeometry(QRect(25, 490, 32, 32));
+        label_cross->setGeometry(QRect(25, 414, 32, 32));
         label_cross->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxCross32.png);"));
         label_screenshot = new QLabel(mission_page);
         label_screenshot->setObjectName(QStringLiteral("label_screenshot"));
-        label_screenshot->setGeometry(QRect(2, 314, 78, 16));
+        label_screenshot->setGeometry(QRect(0, 240, 78, 16));
         label_screenshot->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
@@ -738,7 +744,7 @@ public:
         line_2->setFrameShadow(QFrame::Sunken);
         label_take = new QLabel(mission_page);
         label_take->setObjectName(QStringLiteral("label_take"));
-        label_take->setGeometry(QRect(23, 297, 31, 21));
+        label_take->setGeometry(QRect(25, 220, 31, 21));
         label_take->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
@@ -749,18 +755,6 @@ public:
 ""));
         line_3->setFrameShape(QFrame::HLine);
         line_3->setFrameShadow(QFrame::Sunken);
-        label_onoff = new QLabel(mission_page);
-        label_onoff->setObjectName(QStringLiteral("label_onoff"));
-        label_onoff->setGeometry(QRect(20, 370, 51, 21));
-        label_onoff->setStyleSheet(QLatin1String("background-image: url(null);\n"
-"color: rgb(255, 255, 255);\n"
-"font: bold 9pt;"));
-        label_lights = new QLabel(mission_page);
-        label_lights->setObjectName(QStringLiteral("label_lights"));
-        label_lights->setGeometry(QRect(20, 390, 41, 16));
-        label_lights->setStyleSheet(QLatin1String("background-image: url(null);\n"
-"color: rgb(255, 255, 255);\n"
-"font: bold 9pt;"));
         line_4 = new QFrame(mission_page);
         line_4->setObjectName(QStringLiteral("line_4"));
         line_4->setGeometry(QRect(0, 400, 80, 16));
@@ -770,38 +764,31 @@ public:
         line_4->setFrameShadow(QFrame::Sunken);
         label_Record = new QLabel(mission_page);
         label_Record->setObjectName(QStringLiteral("label_Record"));
-        label_Record->setGeometry(QRect(17, 445, 51, 16));
+        label_Record->setGeometry(QRect(18, 293, 51, 16));
         label_Record->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_video = new QLabel(mission_page);
         label_video->setObjectName(QStringLiteral("label_video"));
-        label_video->setGeometry(QRect(20, 460, 41, 16));
+        label_video->setGeometry(QRect(20, 310, 41, 16));
         label_video->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
-        line_5 = new QFrame(mission_page);
-        line_5->setObjectName(QStringLiteral("line_5"));
-        line_5->setGeometry(QRect(0, 470, 80, 16));
-        line_5->setStyleSheet(QLatin1String("background-image: url(null);\n"
-""));
-        line_5->setFrameShape(QFrame::HLine);
-        line_5->setFrameShadow(QFrame::Sunken);
         label_move = new QLabel(mission_page);
         label_move->setObjectName(QStringLiteral("label_move"));
-        label_move->setGeometry(QRect(20, 520, 41, 16));
+        label_move->setGeometry(QRect(20, 444, 41, 16));
         label_move->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_camera = new QLabel(mission_page);
         label_camera->setObjectName(QStringLiteral("label_camera"));
-        label_camera->setGeometry(QRect(14, 536, 51, 16));
+        label_camera->setGeometry(QRect(14, 460, 51, 16));
         label_camera->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         line_6 = new QFrame(mission_page);
         line_6->setObjectName(QStringLiteral("line_6"));
-        line_6->setGeometry(QRect(0, 550, 80, 16));
+        line_6->setGeometry(QRect(0, 474, 80, 16));
         line_6->setStyleSheet(QLatin1String("background-image: url(null);\n"
 ""));
         line_6->setFrameShape(QFrame::HLine);
@@ -844,7 +831,7 @@ public:
         label_4->setFrameShadow(QFrame::Plain);
         labelControlBatt_2 = new QLabel(mission_page);
         labelControlBatt_2->setObjectName(QStringLiteral("labelControlBatt_2"));
-        labelControlBatt_2->setGeometry(QRect(1750, 350, 91, 31));
+        labelControlBatt_2->setGeometry(QRect(1750, 290, 91, 31));
         labelControlBatt_2->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font:  11pt;"));
@@ -856,30 +843,30 @@ public:
 "font: bold 11pt;"));
         label_depthIco = new QLabel(mission_page);
         label_depthIco->setObjectName(QStringLiteral("label_depthIco"));
-        label_depthIco->setGeometry(QRect(1830, 320, 32, 32));
+        label_depthIco->setGeometry(QRect(1830, 260, 32, 32));
         label_depthIco->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/depth.png);"));
         label_depthIco->setFrameShape(QFrame::NoFrame);
         labelControlBatt_3 = new QLabel(mission_page);
         labelControlBatt_3->setObjectName(QStringLiteral("labelControlBatt_3"));
-        labelControlBatt_3->setGeometry(QRect(1740, 320, 81, 41));
+        labelControlBatt_3->setGeometry(QRect(1740, 260, 81, 41));
         labelControlBatt_3->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font: bold 30pt;"));
         labelControlBatt_4 = new QLabel(mission_page);
         labelControlBatt_4->setObjectName(QStringLiteral("labelControlBatt_4"));
-        labelControlBatt_4->setGeometry(QRect(1760, 440, 61, 41));
+        labelControlBatt_4->setGeometry(QRect(1760, 360, 61, 41));
         labelControlBatt_4->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font: bold 30pt;"));
         labelControlBatt_5 = new QLabel(mission_page);
         labelControlBatt_5->setObjectName(QStringLiteral("labelControlBatt_5"));
-        labelControlBatt_5->setGeometry(QRect(1740, 480, 131, 31));
+        labelControlBatt_5->setGeometry(QRect(1740, 400, 131, 31));
         labelControlBatt_5->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font:  11pt;"));
         label_depthIco_2 = new QLabel(mission_page);
         label_depthIco_2->setObjectName(QStringLiteral("label_depthIco_2"));
-        label_depthIco_2->setGeometry(QRect(1830, 440, 32, 32));
+        label_depthIco_2->setGeometry(QRect(1830, 360, 32, 32));
         label_depthIco_2->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/temp.png);"));
         label_depthIco_2->setFrameShape(QFrame::NoFrame);
         statusVideoOff = new QGroupBox(mission_page);
@@ -920,25 +907,25 @@ public:
         label_6->setFrameShadow(QFrame::Plain);
         label_leftRL = new QLabel(mission_page);
         label_leftRL->setObjectName(QStringLiteral("label_leftRL"));
-        label_leftRL->setGeometry(QRect(6, 571, 70, 50));
+        label_leftRL->setGeometry(QRect(6, 495, 70, 50));
         label_leftRL->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxLlr.png);"));
         label_AleftUD_3 = new QLabel(mission_page);
         label_AleftUD_3->setObjectName(QStringLiteral("label_AleftUD_3"));
-        label_AleftUD_3->setGeometry(QRect(15, 790, 50, 70));
+        label_AleftUD_3->setGeometry(QRect(15, 714, 50, 70));
         label_AleftUD_3->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxRud.png);"));
         label_3 = new QLabel(mission_page);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(1770, 560, 50, 50));
+        label_3->setGeometry(QRect(1770, 480, 50, 50));
         label_3->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/camera50x50.png);"));
         labelControlBatt_6 = new QLabel(mission_page);
         labelControlBatt_6->setObjectName(QStringLiteral("labelControlBatt_6"));
-        labelControlBatt_6->setGeometry(QRect(1740, 640, 131, 31));
+        labelControlBatt_6->setGeometry(QRect(1740, 560, 131, 31));
         labelControlBatt_6->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font:  11pt;"));
         panCamera = new QSlider(mission_page);
         panCamera->setObjectName(QStringLiteral("panCamera"));
-        panCamera->setGeometry(QRect(1751, 630, 90, 12));
+        panCamera->setGeometry(QRect(1751, 550, 90, 12));
         panCamera->setFocusPolicy(Qt::NoFocus);
         panCamera->setStyleSheet(QLatin1String("QSlider{background-image: url(null);}\n"
 "QSlider::groove:horizontal {border: 0px solid #999999;height: 10px;border-radius: 10px;}\n"
@@ -954,7 +941,7 @@ public:
         panCamera->setTickPosition(QSlider::NoTicks);
         tiltCamera = new QSlider(mission_page);
         tiltCamera->setObjectName(QStringLiteral("tiltCamera"));
-        tiltCamera->setGeometry(QRect(1840, 535, 10, 90));
+        tiltCamera->setGeometry(QRect(1840, 455, 10, 90));
         tiltCamera->setFocusPolicy(Qt::NoFocus);
         tiltCamera->setStyleSheet(QLatin1String("QSlider{background-image: url(null);}\n"
 "QSlider::groove:vertical {border: 0px solid #999999;width: 10px;border-radius: 5px;}\n"
@@ -968,85 +955,167 @@ public:
         tiltCamera->setOrientation(Qt::Vertical);
         label_center = new QLabel(mission_page);
         label_center->setObjectName(QStringLiteral("label_center"));
-        label_center->setGeometry(QRect(20, 220, 51, 21));
+        label_center->setGeometry(QRect(20, 370, 51, 21));
         label_center->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_take_4 = new QLabel(mission_page);
         label_take_4->setObjectName(QStringLiteral("label_take_4"));
-        label_take_4->setGeometry(QRect(16, 232, 51, 21));
+        label_take_4->setGeometry(QRect(16, 386, 51, 21));
         label_take_4->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         labelControlBatt_7 = new QLabel(mission_page);
         labelControlBatt_7->setObjectName(QStringLiteral("labelControlBatt_7"));
-        labelControlBatt_7->setGeometry(QRect(1780, 740, 51, 31));
+        labelControlBatt_7->setGeometry(QRect(1780, 660, 51, 31));
         labelControlBatt_7->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(153, 153, 153);\n"
 "font:  11pt;"));
         label_switchOn = new QLabel(mission_page);
         label_switchOn->setObjectName(QStringLiteral("label_switchOn"));
-        label_switchOn->setGeometry(QRect(1770, 680, 64, 64));
+        label_switchOn->setGeometry(QRect(1770, 600, 64, 64));
         label_switchOn->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/switchOn.png);"));
         label_switchOff = new QLabel(mission_page);
         label_switchOff->setObjectName(QStringLiteral("label_switchOff"));
-        label_switchOff->setGeometry(QRect(1770, 680, 64, 64));
+        label_switchOff->setGeometry(QRect(1770, 600, 64, 64));
         label_switchOff->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/switchOff.png);"));
         line_9 = new QFrame(mission_page);
         line_9->setObjectName(QStringLiteral("line_9"));
-        line_9->setGeometry(QRect(0, 650, 80, 16));
+        line_9->setGeometry(QRect(0, 574, 80, 16));
         line_9->setStyleSheet(QLatin1String("background-image: url(null);\n"
 ""));
         line_9->setFrameShape(QFrame::HLine);
         line_9->setFrameShadow(QFrame::Sunken);
         line_10 = new QFrame(mission_page);
         line_10->setObjectName(QStringLiteral("line_10"));
-        line_10->setGeometry(QRect(0, 770, 80, 16));
+        line_10->setGeometry(QRect(0, 694, 80, 16));
         line_10->setStyleSheet(QLatin1String("background-image: url(null);\n"
 ""));
         line_10->setFrameShape(QFrame::HLine);
         line_10->setFrameShadow(QFrame::Sunken);
         label_turnROV = new QLabel(mission_page);
         label_turnROV->setObjectName(QStringLiteral("label_turnROV"));
-        label_turnROV->setGeometry(QRect(10, 630, 71, 16));
+        label_turnROV->setGeometry(QRect(10, 554, 71, 16));
         label_turnROV->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_submerge = new QLabel(mission_page);
         label_submerge->setObjectName(QStringLiteral("label_submerge"));
-        label_submerge->setGeometry(QRect(7, 860, 71, 16));
+        label_submerge->setGeometry(QRect(7, 784, 71, 16));
         label_submerge->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_move_4 = new QLabel(mission_page);
         label_move_4->setObjectName(QStringLiteral("label_move_4"));
-        label_move_4->setGeometry(QRect(15, 874, 61, 16));
+        label_move_4->setGeometry(QRect(15, 798, 61, 16));
         label_move_4->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_AleftUD_4 = new QLabel(mission_page);
         label_AleftUD_4->setObjectName(QStringLiteral("label_AleftUD_4"));
-        label_AleftUD_4->setGeometry(QRect(15, 664, 50, 70));
+        label_AleftUD_4->setGeometry(QRect(15, 588, 50, 70));
         label_AleftUD_4->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxLud.png);"));
         line_11 = new QFrame(mission_page);
         line_11->setObjectName(QStringLiteral("line_11"));
-        line_11->setGeometry(QRect(0, 886, 80, 16));
+        line_11->setGeometry(QRect(0, 810, 80, 16));
         line_11->setStyleSheet(QLatin1String("background-image: url(null);\n"
 ""));
         line_11->setFrameShape(QFrame::HLine);
         line_11->setFrameShadow(QFrame::Sunken);
         label_fordward = new QLabel(mission_page);
         label_fordward->setObjectName(QStringLiteral("label_fordward"));
-        label_fordward->setGeometry(QRect(4, 736, 71, 16));
+        label_fordward->setGeometry(QRect(4, 660, 71, 16));
         label_fordward->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
         label_backwards = new QLabel(mission_page);
         label_backwards->setObjectName(QStringLiteral("label_backwards"));
-        label_backwards->setGeometry(QRect(5, 753, 71, 16));
+        label_backwards->setGeometry(QRect(5, 677, 71, 16));
         label_backwards->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(255, 255, 255);\n"
 "font: bold 9pt;"));
+        label_speedDown = new QLabel(mission_page);
+        label_speedDown->setObjectName(QStringLiteral("label_speedDown"));
+        label_speedDown->setGeometry(QRect(14, 821, 50, 50));
+        label_speedDown->setStyleSheet(QStringLiteral("background-image:   url(:/new/prefix1/XboxLb48.png)"));
+        label_speed = new QLabel(mission_page);
+        label_speed->setObjectName(QStringLiteral("label_speed"));
+        label_speed->setGeometry(QRect(15, 866, 41, 16));
+        label_speed->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(255, 255, 255);\n"
+"font: bold 9pt;"));
+        label_speed_down = new QLabel(mission_page);
+        label_speed_down->setObjectName(QStringLiteral("label_speed_down"));
+        label_speed_down->setGeometry(QRect(17, 882, 41, 16));
+        label_speed_down->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(255, 255, 255);\n"
+"font: bold 9pt;"));
+        line_13 = new QFrame(mission_page);
+        line_13->setObjectName(QStringLiteral("line_13"));
+        line_13->setGeometry(QRect(0, 900, 80, 16));
+        line_13->setStyleSheet(QLatin1String("background-image: url(null);\n"
+""));
+        line_13->setFrameShape(QFrame::HLine);
+        line_13->setFrameShadow(QFrame::Sunken);
+        label_speedDown_2 = new QLabel(mission_page);
+        label_speedDown_2->setObjectName(QStringLiteral("label_speedDown_2"));
+        label_speedDown_2->setGeometry(QRect(14, 910, 50, 50));
+        label_speedDown_2->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/XboxLt48.png)"));
+        label_speed_2 = new QLabel(mission_page);
+        label_speed_2->setObjectName(QStringLiteral("label_speed_2"));
+        label_speed_2->setGeometry(QRect(19, 956, 41, 16));
+        label_speed_2->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(255, 255, 255);\n"
+"font: bold 9pt;"));
+        label_speed_up = new QLabel(mission_page);
+        label_speed_up->setObjectName(QStringLiteral("label_speed_up"));
+        label_speed_up->setGeometry(QRect(31, 970, 41, 16));
+        label_speed_up->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(255, 255, 255);\n"
+"font: bold 9pt;"));
+        line_14 = new QFrame(mission_page);
+        line_14->setObjectName(QStringLiteral("line_14"));
+        line_14->setGeometry(QRect(0, 980, 80, 16));
+        line_14->setStyleSheet(QLatin1String("background-image: url(null);\n"
+""));
+        line_14->setFrameShape(QFrame::HLine);
+        line_14->setFrameShadow(QFrame::Sunken);
+        dial = new QDial(mission_page);
+        dial->setObjectName(QStringLiteral("dial"));
+        dial->setGeometry(QRect(1735, 717, 141, 111));
+        dial->setStyleSheet(QStringLiteral(""));
+        dial->setMinimum(1);
+        dial->setMaximum(22);
+        dial->setValue(4);
+        dial->setSliderPosition(4);
+        dial->setTracking(true);
+        dial->setOrientation(Qt::Horizontal);
+        dial->setInvertedAppearance(false);
+        dial->setInvertedControls(false);
+        dial->setWrapping(false);
+        dial->setNotchesVisible(true);
+        label_dialBack = new QLabel(mission_page);
+        label_dialBack->setObjectName(QStringLiteral("label_dialBack"));
+        label_dialBack->setGeometry(QRect(1740, 710, 131, 125));
+        label_dialBack->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/dialBack.png);"));
+        labelControlBatt_8 = new QLabel(mission_page);
+        labelControlBatt_8->setObjectName(QStringLiteral("labelControlBatt_8"));
+        labelControlBatt_8->setGeometry(QRect(1782, 831, 51, 31));
+        labelControlBatt_8->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(153, 153, 153);\n"
+"font:  11pt;"));
+        labelControlBatt_9 = new QLabel(mission_page);
+        labelControlBatt_9->setObjectName(QStringLiteral("labelControlBatt_9"));
+        labelControlBatt_9->setGeometry(QRect(1710, 790, 31, 31));
+        labelControlBatt_9->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(153, 153, 153);\n"
+"font:  11pt;"));
+        labelControlBatt_10 = new QLabel(mission_page);
+        labelControlBatt_10->setObjectName(QStringLiteral("labelControlBatt_10"));
+        labelControlBatt_10->setGeometry(QRect(1867, 790, 31, 31));
+        labelControlBatt_10->setStyleSheet(QLatin1String("background-image: url(null);\n"
+"color: rgb(153, 153, 153);\n"
+"font:  11pt;"));
         stackedWidget->addWidget(mission_page);
         mplayerWG->raise();
         label_goHome->raise();
@@ -1061,19 +1130,15 @@ public:
         line->raise();
         label_btnB->raise();
         label_btnX->raise();
-        label_btnY->raise();
         label->raise();
         label_cross->raise();
         label_screenshot->raise();
         line_2->raise();
         label_take->raise();
         line_3->raise();
-        label_onoff->raise();
-        label_lights->raise();
         line_4->raise();
         label_Record->raise();
         label_video->raise();
-        line_5->raise();
         label_move->raise();
         label_camera->raise();
         line_6->raise();
@@ -1108,6 +1173,19 @@ public:
         line_11->raise();
         label_fordward->raise();
         label_backwards->raise();
+        label_speedDown->raise();
+        label_speed->raise();
+        label_speed_down->raise();
+        line_13->raise();
+        label_speedDown_2->raise();
+        label_speed_2->raise();
+        label_speed_up->raise();
+        line_14->raise();
+        label_dialBack->raise();
+        dial->raise();
+        labelControlBatt_8->raise();
+        labelControlBatt_9->raise();
+        labelControlBatt_10->raise();
         explore_page = new QWidget();
         explore_page->setObjectName(QStringLiteral("explore_page"));
         explore_page->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/backVideo.svg);"));
@@ -1282,13 +1360,10 @@ public:
         label_Controls->setText(QApplication::translate("NautilusCommander", "Controls:", 0));
         label_btnB->setText(QString());
         label_btnX->setText(QString());
-        label_btnY->setText(QString());
         label->setText(QString());
         label_cross->setText(QString());
         label_screenshot->setText(QApplication::translate("NautilusCommander", "Screenshot", 0));
         label_take->setText(QApplication::translate("NautilusCommander", "Take", 0));
-        label_onoff->setText(QApplication::translate("NautilusCommander", "On/Off ", 0));
-        label_lights->setText(QApplication::translate("NautilusCommander", "Lights", 0));
         label_Record->setText(QApplication::translate("NautilusCommander", "Record", 0));
         label_video->setText(QApplication::translate("NautilusCommander", "Video", 0));
         label_move->setText(QApplication::translate("NautilusCommander", "Move", 0));
@@ -1327,6 +1402,16 @@ public:
         label_AleftUD_4->setText(QString());
         label_fordward->setText(QApplication::translate("NautilusCommander", "Fordwards", 0));
         label_backwards->setText(QApplication::translate("NautilusCommander", "Backwards", 0));
+        label_speedDown->setText(QString());
+        label_speed->setText(QApplication::translate("NautilusCommander", "Speed", 0));
+        label_speed_down->setText(QApplication::translate("NautilusCommander", "Down", 0));
+        label_speedDown_2->setText(QString());
+        label_speed_2->setText(QApplication::translate("NautilusCommander", "Speed", 0));
+        label_speed_up->setText(QApplication::translate("NautilusCommander", "Up", 0));
+        label_dialBack->setText(QString());
+        labelControlBatt_8->setText(QApplication::translate("NautilusCommander", "Speed", 0));
+        labelControlBatt_9->setText(QApplication::translate("NautilusCommander", "min", 0));
+        labelControlBatt_10->setText(QApplication::translate("NautilusCommander", "max", 0));
         label_goHome_2->setText(QApplication::translate("NautilusCommander", "Press           Back to Home", 0));
         label_title_3->setText(QApplication::translate("NautilusCommander", "Nautilus Commander Explore Mission", 0));
         label_missionName_2->setText(QApplication::translate("NautilusCommander", "Mission Name: ", 0));

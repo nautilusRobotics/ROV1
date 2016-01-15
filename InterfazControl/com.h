@@ -25,9 +25,12 @@
 #define TOGGLE_LIGHT   "tglh"  //Toggle Robot lights
 #define OFF_LIGHT      "tglh2000"  //OFF Robot lights
 #define ON_LIGHT       "tglh1000"  //ON Robot lights
-#define REQUEST_KEY    "G"  //ON Robot lights
+#define REQUEST_KEY    "G"         //request init key
 
-
+#define MOTOR_1        "mvm1"  //Move only motor 1
+#define MOTOR_2        "mvm2"  //Move only motor 2
+#define MOTOR_3        "mvm3"  //Move only motor 3
+#define MOTOR_4        "mvm4"  //Move only motor 4
 
 #define TILT_UP        "ticmA"
 #define TILT_DOWN      "ticmB"
@@ -36,6 +39,9 @@
 #define PAN_UP         "pncmD"
 #define PAN_DOWN       "pncmE"
 #define PAN_STOP       "pncmF"
+
+#define ceroOffsetEsc  32
+#define ceroOffsetEsc1 70
 
 #define maxESCms 1670
 #define minESCms 1330

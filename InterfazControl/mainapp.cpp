@@ -263,7 +263,7 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
           case 0:{
             qDebug("option Start");
             if(checkRobot()){
-              sendAction->sendComando(NULL_CMD);
+              //sendAction->sendComando(NULL_CMD);
               launchKeyBoard();
             }
             else{

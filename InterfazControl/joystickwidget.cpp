@@ -98,6 +98,8 @@ void JoystickWidget::setController(){
     connect(gameController, SIGNAL(gameControllerButtonEvent(QGameControllerButtonEvent*)), this, SLOT(handleQGameControllerButtonEvent(QGameControllerButtonEvent*)));
     connect(gameController, SIGNAL(gameControllerDisconnectEvent(QGameControllerDisconnectEvent*)), this, SLOT(handleQGameControllerDisconnectEvent(QGameControllerDisconnectEvent*)));
 
+
+
     QTimer *timer = new QTimer(this);
     timer->setInterval(15);
     connect(timer, SIGNAL(timeout()), gameController, SLOT(readGameController()));

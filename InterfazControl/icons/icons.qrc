@@ -48,5 +48,9 @@
         <file>eraser.png</file>
         <file>backspaceBlack.png</file>
         <file>eraserBlack.png</file>
+        <file>XboxLt48.png</file>
+        <file>XboxLb48.png</file>
+        <file>dialBack.png</file>
+        <file>XboxRb48.png</file>
     </qresource>
 </RCC>
