@@ -1,7 +1,7 @@
 #include "sendaction.h"
 
 #define USER_DEBUG_SA
-#define OFFLINE_SA
+//#define OFFLINE_SA
 
 extern QString createPath(QString path);
 

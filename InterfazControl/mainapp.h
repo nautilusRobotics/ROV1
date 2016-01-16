@@ -95,7 +95,7 @@ public slots:
         QPushButton *keyboardMatrix[4][10];
         SendAction *sendAction;
         int focused, openProjectRow, secretKey, keyRow,keyCol;
-        bool isOpen;
+        bool isOpen, isWorkingOffline, isRobotOnline;
         void showMessage(QString message, bool okCancelbtns);
         void initWelcomeScreen();        
         void launchKeyBoard();

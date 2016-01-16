@@ -92,6 +92,8 @@ void MainApp::initWelcomeScreen(){
 
 
     sendAction=new SendAction();
+    isWorkingOffline=false;
+    isRobotOnline=false;
 
 }
 
@@ -341,13 +343,15 @@ void MainApp::joystickAxisEventOpen(QString axis, int value){
 }
 
 void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
-    if(button==button_A && !event->pressed()){
+    if(button==button_A && !event->pressed()){        
         int item= projectList->currentRow();
-        runMission(projectListStrings->at(item));
-        lblTitle->setText("Welcome to Nautilus Commander");
-        openMissionBox->setVisible(false);
-        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
-        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+        if(isRobotOnline || isWorkingOffline){
+            runMission(projectListStrings->at(item));
+            lblTitle->setText("Welcome to Nautilus Commander");
+            openMissionBox->setVisible(false);
+            disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+        }
 
     }
     else if(button==button_X && !event->pressed()){
@@ -602,19 +606,20 @@ bool MainApp::checkRobot(){
 #ifdef DEBUG_INTRO
 qDebug()<< "New Mission Server "+resp;
 #endif
+    isWorkingOffline=!resp.compare("offline");
 
-    if(!resp.compare("okok\n")||!resp.compare("offline")){
+    if(!resp.compare("okok\n")){
         QProcess procRun;
         procRun.start("sh checkCam.sh");
         procRun.waitForFinished( );
         QString output( procRun.readAllStandardOutput());
         procRun.close();
         usleep(5000);
-        return !output.compare("live\n");
-        return true;
-    }
+        isRobotOnline=!output.compare("live\n");
+        return isRobotOnline;
+    }    
     else
-        return false;
+        return isWorkingOffline;
 
 }
 
