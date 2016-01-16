@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'missionwidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.0)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.1.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'missionwidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.2.0. It"
+#error "This file was generated using the moc from 5.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -70,8 +70,8 @@ static const uint qt_meta_data_MissionWidget[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x06,
-       3,    0,   60,    2, 0x06,
+       1,    0,   59,    2, 0x05,
+       3,    0,   60,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
        4,    1,   61,    2, 0x0a,

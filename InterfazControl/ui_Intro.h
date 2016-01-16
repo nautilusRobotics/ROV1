@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'Intro.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.0
+** Created by: Qt User Interface Compiler version 5.1.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -1060,7 +1060,7 @@ public:
         label_speedDown_2 = new QLabel(mission_page);
         label_speedDown_2->setObjectName(QStringLiteral("label_speedDown_2"));
         label_speedDown_2->setGeometry(QRect(14, 910, 50, 50));
-        label_speedDown_2->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/XboxLt48.png)"));
+        label_speedDown_2->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/XboxRb48.png)"));
         label_speed_2 = new QLabel(mission_page);
         label_speed_2->setObjectName(QStringLiteral("label_speed_2"));
         label_speed_2->setGeometry(QRect(19, 956, 41, 16));
@@ -1086,8 +1086,9 @@ public:
         dial->setStyleSheet(QStringLiteral(""));
         dial->setMinimum(1);
         dial->setMaximum(22);
-        dial->setValue(4);
-        dial->setSliderPosition(4);
+        dial->setSingleStep(5);
+        dial->setValue(20);
+        dial->setSliderPosition(20);
         dial->setTracking(true);
         dial->setOrientation(Qt::Horizontal);
         dial->setInvertedAppearance(false);
