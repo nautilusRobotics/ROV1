@@ -610,7 +610,7 @@ qDebug()<< "New Mission Server "+resp;
 
     if(!resp.compare("okok\n")){
         QProcess procRun;
-        procRun.start("sh checkCam.sh");
+        procRun.start(createPath("checkCam.sh"));
         procRun.waitForFinished( );
         QString output( procRun.readAllStandardOutput());
         procRun.close();
