@@ -20,6 +20,7 @@ public:
 public:    
     QString getMissionName();
     bool isExploreAndExport();
+    bool isOnline();
 
 private:
     QGridLayout *layout;
@@ -28,6 +29,7 @@ private:
     QString missionName;
     QListWidgetItem *itemW;
     bool exploreAndExport;
+    bool online;
 
 };
 

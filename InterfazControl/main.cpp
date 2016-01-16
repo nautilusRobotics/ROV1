@@ -1,9 +1,6 @@
 #include <main.h>
 
 
-
-
-
 int main(int argc, char *argv[])
 {
 #ifdef Q_PROCESSOR_X86

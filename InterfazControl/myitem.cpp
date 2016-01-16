@@ -7,6 +7,7 @@ myItem::myItem(QWidget *parent, QString name, bool isConnected) :
 {
     layout=new QGridLayout();
     missionName=name;
+    online=isConnected;
     QString missionPath=createPath("Missions");
     QString missionsPath=QString("%1/%2/").arg(missionPath).arg(missionName);
     QString m_sSettingsFile = QString("%1settings.ini").arg(missionsPath);
@@ -64,5 +65,10 @@ myItem::myItem(QWidget *parent, QString name, bool isConnected) :
 
 bool myItem::isExploreAndExport(){
     return exploreAndExport;
+}
+
+
+bool myItem::isOnline(){
+    return online;
 }
 
