@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 #endif
 
 #ifdef Q_PROCESSOR_ARM
-    fullPath="/home/olimex/Documents/ROV1/InterfazControl";
+    fullPath="/mnt/disk1/NautilusOne";
     qDebug("OLIMEX PROCESSOR");
 #endif
 

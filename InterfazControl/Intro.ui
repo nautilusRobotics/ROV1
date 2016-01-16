@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -301,6 +301,9 @@ text-decoration: underline;</string>
      </widget>
     </widget>
     <widget class="QLabel" name="lblShadow">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -390,7 +393,7 @@ text-decoration: underline;</string>
     <widget class="QLabel" name="label_TipCross">
      <property name="geometry">
       <rect>
-       <x>1072</x>
+       <x>1079</x>
        <y>905</y>
        <width>32</width>
        <height>32</height>

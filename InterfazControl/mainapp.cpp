@@ -615,6 +615,9 @@ qDebug()<< "New Mission Server "+resp;
         QString output( procRun.readAllStandardOutput());
         procRun.close();
         usleep(5000);
+#ifdef DEBUG_INTRO
+qDebug()<< "Camera check "+output;
+#endif
         isRobotOnline=!output.compare("live\n");
         return isRobotOnline;
     }    
