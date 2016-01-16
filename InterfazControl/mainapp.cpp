@@ -304,8 +304,16 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
       qDebug()<<QString("Secret Key %1").arg(secretKey);
 #endif
 
-      if(secretKey==secretKeyList->length())
+      if(secretKey==secretKeyList->length()){
+        #ifdef Q_PROCESSOR_ARM
+        QString run=createPath("controlOn.py"); //Disable Control          
+        QProcess initControl;
+        initControl.start(run);        
+        initControl.waitForFinished();
+        initControl.close();
+        #endif
           this->close();
+	}
     }
 }
 
@@ -468,10 +476,17 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
     sendAction->sendComando(POWEROFF_ROBOT);
 
 #ifdef Q_PROCESSOR_ARM
+        QString run=createPath("controlOn.py");  //Disable Control          
+        QProcess initControl;
+        initControl.start(run);        
+        initControl.waitForFinished();
+        initControl.close();
+     
         QProcess powerOff;
         powerOff.start("poweroff");
         powerOff.waitForFinished();
-        powerOff.close();
+        powerOff.close();  
+ 
 #endif
         this->close();
         closeMessage(true);

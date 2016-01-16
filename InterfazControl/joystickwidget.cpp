@@ -104,6 +104,14 @@ void JoystickWidget::setController(){
     timer->setInterval(15);
     connect(timer, SIGNAL(timeout()), gameController, SLOT(readGameController()));
     timer->start();
+    
+#ifdef Q_PROCESSOR_ARM
+        QString run=createPath("controlOn.py");           
+        QProcess initControl;
+        initControl.start(run);        
+        initControl.waitForFinished();
+        initControl.close();
+#endif
    }
    else
    {
@@ -128,10 +136,12 @@ bool JoystickWidget::reconnect(){
      connect(timer, SIGNAL(timeout()), gameController, SLOT(readGameController()));
      timer->start();
 
+     
+
 #ifdef Q_PROCESSOR_ARM
-        QString run=createPath("controlOn.py");
+        QString run=createPath("controlOn.py");       
         QProcess initControl;
-        initControl.start(run);
+        initControl.start(run);        
         initControl.waitForFinished();
         initControl.close();
 #endif
