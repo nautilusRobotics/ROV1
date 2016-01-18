@@ -67,9 +67,10 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
 
 
     //searchCamera();
-    mplayer=ui->mplayerWG;
-    mplayer->start();
+    mplayer=ui->mplayerWG;  
+    mplayer->start();    
     mplayer->load("rtsp://admin:12345@10.5.5.110:554");
+  
     isCameraOnline=true;
 
     speedDial=ui->dial;
@@ -413,7 +414,7 @@ void MissionWidget::searchCamera(){
     if(isCameraOnline){
         qDebug()<<"CAMERA LIVE";
         mplayer=ui->mplayerWG;
-        mplayer->start();
+        mplayer->start();       
         mplayer->load("rtsp://admin:12345@10.5.5.110:554");
         statusErrorBox->setVisible(false);
     }

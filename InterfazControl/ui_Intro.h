@@ -281,6 +281,7 @@ public:
         lblListWidget->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/helpOpen.png);"));
         lblShadow = new QLabel(intro_page);
         lblShadow->setObjectName(QStringLiteral("lblShadow"));
+        lblShadow->setEnabled(true);
         lblShadow->setGeometry(QRect(0, 0, 1920, 1080));
         lblShadow->setStyleSheet(QStringLiteral("background-color: rgba(0, 0, 0, 128);"));
         lblGamepad = new QLabel(intro_page);
@@ -304,7 +305,7 @@ public:
         label_tipA->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxA32.png);"));
         label_TipCross = new QLabel(intro_page);
         label_TipCross->setObjectName(QStringLiteral("label_TipCross"));
-        label_TipCross->setGeometry(QRect(1072, 905, 32, 32));
+        label_TipCross->setGeometry(QRect(1079, 905, 32, 32));
         label_TipCross->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xboxCross32.png);"));
         keyboardGroup = new QGroupBox(intro_page);
         keyboardGroup->setObjectName(QStringLiteral("keyboardGroup"));
@@ -1289,7 +1290,7 @@ public:
 
         retranslateUi(NautilusCommander);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(NautilusCommander);

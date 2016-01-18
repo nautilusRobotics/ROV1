@@ -28,7 +28,7 @@ void DataThread::run()
 void DataThread::update(){
         //qDebug()<<"update Data Thread";
 #ifdef Q_PROCESSOR_ARM
-        QString run=createPath("battSense.py");
+        QString run=createPath("battSense.sh");
         procRun.start(run);
         procRun.waitForFinished();
         QString output(procRun.readAllStandardOutput());

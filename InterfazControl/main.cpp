@@ -18,7 +18,9 @@ int main(int argc, char *argv[])
 
 
     MainApp welcomeScreen;
+ qDebug("start showing gui...");
     welcomeScreen.show();
+ qDebug("gui showed...");
 
 
 

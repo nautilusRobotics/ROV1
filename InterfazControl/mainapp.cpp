@@ -13,10 +13,9 @@ MainApp::MainApp(QWidget *parent) :
     QIcon icon(createPath("icons/nautilus128x128.svg"));
     setWindowIcon(icon);
     setWindowTitle("Nautilus Commander");
-    setWindowState( Qt::WindowFullScreen );
-
-    ui.setupUi(this);
-    stackedWidget=ui.stackedWidget;
+    setWindowState( Qt::WindowFullScreen );  
+    ui.setupUi(this); 
+    stackedWidget=ui.stackedWidget;  
     stackedWidget->setCurrentIndex(0);
     initWelcomeScreen();
 }
@@ -55,7 +54,7 @@ void MainApp::initWelcomeScreen(){
 
     lblRepairMessage=ui.lblRepair;
     lblRepairMessage->setVisible(false);
-
+  
 
 
     /********************************  Joystick *****************************************************/
@@ -65,7 +64,8 @@ void MainApp::initWelcomeScreen(){
     connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
     joystick->init();
     /***********************************************************************************************/
-
+    
+   
     missionsPath=createPath("Missions");
     if(!QDir(missionsPath).exists()){
         QDir().mkdir(missionsPath);
@@ -77,6 +77,8 @@ void MainApp::initWelcomeScreen(){
     secretKey=0;
     secretKeyList=new QStringList();
     secretKeyList->append(button_Y); secretKeyList->append(button_X);secretKeyList->append(button_B); secretKeyList->append(button_LB); secretKeyList->append(button_RB); secretKeyList->append(button_RB);  secretKeyList->append(button_LB);  secretKeyList->append(button_B);  secretKeyList->append(button_B);  secretKeyList->append(button_B);
+    
+     
 
     keyBoardBox=ui.keyboardGroup;
     keyBoardBox->setVisible(false);
@@ -90,11 +92,10 @@ void MainApp::initWelcomeScreen(){
     keyCol=0;
     resultKeyBoard=ui.keyboardLine;
 
-
+   
     sendAction=new SendAction();
     isWorkingOffline=false;
     isRobotOnline=false;
-
 }
 
 void MainApp::handleNewBtn(QString missionName){
@@ -308,7 +309,7 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
 
       if(secretKey==secretKeyList->length()){
         #ifdef Q_PROCESSOR_ARM
-        QString run=createPath("controlOn.py"); //Disable Control          
+        QString run=createPath("controlOn.sh"); //Disable Control          
         QProcess initControl;
         initControl.start(run);        
         initControl.waitForFinished();
@@ -480,7 +481,7 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
     sendAction->sendComando(POWEROFF_ROBOT);
 
 #ifdef Q_PROCESSOR_ARM
-        QString run=createPath("controlOn.py");  //Disable Control          
+        QString run=createPath("controlOn.sh");  //Disable Control          
         QProcess initControl;
         initControl.start(run);        
         initControl.waitForFinished();

@@ -106,10 +106,12 @@ void JoystickWidget::setController(){
     timer->start();
     
 #ifdef Q_PROCESSOR_ARM
-        QString run=createPath("controlOn.py");           
+         QString run=createPath("controlOn.sh");            
         QProcess initControl;
         initControl.start(run);        
         initControl.waitForFinished();
+	QString output(initControl.readAllStandardOutput());	
+	qDebug()<< "CONTROL ON"+run+output;
         initControl.close();
 #endif
    }
@@ -139,10 +141,12 @@ bool JoystickWidget::reconnect(){
      
 
 #ifdef Q_PROCESSOR_ARM
-        QString run=createPath("controlOn.py");       
+        QString run=createPath("controlOn.sh");       
         QProcess initControl;
         initControl.start(run);        
         initControl.waitForFinished();
+        QString output(initControl.readAllStandardOutput());
+ 	qDebug()<< "CONTROL ON"+run+output;
         initControl.close();
 #endif
 
