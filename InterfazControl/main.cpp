@@ -15,12 +15,18 @@ int main(int argc, char *argv[])
 
     //------------------------------Init------------------------------------------
     QApplication app(argc, argv);
-    QSplashScreen *splash=new QSplashScreen();
-    splash->setPixmap(QPixmap(createPath("icons/explorerDefault.png")));
-    splash->show();
-    MainApp welcomeScreen; 
+    app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
+
+    QPixmap pixmap(createPath("icons/explorerDefault.png"));
+    QSplashScreen splash(pixmap);
+    splash.show();
+    app.processEvents();
+    splash.showMessage("Loading gui..");
+    MainApp welcomeScreen;
+    splash.showMessage("Loaded gui");
     welcomeScreen.show();
-    splash->hide();
+
+    splash.finish(&welcomeScreen);
 
 
 

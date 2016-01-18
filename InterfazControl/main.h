@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <mainapp.h>
 #include <QSplashScreen>
+#include <QTimer>
 
 
 QString createPath(QString path);
