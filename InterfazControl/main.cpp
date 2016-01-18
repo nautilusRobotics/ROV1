@@ -15,12 +15,12 @@ int main(int argc, char *argv[])
 
     //------------------------------Init------------------------------------------
     QApplication app(argc, argv);
-
-
-    MainApp welcomeScreen;
- qDebug("start showing gui...");
+    QSplashScreen *splash=new QSplashScreen();
+    splash->setPixmap(QPixmap(createPath("icons/explorerDefault.png")));
+    splash->show();
+    MainApp welcomeScreen; 
     welcomeScreen.show();
- qDebug("gui showed...");
+    splash->hide();
 
 
 
