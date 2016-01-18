@@ -16,7 +16,7 @@ QString SendAction::sendComando(QString comando){
 #endif
 
 #ifdef Q_PROCESSOR_ARM
-    QString run= createPath("clienteOlimex.o ")+robotIp+comando;
+    QString run= createPath("clienteOlimex.o ")+robotIp+comando+"\n";
 #endif
 
     qDebug() << run;
