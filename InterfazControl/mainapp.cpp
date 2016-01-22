@@ -488,7 +488,7 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
         initControl.close();
      
         QProcess powerOff;
-        powerOff.start("poweroff");
+        powerOff.start(createPath("powerOff.sh"));
         powerOff.waitForFinished();
         powerOff.close();  
  
