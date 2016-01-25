@@ -24,8 +24,7 @@ private:
     QTimer *timer;
     QProgressBar *batteryControl, *batteryRobot;
     QProcess procRun;
-    int valueTest;    
-    SendAction *sendAction;
+    int valueTest;
     QString sendComando(QString comando);
 
 public slots:

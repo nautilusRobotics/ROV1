@@ -9,8 +9,7 @@ DataThread::DataThread(QProgressBar *bc, QProgressBar *br)
    batteryControl=bc;  
    batteryRobot=br;
    valueTest=10;
-   update();
-   sendAction=new SendAction();
+   update(); 
 }
 
 
@@ -49,11 +48,7 @@ void DataThread::update(){
          valueTest++;
 #endif
 
-#ifndef OFFLINE_SA
-         /*GetRobot Battery*/
-        // QString batteryStatus=sendAction->sendComando(GET_BATTERY);
-        // batteryRobot->setValue(batteryStatus.toInt());
-#endif
+
 
 }
 

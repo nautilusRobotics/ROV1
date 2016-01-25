@@ -4,7 +4,7 @@
 
 extern QString createPath(QString path);
 
-MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joystick,  Ui::NautilusCommander *gui) :
+MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joystick,  Ui::NautilusCommander *gui, SendAction *sa) :
     QWidget(parent)
 {
      this->missionName=mName;
@@ -19,31 +19,10 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
          QDir().mkdir(missionFolder);
      }
 
-
-    /********************************  Joystick *****************************************************/
-
-    this->joystick=joystick;
-
-    connect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
-    connect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
-
-    rtsp=new openRTSP(0,missionName,numVideos);
-    connect(this,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
-
-
-    robotIp="10.5.5.103 ";
-
-
-    statusErrorBox=ui->statusErrorBox;
-    statusErrorBox->setVisible(false);
-
     lblLightsOff=ui->label_switchOff;
     lblLightsOn=ui->label_switchOn;
     lblLightsOn->setVisible(false);
     islightsOn=false;
-
-    statusErrorBox->setVisible(false);
-    lblError=ui->lblError;
 
     righLeft=-1;
     upDown=-1;
@@ -56,18 +35,40 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     missionNameLabel=ui->lblMissionName;
     missionNameLabel->setText(missionName);
 
-    batteryROVPB=ui->progressBattRov;    
+    batteryROVPB=ui->progressBattRov;
     panCamera=ui->panCamera;
     tiltCamera=ui->tiltCamera;
+
+    statusErrorBox=ui->statusErrorBox;
+    statusErrorBox->setVisible(false);
+    lblError=ui->lblError;
+
+
+    sendAction=sa;
+    connect(this->sendAction,SIGNAL(offline()),this,SLOT(robotDisconnected()));
+    status=checkStatus();
+
+    if(status!=-1)
+    sendAction->sendComando(START_ROBOT);  //ReEnable the robot
+
+
+    /********************************  Joystick *****************************************************/
+    this->joystick=joystick;
+
+    connect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
+    connect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
+
+    rtsp=new openRTSP(0,missionName,numVideos);
+    connect(this,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
+
 
     dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
     dataThread->start();
 
-    sendAction=new SendAction();
 
 
-    //searchCamera();
-    mplayer=ui->mplayerWG;  
+    mplayer=ui->mplayerWG;
+    connect(mplayer,SIGNAL(stateChanged(int)),this,SLOT(updatePlayerStatus(int)));
     mplayer->start();    
     mplayer->load("rtsp://admin:12345@10.5.5.110:554");
   
@@ -82,10 +83,59 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     dialIndex=0;
     lastCommand="";
     speedDial->setValue(speeds[0][0]);
+
+
 }
 
-void MissionWidget::updatePlayerStatus(bool isConnected){
+void MissionWidget::robotDisconnected(){
+    qDebug()<<"Robot Offline";
+    statusErrorBox->setVisible(true);
+    lblError->setText("Robot Offline");
+}
 
+int MissionWidget::checkStatus(void){
+
+    if(!sendAction->isConnected()){
+        statusErrorBox->setVisible(true);
+        lblError->setText("Robot Offline");
+        return ERROR_ROBOT;
+    }
+
+
+    QProcess procRun;
+    procRun.start(createPath("checkCam.sh"));
+    procRun.waitForFinished( );
+    QString output( procRun.readAllStandardOutput());
+    procRun.close();
+
+#ifdef USER_DEBUG_MW
+qDebug()<< "Camera check "+output;
+#endif
+
+    if(!output.compare("live\n"))
+       return STATUS_OK;
+    else{
+        statusErrorBox->setVisible(true);
+        lblError->setText("Camera Offline");
+        return ERROR_CAMERA;
+    }
+
+}
+
+void MissionWidget::updatePlayerStatus(int state){
+    if(state==QMPwidget::IdleState){
+#ifdef USER_DEBUG_MW
+    qDebug()<< "Player IdleState";
+#endif
+        lblError->setText("Camera Offline");
+        statusErrorBox->setVisible(true);
+    }
+    else if(state==QMPwidget::PlayingState){
+#ifdef USER_DEBUG_MW
+    qDebug()<< "Player Playing State";
+#endif
+        statusErrorBox->setVisible(false);
+    }
 }
 
 void MissionWidget::updateControlStatus(bool isConnected){
@@ -107,10 +157,6 @@ void MissionWidget::takeScreenshot(){
 }
 
 void MissionWidget::updateRobotDepth(double value){
-
-}
-
-void MissionWidget::handleButtonHome(){    
 
 }
 
@@ -170,8 +216,6 @@ void MissionWidget::axisEvent(QString axis,int value){
         }
         if(command.compare("")){
             sendAction->sendComando(command);
-            /*sendAction->sendComando(command);
-            sendAction->sendComando(command);*/
             lastCommand=command;
         }
 
@@ -197,9 +241,7 @@ void MissionWidget::axisEvent(QString axis,int value){
             }
 
             if(command.compare("")){
-                sendAction->sendComando(command);
-                /*sendAction->sendComando(command);
-                sendAction->sendComando(command);*/
+                sendAction->sendComando(command);             
                 lastCommand=command;
             }
 
@@ -225,9 +267,7 @@ void MissionWidget::axisEvent(QString axis,int value){
         }
 
         if(command.compare("")){
-            sendAction->sendComando(command);
-            /*sendAction->sendComando(command);
-            sendAction->sendComando(command);*/
+            sendAction->sendComando(command);        
             lastCommand=command;
         }
     }
@@ -260,29 +300,18 @@ void MissionWidget::axisEvent(QString axis,int value){
 }
 
 void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *event){
-#ifdef USER_DEBUG_MW
-     qDebug("handle button");
-#endif
      if(button==button_back && !event->pressed()){
-
           sendAction->sendComando(STOP_ROBOT);
-         // sendAction->sendComando(NULL_CMD);
           disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
           disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
           saveSettings();
-
           emit returnToHome();
-
-         #ifdef USER_DEBUG_MW
-              qDebug("==================================================================released Back==================================================================");
-         #endif
+          this->destroy();
      }
      else if(button==button_X && !event->pressed()){
          tiltCamera->setValue(centerCamera);
          panCamera->setValue(centerCamera);
          sendAction->sendComando(CENTER_CAMARA);
-         //sendAction->sendComando(NULL_CMD);
-
      }
      else if(button==button_A && !event->pressed()){
             takeScreenshot();
@@ -327,7 +356,10 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
 
 
      }
-    /* else if(button==button_X && !event->pressed()){
+     else if(button==button_Y && !event->pressed()){
+
+     }
+    /* else if(button==button_Y && !event->pressed()){
          islightsOn=!islightsOn;
          if(islightsOn){
             lblLightsOff->setVisible(false);
@@ -349,8 +381,8 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
 
 
 
-}
 
+}
 
 void MissionWidget::resendCommand(){
     QString commandValue=lastCommand.mid(lastCommand.length()-4,lastCommand.length()-1);
@@ -377,9 +409,7 @@ void MissionWidget::resendCommand(){
          newCommand=QString("%1%2").arg(UPDOWN_ROBOT).arg(speeds[2][dialIndex]);
       }
 
-      sendAction->sendComando(newCommand);
-      /*sendAction->sendComando(command);
-      sendAction->sendComando(command);*/
+      sendAction->sendComando(newCommand);    
       lastCommand=newCommand;
     }
 
@@ -416,6 +446,7 @@ void MissionWidget::searchCamera(){
         mplayer=ui->mplayerWG;
         mplayer->start();       
         mplayer->load("rtsp://admin:12345@10.5.5.110:554");
+        connect(mplayer,SIGNAL(stateChanged(int)),this,SLOT(updatePlayerStatus(int)));
         statusErrorBox->setVisible(false);
     }
     else{

@@ -27,15 +27,9 @@
 #include "datathread.h"
 #include "sendaction.h"
 
-
-
-
-/*---------ScreenShot definitions-----------*/
-#define OFFSET_X 10
-#define OFFSET_Y 90
-#define SCREEN_SHOT_LR 1900 //Let-Right
-#define SCREEN_SHOT_UD 850 //up-down
-/*-----------------------------------------*/
+#define STATUS_OK     0
+#define ERROR_ROBOT  -1
+#define ERROR_CAMERA -2
 
 #define centerCamera 11
 
@@ -45,20 +39,20 @@ class MissionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MissionWidget(QWidget *parent = 0, QString mName="Untitled",  JoystickWidget *joystick= 0, Ui::NautilusCommander *gui=0);
+    explicit MissionWidget(QWidget *parent = 0, QString mName="Untitled",  JoystickWidget *joystick= 0, Ui::NautilusCommander *gui=0, SendAction *sa=0);
 signals:
     void returnToHome();
     void saveVideo(void);
 
 
 public slots:
-    void updatePlayerStatus(bool isConnected);
-    void updateControlStatus(bool isConnected);    
-    void updateRobotDepth(double value);     
-    void handleButtonHome();    
+    void updatePlayerStatus(int state);
+    void updateControlStatus(bool isConnected);
+    void updateRobotDepth(double value);             
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
     void searchCamera(void);
+    void robotDisconnected(void);
 
 
 private:
@@ -68,8 +62,7 @@ private:
     QString missionName;
     openRTSP *rtsp;    
     QString m_sSettingsFile;         
-    QProcess procRun;
-    QString robotIp;    
+    QProcess procRun;        
     QLabel *lblLightsOn, *lblLightsOff;
     QProgressBar *batteryROVPB, *batteryControlPB;
     QSlider  *panCamera, *tiltCamera;
@@ -80,7 +73,7 @@ private:
     SendAction *sendAction;
     QDial *speedDial;
     QString lastCommand;
-    int numPic,numVideos,dialIndex;
+    int numPic,numVideos,dialIndex,status;
     int speeds[3][4];
     bool islightsOn, isRecording, isCameraOnline;
     int righLeft, upDown;    
@@ -88,8 +81,8 @@ private:
     void saveSettings(void);
     void takeScreenshot(void);
     void resendCommand(void);
+    int checkStatus(void);
     QString mapSpeed(int value);
-
 
 };
 

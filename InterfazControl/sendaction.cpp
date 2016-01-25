@@ -1,44 +1,75 @@
 #include "sendaction.h"
 
 #define USER_DEBUG_SA
-//#define OFFLINE_SA
+//#define OFFLINE
 
-extern QString createPath(QString path);
+SendAction::SendAction(QWidget *parent) : QWidget(parent){    
+    cliente = new QTcpSocket(this);
+    connect(cliente, SIGNAL(connected()),this, SLOT(connected()));
+    connect(cliente, SIGNAL(disconnected()),this, SLOT(disconnected()));
+    connect(cliente, SIGNAL(readyRead()), SLOT(readyRead()));
 
-SendAction::SendAction(QWidget *parent) : QWidget(parent){
-  robotIp="10.5.5.103 ";
+    serverResp=QString("");
+    txServer=false;
+    conection=false;
 }
 
 QString SendAction::sendComando(QString comando){
-
-#ifdef Q_PROCESSOR_X86
-     QString run= createPath("cliente.o ")+robotIp+comando;
+    comando=comando.append("\n");
+#ifdef USER_DEBUG_SA
+    qDebug()<<"comando: "+comando;
 #endif
+    QByteArray data=comando.toLocal8Bit();
 
-#ifdef Q_PROCESSOR_ARM
-    QString run= createPath("clienteOlimex.o ")+robotIp+comando+"\n";
-#endif
+    cliente->write(data);
+    //_pSocket->waitForBytesWritten();
 
-    qDebug() << run;
-
-#ifndef OFFLINE_SA
-        procRun.start(run);
-        procRun.waitForFinished(500);
-        QString output( procRun.readAllStandardOutput());
-    #ifdef USER_DEBUG_SA
-          qDebug()<<"server Resp "+output;
-    #endif
-        output=output.mid(0,5);
-
-        procRun.close();
-        return output;
-#else
-    return "offline";
-#endif
-
+    if(comando.at(0)==QChar(REQUEST_KEY_CHAR)){         
+         txServer=false;
+         cliente->waitForReadyRead();
+         qDebug()<<"final server resp"+serverResp;
+         return serverResp;
+    }    
+    return "";
 
 }
 
-SendAction::~SendAction (){
+void SendAction::conectClient(){
+    #ifdef USER_DEBUG_SA
+    qDebug()<<"Connecting Client";
+    #endif
+    cliente->connectToHost(ROBOT_IP, 50002);
+    cliente->waitForConnected();
+}
 
+void SendAction::readyRead(){
+  QByteArray data = cliente->readAll();
+  serverResp=QString(data);
+  txServer=true;  
+}
+
+void SendAction::connected(){
+    #ifdef USER_DEBUG_SA
+    qDebug() << "Connected...";
+    #endif
+    conection=true;
+}
+
+bool SendAction::isConnected(){
+#ifdef OFFLINE
+    return true;
+#endif
+    return conection;
+}
+
+void SendAction::disconnected(){
+    #ifdef USER_DEBUG_SA
+    qDebug() << "disconnected...";
+    #endif
+    conection=false;
+    emit offline();
+}
+
+SendAction::~SendAction (){
+    cliente->close();
 }

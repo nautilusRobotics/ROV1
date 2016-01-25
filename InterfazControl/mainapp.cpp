@@ -163,8 +163,8 @@ void MainApp::createProjectList(){
     projectList->clear();
     projectListBools->clear();
     int idx=0;
-
     bool isConnected=checkRobot();
+
 
     while (it.hasNext()) {
         QFileInfo Info(it.next());
@@ -193,12 +193,12 @@ void MainApp::createProjectList(){
 void MainApp::runMission(QString missionName){
 
 #ifdef DEBUG_INTRO
-      qDebug() <<"continue "+missionName;
+      qDebug() <<"runMission "+missionName;
 #endif
 
    disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
 
-   missionWidget=new MissionWidget(this,missionName,joystick,&ui);
+   missionWidget=new MissionWidget(this,missionName,joystick,&ui,sendAction);
    connect(missionWidget,SIGNAL(returnToHome()),this,SLOT(showHome()));
    stackedWidget->setCurrentIndex(1);
 }
@@ -265,8 +265,7 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
        switch(focused){
           case 0:{
             qDebug("option Start");
-            if(checkRobot()){
-              //sendAction->sendComando(NULL_CMD);
+            if(checkRobot()){             
               launchKeyBoard();
             }
             else{
@@ -300,6 +299,9 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
            break;
        }
     }
+    else  if(button==button_start && !event->pressed()){
+      // sendAction->sendComando("goro1600");
+    }
     else if(!event->pressed()){
       secretKey=(button==secretKeyList->at(secretKey))?secretKey+1:0;
 
@@ -318,6 +320,7 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
           this->close();
 	}
     }
+
 }
 
 void MainApp::joystickAxisEventMenu(QString axis, int value){
@@ -346,13 +349,14 @@ void MainApp::joystickAxisEventOpen(QString axis, int value){
 void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
     if(button==button_A && !event->pressed()){        
         int item= projectList->currentRow();
-        if(isRobotOnline || isWorkingOffline){
+        //if(isRobotOnline || isWorkingOffline){
+
             runMission(projectListStrings->at(item));
             lblTitle->setText("Welcome to Nautilus Commander");
             openMissionBox->setVisible(false);
             disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
             disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
-        }
+
 
     }
     else if(button==button_X && !event->pressed()){
@@ -424,8 +428,21 @@ void MainApp::reconnectJoystick(){
 }
 
 void MainApp::controlCrash(){
-      //QCoreApplication::exit();
-      this->close();
+
+#ifdef Q_PROCESSOR_ARM
+        QString run=createPath("controlOn.sh");  //Disable Control
+        QProcess initControl;
+        initControl.start(run);
+        initControl.waitForFinished();
+        initControl.close();
+
+        QProcess powerOff;
+        powerOff.start(createPath("powerOff.sh"));
+        powerOff.waitForFinished();
+        powerOff.close();
+#endif
+
+        this->close();
 }
 
 void MainApp::handleCloseKeyboardEvent(bool cancelled,QString result){
@@ -477,8 +494,9 @@ void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEve
 
 void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButtonEvent* event){
 
-    if(button==button_A && !event->pressed()){        
-    sendAction->sendComando(POWEROFF_ROBOT);
+    if(button==button_A && !event->pressed()){
+      if(sendAction->isConnected())
+        sendAction->sendComando(POWEROFF_ROBOT);
 
 #ifdef Q_PROCESSOR_ARM
         QString run=createPath("controlOn.sh");  //Disable Control          
@@ -602,14 +620,21 @@ void MainApp::joystickButtonEventKeyBoard(QString button,QGameControllerButtonEv
 }
 
 bool MainApp::checkRobot(){
-    QString resp=sendAction->sendComando(CHECK_ROBOT);
+  if(sendAction->isConnected())
+      return true;
+
+
+  sendAction->conectClient();
+  return sendAction->isConnected();
+
+ /*   QString resp= sendAction->sendComando(CHECK_ROBOT);
 
 #ifdef DEBUG_INTRO
 qDebug()<< "New Mission Server "+resp;
 #endif
     isWorkingOffline=!resp.compare("offline");
 
-    if(!resp.compare("okok\n")){
+    if(!resp.compare("okok")){
         QProcess procRun;
         procRun.start(createPath("checkCam.sh"));
         procRun.waitForFinished( );
@@ -623,7 +648,9 @@ qDebug()<< "Camera check "+output;
         return isRobotOnline;
     }    
     else
-        return isWorkingOffline;
+        return isWorkingOffline;*/
 
 }
+
+
 
