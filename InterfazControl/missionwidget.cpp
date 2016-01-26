@@ -305,8 +305,11 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
           disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
           disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
           saveSettings();
+          dataThread->closeServer();
+          dataThread->terminate();
+
           emit returnToHome();
-          this->destroy();
+
      }
      else if(button==button_X && !event->pressed()){
          tiltCamera->setValue(centerCamera);

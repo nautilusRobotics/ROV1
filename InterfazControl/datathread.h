@@ -7,6 +7,8 @@
 #include <QProcess>
 #include <QDebug>
 #include <QObject>
+#include <QTcpServer>
+#include <QTcpSocket>
 
 #include "com.h"
 #include "sendaction.h"
@@ -19,16 +21,23 @@ class DataThread : public QThread
 
 public:
     DataThread(QProgressBar *bc, QProgressBar *br);
+    void closeServer();
 
 private:
-    QTimer *timer;
-    QProgressBar *batteryControl, *batteryRobot;
-    QProcess procRun;
-    int valueTest;
-    QString sendComando(QString comando);
+    QProgressBar *batteryControl, *batteryRobot;        
+    QTcpServer *server;
+    QTcpSocket *socket;
+    int valueTest, robotBattery;
+    bool newMessage;
 
 public slots:
     void update();
+    void newConnection();
+    void startRead();
+    void disconnected();
+    void stop();
+
+
 
 protected:
     void run();

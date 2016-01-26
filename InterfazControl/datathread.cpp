@@ -5,27 +5,42 @@ extern QString createPath(QString path);
 
 DataThread::DataThread(QProgressBar *bc, QProgressBar *br)
 {
-   timer=new QTimer();
+   qDebug("Data Thread");
    batteryControl=bc;  
    batteryRobot=br;
-   valueTest=10;
-   update(); 
+   valueTest=0;
+   robotBattery=0;
+
+   server=new QTcpServer(this);
+   connect(server,SIGNAL(newConnection()),this,SLOT(newConnection()));
+
+   if(server->listen(QHostAddress::Any,8888))
+       qDebug("Server Listening ....");
+   else
+       qDebug("Server Listening EROR");
+
+   //update();
 }
 
 
-void DataThread::run()
-{
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(5000);
-
-    while(1){
-
+void DataThread::run(){
+    while(!this->isFinished()){
+        if(newMessage){
+           update();
+           newMessage=false;
+        }
     }
+       qDebug("finish Thread");
+}
 
+void DataThread::stop()
+{
+    qDebug("Stop Thread");
+    server->close();
+    quit(); // terminate thread
 }
 
 void DataThread::update(){
-        //qDebug()<<"update Data Thread";
 #ifdef Q_PROCESSOR_ARM
         QString run=createPath("battSense.sh");
         procRun.start(run);
@@ -45,11 +60,37 @@ void DataThread::update(){
 #endif
 #ifndef Q_PROCESSOR_ARM
          batteryControl->setValue(valueTest);
-         valueTest++;
+         valueTest=(valueTest<100)?valueTest+1:0;
 #endif
 
+         batteryRobot->setValue(robotBattery);
+}
+
+void DataThread::closeServer(){
+    server->close();
+}
 
 
+void DataThread::newConnection(){
+   qDebug("new Connection");
+   socket=server->nextPendingConnection();
+   connect(socket, SIGNAL(readyRead()),this, SLOT(startRead()));
+   connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
+}
+
+void DataThread::disconnected(){
+   qDebug("Disconected");
+}
+
+void DataThread::startRead(){
+    newMessage=true;
+    char buffer[4];
+    socket->read(buffer, socket->bytesAvailable());
+
+    QString clientMessage;
+    clientMessage.append(buffer);
+    robotBattery=clientMessage.toInt();
+    qDebug()<<"cliente"+clientMessage;
 }
 
 

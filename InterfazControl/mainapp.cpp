@@ -248,6 +248,7 @@ void MainApp::showHome(){
    connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+
    stackedWidget->setCurrentIndex(0);
 }
 
