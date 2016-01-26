@@ -43,6 +43,7 @@ void DataThread::stop()
 void DataThread::update(){
 #ifdef Q_PROCESSOR_ARM
         QString run=createPath("battSense.sh");
+        QProcess procRun;
         procRun.start(run);
         procRun.waitForFinished();
         QString output(procRun.readAllStandardOutput());
