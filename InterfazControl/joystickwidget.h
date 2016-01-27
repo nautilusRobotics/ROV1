@@ -20,12 +20,13 @@
 #ifndef JOYSTICKWIDGET_H
 #define JOYSTICKWIDGET_H
 
+
+#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QString>
 #include <QTimer>
 #include "qgamecontroller.h"
 #include "sendaction.h"
-#include "player.h"
 
 
 #ifdef Q_PROCESSOR_X86
@@ -77,12 +78,8 @@ signals:
    void joystickButtonEvent(QString btn, QGameControllerButtonEvent *event);
 
 private:
-    QMap<uint, QList<QSlider*> > slidersMap;
-    QMap<uint, QList<QLabel*> > buttonLabelsMap;
     QStringList buttonsXbox, axisXbox;   
     QGameController *gameController;    
-    QPushButton *btnConnect;
-
 
 
 private slots:

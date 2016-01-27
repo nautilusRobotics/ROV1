@@ -1,6 +1,8 @@
 #ifndef DATATHREAD_H
 #define DATATHREAD_H
 
+
+#define QT_NO_DEBUG_OUTPUT
 #include <QThread>
 #include <QTimer>
 #include <QProgressBar>

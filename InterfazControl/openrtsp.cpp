@@ -1,5 +1,5 @@
 #include "openrtsp.h"
-//#define DEBUG_OPENRTSP
+
 
 openRTSP::openRTSP(QObject *parent,QString missionName,int numVideo):
     QObject(parent)
@@ -15,12 +15,8 @@ void openRTSP::saveVideo(){
    if(!isSaving){
        isSaving=true;
        QString run= QString("sh rtsp.sh %1 %2").arg(missionName).arg(numVideo);
-
-#ifdef DEBUG_OPENRTSP
-       qDebug() << run;
-#endif
+       qDebug() << run; 
        procSave.start(run);
-
    }
    else{
        isSaving=false;
@@ -28,15 +24,10 @@ void openRTSP::saveVideo(){
        numVideo++;
        QProcess kill;
        QString run= QString("sh rtsp_kill.sh %1").arg(procSave.pid()+1);
-
-#ifdef DEBUG_OPENRTSP
        qDebug() << run;
-#endif
        kill.start(run);
        kill.waitForFinished();
        kill.kill();
-
-
    }
  }
 

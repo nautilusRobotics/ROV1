@@ -20,6 +20,8 @@
 #ifndef QGAMECONTROLLER_P_H
 #define QGAMECONTROLLER_P_H
 
+
+#define QT_NO_DEBUG_OUTPUT
 #include <QMap>
 
 #include "qgamecontroller.h"

@@ -1,6 +1,7 @@
 #ifndef QGameController_GLOBAL_H
 #define QGameController_GLOBAL_H
 
+#define QT_NO_DEBUG_OUTPUT
 #include <QtCore/qglobal.h>
 
 #if defined(QGAMECONTROLLER_LIBRARY)

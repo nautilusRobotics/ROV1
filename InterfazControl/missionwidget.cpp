@@ -1,5 +1,5 @@
 #include "missionwidget.h"
-#define USER_DEBUG_MW
+
 
 
 extern QString createPath(QString path);
@@ -108,9 +108,7 @@ int MissionWidget::checkStatus(void){
     QString output( procRun.readAllStandardOutput());
     procRun.close();
 
-#ifdef USER_DEBUG_MW
-qDebug()<< "Camera check "+output;
-#endif
+    qDebug()<< "Camera check "+output;
 
     if(!output.compare("live\n"))
        return STATUS_OK;
@@ -124,16 +122,12 @@ qDebug()<< "Camera check "+output;
 
 void MissionWidget::updatePlayerStatus(int state){
     if(state==QMPwidget::IdleState){
-#ifdef USER_DEBUG_MW
-    qDebug()<< "Player IdleState";
-#endif
+        qDebug()<< "Player IdleState";
         lblError->setText("Camera Offline");
         statusErrorBox->setVisible(true);
     }
     else if(state==QMPwidget::PlayingState){
-#ifdef USER_DEBUG_MW
-    qDebug()<< "Player Playing State";
-#endif
+        qDebug()<< "Player Playing State";
         statusErrorBox->setVisible(false);
     }
 }
@@ -190,9 +184,7 @@ void MissionWidget::saveSettings()
 }
 
 void MissionWidget::axisEvent(QString axis,int value){
-#ifdef USER_DEBUG_MW
      qDebug("axis  %d",value);
-#endif
 
     if(axis== axis_left_horizontal){
        /* QString mappedSpeed=mapSpeed(-value);
@@ -318,9 +310,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
      }
      else if(button==button_A && !event->pressed()){
             takeScreenshot();
-            #ifdef USER_DEBUG_MW
-                 qDebug("released B");
-            #endif
+            qDebug("released B");
      }
      else if(button==button_B && !event->pressed()){
          if(isCameraOnline){
@@ -332,37 +322,28 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
                      statusVideoOff->setVisible(true);
          }
 
-         #ifdef USER_DEBUG_MW
-                 qDebug("released Y");
-         #endif
+         qDebug("released Y");
+
      }
      else if(button==button_RB && !event->pressed()){
          int maxDial=speeds[0][3];
          dialIndex=(speedDial->value()<maxDial)?dialIndex+1:dialIndex;
          speedDial->setValue(speeds[0][dialIndex]);
          resendCommand();
-#ifdef USER_DEBUG_MW
-        qDebug() <<"released RB dial:"+speedDial->value();
-#endif
-
-
+         qDebug() <<"released RB dial:"+speedDial->value();
      }
      else if(button==button_LB && !event->pressed()){
          int minDial=speeds[0][0];
          dialIndex=(speedDial->value()>minDial)?dialIndex-1:dialIndex;
          speedDial->setValue(speeds[0][dialIndex]);
          resendCommand();
-         #ifdef USER_DEBUG_MW
-                 qDebug() <<"released LB dial:"+speedDial->value();
-         #endif
-
-
+         qDebug() <<"released LB dial:"+speedDial->value();
 
      }
      else if(button==button_Y && !event->pressed()){
 
      }
-    /* else if(button==button_Y && !event->pressed()){
+  /* else if(button==button_Y && !event->pressed()){
          islightsOn=!islightsOn;
          if(islightsOn){
             lblLightsOff->setVisible(false);
@@ -375,16 +356,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
              sendAction->sendComando(OFF_LIGHT);
          }
 
-         //sendAction->sendComando(NULL_CMD);
-          #ifdef USER_DEBUG_MW
-                 qDebug("released X");
-          #endif
      }*/
-
-
-
-
-
 }
 
 void MissionWidget::resendCommand(){
@@ -416,18 +388,13 @@ void MissionWidget::resendCommand(){
       lastCommand=newCommand;
     }
 
-#ifdef USER_DEBUG_MW
-      qDebug() <<"trimmed command:"+command+" "+commandValue;
-#endif
 
-
+    qDebug() <<"trimmed command:"+command+" "+commandValue;
 }
 
 QString MissionWidget::mapSpeed(int value){
    double m=(double) (maxESCms-minESCms)/(maxControl-minControl);
-#ifdef USER_DEBUG_MW
-     qDebug()<<"m "<<m;
-#endif
+   qDebug()<<"m "<<m;
    double b=minESCms-(m*minControl);
    int speed=m*value+b;
 

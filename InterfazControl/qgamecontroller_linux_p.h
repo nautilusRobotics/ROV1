@@ -20,11 +20,13 @@
 #ifndef QGAMECONTROLLER_LINUX_P_H
 #define QGAMECONTROLLER_LINUX_P_H
 
-#include <QMap>
 
+#define QT_NO_DEBUG_OUTPUT
+#include <QDebug>
+
+#include <QMap>
 #include "qgamecontroller.h"
 #include "qgamecontroller_p.h"
-
 #include <iostream>
 #include <unistd.h>
 #include <fcntl.h>

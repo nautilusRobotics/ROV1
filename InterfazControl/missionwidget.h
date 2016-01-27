@@ -1,6 +1,7 @@
 #ifndef MISSIONWIDGET_H
 #define MISSIONWIDGET_H
 
+#define QT_NO_DEBUG_OUTPUT
 #include <QGridLayout>
 #include <QShowEvent>
 #include <QFileDialog>

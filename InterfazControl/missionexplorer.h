@@ -1,6 +1,7 @@
 #ifndef MISSIONEXPLORER_H
 #define MISSIONEXPLORER_H
 
+#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QGridLayout>
 #include <QStyle>
@@ -11,7 +12,6 @@
 #include <QSettings>
 #include <QProcess>
 #include <QPainter>
-#include "player.h" 
 #include "thumbviewer.h"
 #include "exportmanager.h"
 #include "joystickwidget.h"
@@ -28,9 +28,7 @@ signals:
     void pause();
     void returnToHome();
 public slots:
-    void displaySource();
-    void playCLiked();
-    void setState(QMediaPlayer::State);   
+    void displaySource();    
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
 
@@ -48,8 +46,7 @@ private:
     QStringList argumentos;    
     QAbstractButton *playButton,*reloadButton;
     QAbstractSlider *videoSlider;
-    QPushButton *btn_export,*button_home;
-    QMediaPlayer::State playerState;
+    QPushButton *btn_export,*button_home;    
     int fileRow;
     ExportManager *exm;    
     Ui::NautilusCommander *ui;

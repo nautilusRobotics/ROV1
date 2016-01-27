@@ -1,6 +1,8 @@
 #ifndef MAINAPP_H
 #define MAINAPP_H
 
+
+#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QApplication>
 #include <QLabel>

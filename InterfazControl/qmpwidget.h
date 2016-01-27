@@ -17,6 +17,8 @@
 */
 #ifndef QMPWIDGET_H_
 #define QMPWIDGET_H_
+
+
 #include <QHash>
 #include <QPointer>
 #include <QTimer>

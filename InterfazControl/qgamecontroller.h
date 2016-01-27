@@ -20,6 +20,9 @@
 #ifndef QGameController_H
 #define QGameController_H
 
+#define QT_NO_DEBUG_OUTPUT
+
+
 #include <QObject>
 #include "qgamecontroller-global.h"
 

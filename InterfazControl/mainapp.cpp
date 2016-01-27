@@ -4,8 +4,6 @@
 
 
 extern QString createPath(QString path);
-#define DEBUG_INTRO
-
 
 MainApp::MainApp(QWidget *parent) :
     QWidget(parent)
@@ -170,9 +168,9 @@ void MainApp::createProjectList(){
         QFileInfo Info(it.next());
         QString missionName = QString(Info.fileName());
 
-#ifdef DEBUG_INTRO
+
         qDebug() <<missionName;
-#endif
+
 
 
         QListWidgetItem *item = new QListWidgetItem();
@@ -192,9 +190,9 @@ void MainApp::createProjectList(){
 
 void MainApp::runMission(QString missionName){
 
-#ifdef DEBUG_INTRO
-      qDebug() <<"runMission "+missionName;
-#endif
+
+    qDebug() <<"runMission "+missionName;
+
 
    disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
 
@@ -204,9 +202,9 @@ void MainApp::runMission(QString missionName){
 }
 
 void MainApp::exploreMission(QString missionName){
-#ifdef DEBUG_INTRO
-      qDebug() <<"explore "+missionName;
-#endif
+
+   qDebug() <<"explore "+missionName;
+
 
   disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
   disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
@@ -220,26 +218,20 @@ void MainApp::exploreMission(QString missionName){
 
 void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
 
-#ifdef DEBUG_INTRO
-       qDebug() <<"delete "+missionName;
-#endif
 
-          QString dirName=QString("%1/%2").arg(missionsPath).arg(missionName);
+       qDebug() <<"delete "+missionName;
+       QString dirName=QString("%1/%2").arg(missionsPath).arg(missionName);
 
           QDir dir(dirName);
 
           if(dir.removeRecursively()){
-            #ifdef DEBUG_INTRO
-                   qDebug()<<"delete OK";
-            #endif
+              qDebug()<<"delete OK";
               projectList->takeItem(projectList->row(item));
 
           }
-          else{
-            #ifdef DEBUG_INTRO
-                      qDebug()<<"no delete";
-            #endif
-          }
+          else
+             qDebug()<<"no delete";
+
 
 
 }
@@ -306,9 +298,9 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
     else if(!event->pressed()){
       secretKey=(button==secretKeyList->at(secretKey))?secretKey+1:0;
 
-#ifdef DEBUG_INTRO
+
       qDebug()<<QString("Secret Key %1").arg(secretKey);
-#endif
+
 
       if(secretKey==secretKeyList->length()){
         #ifdef Q_PROCESSOR_ARM
@@ -350,14 +342,14 @@ void MainApp::joystickAxisEventOpen(QString axis, int value){
 void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
     if(button==button_A && !event->pressed()){        
         int item= projectList->currentRow();
-        //if(isRobotOnline || isWorkingOffline){
 
+        if(sendAction->isConnected()){
             runMission(projectListStrings->at(item));
             lblTitle->setText("Welcome to Nautilus Commander");
             openMissionBox->setVisible(false);
             disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
             disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
-
+        }
 
     }
     else if(button==button_X && !event->pressed()){
@@ -631,30 +623,6 @@ bool MainApp::checkRobot(){
 
   sendAction->conectClient();
   return sendAction->isConnected();
-
- /*   QString resp= sendAction->sendComando(CHECK_ROBOT);
-
-#ifdef DEBUG_INTRO
-qDebug()<< "New Mission Server "+resp;
-#endif
-    isWorkingOffline=!resp.compare("offline");
-
-    if(!resp.compare("okok")){
-        QProcess procRun;
-        procRun.start(createPath("checkCam.sh"));
-        procRun.waitForFinished( );
-        QString output( procRun.readAllStandardOutput());
-        procRun.close();
-        usleep(5000);
-#ifdef DEBUG_INTRO
-qDebug()<< "Camera check "+output;
-#endif
-        isRobotOnline=!output.compare("live\n");
-        return isRobotOnline;
-    }    
-    else
-        return isWorkingOffline;*/
-
 }
 
 

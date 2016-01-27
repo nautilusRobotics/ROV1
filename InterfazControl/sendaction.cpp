@@ -1,6 +1,4 @@
 #include "sendaction.h"
-
-#define USER_DEBUG_SA
 //#define OFFLINE
 
 SendAction::SendAction(QWidget *parent) : QWidget(parent){    
@@ -16,14 +14,10 @@ SendAction::SendAction(QWidget *parent) : QWidget(parent){
 
 QString SendAction::sendComando(QString comando){
     comando=comando.append("\n");
-#ifdef USER_DEBUG_SA
     qDebug()<<"comando: "+comando;
-#endif
     QByteArray data=comando.toLocal8Bit();
-
     cliente->write(data);
-    //_pSocket->waitForBytesWritten();
-
+    //cliente->waitForBytesWritten();
     if(comando.at(0)==QChar(REQUEST_KEY_CHAR)){         
          txServer=false;
          cliente->waitForReadyRead();
@@ -31,13 +25,10 @@ QString SendAction::sendComando(QString comando){
          return serverResp;
     }    
     return "";
-
 }
 
-void SendAction::conectClient(){
-    #ifdef USER_DEBUG_SA
-    qDebug()<<"Connecting Client";
-    #endif
+void SendAction::conectClient(){ 
+    qDebug()<<"Connecting Client";    
     cliente->connectToHost(ROBOT_IP, 50002);
     cliente->waitForConnected();
 }
@@ -48,10 +39,8 @@ void SendAction::readyRead(){
   txServer=true;  
 }
 
-void SendAction::connected(){
-    #ifdef USER_DEBUG_SA
-    qDebug() << "Connected...";
-    #endif
+void SendAction::connected(){    
+    qDebug() << "Connected...";    
     conection=true;
 }
 
@@ -62,10 +51,8 @@ bool SendAction::isConnected(){
     return conection;
 }
 
-void SendAction::disconnected(){
-    #ifdef USER_DEBUG_SA
-    qDebug() << "disconnected...";
-    #endif
+void SendAction::disconnected(){    
+    qDebug() << "disconnected...";    
     conection=false;
     emit offline();
 }

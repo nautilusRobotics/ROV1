@@ -1,6 +1,7 @@
 #ifndef SENDACTION_H
 #define SENDACTION_H
 
+#ifdef QMP_DEBUG_OUTPUT
 #include <QWidget>
 #include <QProcess>
 #include <QDebug>

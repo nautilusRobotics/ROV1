@@ -19,7 +19,7 @@
 
 #include "joystickwidget.h" 
 
-//#define USER_DEBUG_J
+
 
 #ifdef Q_PROCESSOR_ARM
 extern QString createPath(QString path);
@@ -50,10 +50,10 @@ void JoystickWidget::handleQGameControllerAxisEvent(QGameControllerAxisEvent* ev
     int axis = event->axis();
     float num=1000;
     int value=(int)(event->value()*num);
-#ifdef USER_DEBUG_J
+
     qDebug("handleQGameControllerAxisEvent");
     qDebug("Value In joysctick %d", value );
-#endif
+
     //sendAction->axisEvent(axisXbox.at(axis),value);
     emit joystickAxisEvent(axisXbox.at(axis),value);
     delete event;   //QGameControllerEvents unlike QEvents are not deleted automatically.
@@ -66,9 +66,9 @@ void JoystickWidget::handleQGameControllerButtonEvent(QGameControllerButtonEvent
     QString btn=buttonsXbox.at(button);
 
 
-#ifdef USER_DEBUG_J
+
   qDebug("handleQGameControllerButtonEvent");
-#endif
+
 
     //sendAction->buttonEvent(btn,event);
     emit joystickButtonEvent(btn,event);
@@ -77,9 +77,9 @@ void JoystickWidget::handleQGameControllerButtonEvent(QGameControllerButtonEvent
 }
 
 void JoystickWidget::handleQGameControllerDisconnectEvent(QGameControllerDisconnectEvent* event){
-#ifdef USER_DEBUG_J
+
     qDebug("Control Desconectado");
-#endif
+
     emit updateStatus(false);
     gameController=NULL;
 

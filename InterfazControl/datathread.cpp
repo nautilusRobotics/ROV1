@@ -85,14 +85,10 @@ void DataThread::disconnected(){
 }
 
 void DataThread::startRead(){
-    newMessage=true;
-    char buffer[8];
+    newMessage=true;    
     int sn=socket->bytesAvailable();
-    qDebug("socket bytes %d",sn);
-
-   // socket->read(buffer, socket->bytesAvailable());
-    QString clientMessage=QString(socket->read(socket->bytesAvailable()));
-   // clientMessage.append(buffer);
+    qDebug("socket bytes %d",sn);   
+    QString clientMessage=QString(socket->read(socket->bytesAvailable()));   
     robotBattery=clientMessage.toInt();
     qDebug()<<"cliente"+clientMessage;
     qDebug("Robot battery %d",robotBattery);

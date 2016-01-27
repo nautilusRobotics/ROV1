@@ -22,8 +22,6 @@
 #include "qgamecontroller_linux_p.h"
 
 
-#include <QDebug>
-
 QGameControllerEvent::QGameControllerEvent(uint controllerId)
     :d_ptr(new QGameControllerEventPrivate(this))
 {

@@ -13,14 +13,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     joystickwidget.cpp \
-    player.cpp \
     qgamecontroller.cpp \
     qgamecontroller_linux.cpp \
     qmpwidget.cpp \
     sendaction.cpp \
     missionwidget.cpp \
     openrtsp.cpp \
-    intro.cpp \
     myitem.cpp \
     missionexplorer.cpp \
     thumbviewer.cpp \
@@ -31,7 +29,6 @@ SOURCES += main.cpp\
 
 HEADERS  += \
     joystickwidget.h \
-    player.h \
     qgamecontroller.h \
     qgamecontroller-global.h \
     qgamecontroller_linux_p.h \
@@ -41,7 +38,6 @@ HEADERS  += \
     com.h \
     missionwidget.h \
     openrtsp.h \
-    intro.h \
     myitem.h \
     missionexplorer.h \
     thumbviewer.h \

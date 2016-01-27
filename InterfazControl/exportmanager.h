@@ -1,6 +1,8 @@
 #ifndef EXPORTMANAGER_H
 #define EXPORTMANAGER_H
 
+
+#define QT_NO_DEBUG_OUTPUT
 #include <QObject>
 #include <QProcess>
 #include <QDebug>

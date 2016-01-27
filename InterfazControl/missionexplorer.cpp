@@ -1,7 +1,5 @@
 #include "missionexplorer.h"
 
-//#define DEBUG_EXPLORER
-
 extern QString createPath(QString path);
 
 MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickWidget *joystick, Ui::NautilusCommander *gui) :
@@ -33,15 +31,12 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
 
     QString thumbsPath=QString("%1thumb.sh").arg(missionPath);
     QFileInfo checkFile(thumbsPath);
-    if (!checkFile.exists()){
-         #ifdef DEBUG_EXPLORER
-         qDebug()<< "file "+thumbsPath+" not exist";
-         #endif
+    if (!checkFile.exists()){         
+         qDebug()<< "file "+thumbsPath+" not exist";         
          QFile::copy(createPath("thumbs.sh"), thumbsPath);
-    }
-    #ifdef DEBUG_EXPLORER
+    }    
     else qDebug()<< "file "+thumbsPath+" exist";
-    #endif
+
 
 
     createPreviewList();
@@ -50,21 +45,14 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
 
 void MissionExplorer::createPreviewList(){
 
-
-    #ifdef DEBUG_EXPLORER
     qDebug()<<missionPath;
-    #endif
+
     QDirIterator it(missionPath,QDir::NoDotAndDotDot | QDir::AllEntries);
 
     while (it.hasNext()) {
         QFileInfo Info(it.next());
         QString fileName = QString(Info.fileName());
-
-
-        #ifdef DEBUG_EXPLORER
         qDebug() <<fileName;
-        #endif
-
 
         QString fileType=fileName.mid(fileName.length()-4,fileName.length());
 
@@ -74,13 +62,11 @@ void MissionExplorer::createPreviewList(){
              isVideoFile.append(true);
 
              if(createThumbs){
-              QProcess buildThumbs;
-              QString exec=QString("sh %1thumb.sh %2").arg(missionPath).arg(thumbPath);
-                #ifdef DEBUG_EXPLORER
-                qDebug() <<exec;
-                #endif
-              buildThumbs.start(exec);
-              buildThumbs.waitForFinished();
+                  QProcess buildThumbs;
+                  QString exec=QString("sh %1thumb.sh %2").arg(missionPath).arg(thumbPath);
+                  qDebug() <<exec;
+                  buildThumbs.start(exec);
+                  buildThumbs.waitForFinished();
              }
          }
          else if(!fileType.compare(".png") ){
@@ -93,10 +79,7 @@ void MissionExplorer::createPreviewList(){
 
 
     for (int i = 0; i < files.size(); ++i) {
-
-        #ifdef DEBUG_EXPLORER
-        qDebug()<<"List "+files.at(i);
-        #endif
+        qDebug()<<"List "+files.at(i);        
        addPreviewItem(files.at(i),isVideoFile.at(i));
     }
 
@@ -141,10 +124,7 @@ void MissionExplorer::saveSettings(){
 void MissionExplorer::displaySource(){
    int index=listFiles->currentRow();
    QString fileToShow=files.at(index);
-
-#ifdef DEBUG_EXPLORER
    qDebug("Displaying Source");
-#endif
 
    defaultLbl->setVisible(false);
    if(picLbl!=NULL){
@@ -182,9 +162,6 @@ void MissionExplorer::displaySource(){
 
    }
    else{
-      playButton->setEnabled(false);
-      reloadButton->setEnabled(false);
-      videoSlider->setEnabled(false);
 
       /*
       QString picToShow=QString("<img src=\"%1\">").arg(fileToShow);
@@ -202,45 +179,6 @@ void MissionExplorer::displaySource(){
    }
 
 
-}
-
-void MissionExplorer::setState(QMediaPlayer::State state)
-{
-    playButton->setEnabled(true);
-    if (state != playerState) {
-        playerState = state;
-
-        switch (state) {
-        case QMediaPlayer::StoppedState:
-            playButton->setIcon(QIcon(createPath("icons/playRed.png")));
-            reloadButton->setEnabled(false);
-            break;
-        case QMediaPlayer::PlayingState:
-            playButton->setIcon(QIcon(createPath("icons/pause.png")));
-            reloadButton->setEnabled(true);
-            emit play();
-            break;
-        case QMediaPlayer::PausedState:
-            playButton->setIcon(QIcon(createPath("icons/playRed.png")));
-            reloadButton->setEnabled(true);
-            emit pause();
-            break;
-        }
-    }
-}
-
-void MissionExplorer::playCLiked(){
-   switch (playerState) {
-   case QMediaPlayer::StoppedState:
-        displaySource();
-       break;
-   case QMediaPlayer::PausedState:
-       setState(QMediaPlayer::PlayingState);
-       break;
-   case QMediaPlayer::PlayingState:
-       setState(QMediaPlayer::PausedState);
-       break;
-   }
 }
 
 

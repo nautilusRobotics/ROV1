@@ -1,3 +1,4 @@
+#define QT_NO_DEBUG_OUTPUT
 #include <QAbstractSlider>
 #include <QKeyEvent>
 #include <QLocalSocket>
@@ -15,8 +16,6 @@
 #include "qmpyuvreader.h"
 #endif // QMP_USE_YUVPIPE
 
-
-//#define QMP_DEBUG_OUTPUT
 
 // A plain video widget
 class QMPPlainVideoWidget : public QWidget
@@ -169,11 +168,9 @@ public:
         m_videoOutput = "directx,directx:noaccel";
 #elif defined(Q_WS_X11)
         m_mode = QMPwidget::EmbeddedMode;
-#ifdef QT_OPENGL_LIB
-#ifdef QMP_DEBUG_OUTPUT
-       qDebug()<<"QT_OPENGL_LIB defined"
-#endif
-        m_videoOutput = "gl2,gl,xv";
+#ifdef QT_OPENGL_LIB 
+       qDebug()<<"QT_OPENGL_LIB defined" 
+       m_videoOutput = "gl2,gl,xv";
 #else
         m_videoOutput = "xv";
 #endif
@@ -265,9 +262,9 @@ public:
         }
         if (m_mode == QMPwidget::EmbeddedMode) {
 
-#ifdef QMP_DEBUG_OUTPUT
+
         qDebug()<<"-------------EMBEDDEDMODE----------------";
-#endif
+
             myargs += "-wid";
             myargs += QString::number((int)widget->winId());
             if (!m_videoOutput.isEmpty()) {
@@ -281,9 +278,9 @@ public:
 #endif
         }
         //myargs += args;
-#ifdef QMP_DEBUG_OUTPUT
+
         qDebug() << myargs;
-#endif
+
         QProcess::start(m_mplayerPath, myargs);
         changeState(QMPwidget::IdleState);
         if (m_mode == QMPwidget::PipeMode) {
@@ -316,10 +313,7 @@ public:
     }
     void writeCommand(const QString &command)
     {
-
-#ifdef QMP_DEBUG_OUTPUT
         qDebug("in: \"%s\"", qPrintable(command));
-#endif
         QProcess::write(command.toLocal8Bit()+"\n");
     }
     void quit()
@@ -350,10 +344,8 @@ private slots:
     {
         QStringList lines = QString::fromLocal8Bit(readAllStandardOutput()).split("\n", QString::SkipEmptyParts);
         for (int i = 0; i < lines.count(); i++) {
-            lines[i].remove("\r");
-#ifdef QMP_DEBUG_OUTPUT
-            qDebug("out: \"%s\"", qPrintable(lines[i]));
-#endif
+            lines[i].remove("\r"); 
+            qDebug("out: \"%s\"", qPrintable(lines[i])); 
             parseLine(lines[i]);
             emit readStandardOutput(lines[i]);
         }
@@ -362,10 +354,8 @@ private slots:
     {
         QStringList lines = QString::fromLocal8Bit(readAllStandardError()).split("\n", QString::SkipEmptyParts);
         for (int i = 0; i < lines.count(); i++) {
-            lines[i].remove("\r");
-#ifdef QMP_DEBUG_OUTPUT
-            qDebug("err: \"%s\"", qPrintable(lines[i]));
-#endif
+            lines[i].remove("\r"); 
+            qDebug("err: \"%s\"", qPrintable(lines[i])); 
             parseLine(lines[i]);
             emit readStandardError(lines[i]);
         }
@@ -1050,11 +1040,7 @@ void QMPwidget::resizeEvent(QResizeEvent *event)
 
 
 void QMPwidget::moveEvent(QMoveEvent *){
-#ifdef QMP_DEBUG_OUTPUT
     qDebug("MOVE----------------------------------------------------");
-#endif
-    // m_widget->resize(1280, 720);
-
 }
 
 

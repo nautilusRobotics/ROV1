@@ -1,5 +1,4 @@
 #include "exportmanager.h"
-#define DEBUG_EXPORT
 
 extern QString createPath(QString path);
 
@@ -25,10 +24,10 @@ bool ExportManager::getExternalDevices(){
     QString output( usbList.readAllStandardOutput());
     usbList.close();
 
-#ifdef DEBUG_EXPORT
-      qDebug("-----------EXTERNAL DEVICES-------------");
-      qDebug()<<output;
-#endif
+
+    qDebug("-----------EXTERNAL DEVICES-------------");
+    qDebug()<<output;
+
 
 
 
@@ -36,10 +35,10 @@ bool ExportManager::getExternalDevices(){
     QList<QString> tempListNames=output.split("\n");
     tempListNames.removeAt(tempListNames.length()-1);
 
-  #ifdef DEBUG_EXPORT
+
     qDebug("-----------SPLITED-------------");
     qDebug()<<QString("LENGTH %1").arg(tempListNames.length());
-  #endif
+
 
     QList<QString> tempFreeSpace;
 
@@ -71,17 +70,17 @@ bool ExportManager::getExternalDevices(){
         }
        #endif
 
-#ifdef DEBUG_EXPORT
+
         qDebug()<<tempName;
-#endif
+
       }
 
 
-#ifdef DEBUG_EXPORT
+
     for(int i=0;i<bytesFreeSpace.length();i++)
         qDebug()<< bytesFreeSpace.at(i);
 
-#endif
+
 
    return usbConnected;
 }
@@ -101,9 +100,9 @@ quint64 ExportManager::toBytes(QString str){
     else
         bytes=num;
 
-#ifdef DEBUG_EXPORT
+
     qDebug()<<bytes;
-#endif
+
     return bytes;
 }
 
