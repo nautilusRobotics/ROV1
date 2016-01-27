@@ -431,6 +431,7 @@ void MainApp::reconnectJoystick(){
 void MainApp::controlCrash(){
 
 #ifdef Q_PROCESSOR_ARM
+        sendAction->sendComando(POWEROFF_ROBOT);
         QString run=createPath("controlOn.sh");  //Disable Control
         QProcess initControl;
         initControl.start(run);
@@ -441,6 +442,9 @@ void MainApp::controlCrash(){
         powerOff.start(createPath("powerOff.sh"));
         powerOff.waitForFinished();
         powerOff.close();
+
+
+
 #endif
 
         this->close();
