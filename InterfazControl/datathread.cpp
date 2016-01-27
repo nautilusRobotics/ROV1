@@ -75,6 +75,7 @@ void DataThread::closeServer(){
 void DataThread::newConnection(){
    qDebug("new Connection");
    socket=server->nextPendingConnection();
+   socket->setReadBufferSize(8);
    connect(socket, SIGNAL(readyRead()),this, SLOT(startRead()));
    connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
 }
@@ -85,13 +86,16 @@ void DataThread::disconnected(){
 
 void DataThread::startRead(){
     newMessage=true;
-    char buffer[4];
-    socket->read(buffer, socket->bytesAvailable());
+    char buffer[8];
+    int sn=socket->bytesAvailable();
+    qDebug("socket bytes %d",sn);
 
-    QString clientMessage;
-    clientMessage.append(buffer);
+   // socket->read(buffer, socket->bytesAvailable());
+    QString clientMessage=QString(socket->read(socket->bytesAvailable()));
+   // clientMessage.append(buffer);
     robotBattery=clientMessage.toInt();
     qDebug()<<"cliente"+clientMessage;
+    qDebug("Robot battery %d",robotBattery);
 }
 
 
