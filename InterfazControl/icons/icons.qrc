@@ -52,5 +52,6 @@
         <file>XboxLb48.png</file>
         <file>dialBack.png</file>
         <file>XboxRb48.png</file>
+        <file>white1600x1000.png</file>
     </qresource>
 </RCC>

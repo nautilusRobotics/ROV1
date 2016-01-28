@@ -1,7 +1,7 @@
 #ifndef MISSIONEXPLORER_H
 #define MISSIONEXPLORER_H
 
-#define QT_NO_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QGridLayout>
 #include <QStyle>
@@ -12,10 +12,13 @@
 #include <QSettings>
 #include <QProcess>
 #include <QPainter>
+#include <QHBoxLayout>
 #include "thumbviewer.h"
 #include "exportmanager.h"
 #include "joystickwidget.h"
 #include "ui_Intro.h"
+#define DEFAULT_PIC ":/new/prefix1/explorerDefault2.png"
+#define WHITE_PIC ":/new/prefix1/white1600x1000.png"
 
 class MissionExplorer : public QWidget
 {
@@ -24,9 +27,8 @@ public:
     explicit MissionExplorer(QWidget *parent = 0, QString missionName="Untitled",JoystickWidget *joystick= 0, Ui::NautilusCommander *gui=0);
 
 signals:
-    void play();
-    void pause();
     void returnToHome();
+
 public slots:
     void displaySource();    
     void axisEvent(QString axis,int value);
@@ -42,11 +44,8 @@ private:
     ThumbViewer *thumbElement;
     QList<QString> files;
     QList<bool> isVideoFile;
-    QLabel *picLbl, *defaultLbl;
-    QStringList argumentos;    
-    QAbstractButton *playButton,*reloadButton;
-    QAbstractSlider *videoSlider;
-    QPushButton *btn_export,*button_home;    
+    QLabel *picLbl, *defaultLbl, *lblMissionName;
+    QPushButton *btn_export,*button_home;
     int fileRow;
     ExportManager *exm;    
     Ui::NautilusCommander *ui;
@@ -56,6 +55,7 @@ private:
     void addPreviewItem(QString preThumb, bool type);
     void loadSettings();
     void saveSettings();
+    void showDefaultPic();
 
 
 };

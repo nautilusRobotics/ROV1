@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -2655,7 +2655,7 @@ font:  11pt;</string>
    </widget>
    <widget class="QWidget" name="explore_page">
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/new/prefix1/backVideo.svg);</string>
+     <string notr="true"/>
     </property>
     <widget class="QMPwidget" name="mplayerEx" native="true">
      <property name="geometry">
@@ -2667,7 +2667,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);</string>
+      <string notr="true"/>
      </property>
     </widget>
     <widget class="QLabel" name="label_goHome_2">
@@ -2680,8 +2680,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -2693,13 +2692,15 @@ font: bold 11pt;</string>
       <rect>
        <x>1680</x>
        <y>80</y>
-       <width>256</width>
+       <width>240</width>
        <height>1000</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-background-color: rgb(242, 242, 242);</string>
+      <string notr="true">background-color: rgb(245, 245, 245);</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_title_3">
@@ -2713,7 +2714,7 @@ background-color: rgb(242, 242, 242);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: bold 20pt;
-background-image: url(null);</string>
+</string>
      </property>
      <property name="text">
       <string>Nautilus Commander Explore Mission</string>
@@ -2729,8 +2730,7 @@ background-image: url(null);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -2747,8 +2747,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -2765,8 +2764,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -2816,8 +2814,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -2849,28 +2846,11 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Select</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lblDefault">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>80</y>
-       <width>1600</width>
-       <height>1000</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-image: url(:/new/prefix1/explorerDefault2.png);</string>
-     </property>
-     <property name="text">
-      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_btnA_3">
@@ -2899,8 +2879,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2934,12 +2913,45 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:null);</string>
+      <string notr="true">background-image: url(:/new/prefix1/explorerDefault2.png);</string>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
+    <widget class="QLabel" name="lblbackEx">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1920</width>
+       <height>1080</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/new/prefix1/backVideo.svg);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>lblbackEx</zorder>
+    <zorder>mplayerEx</zorder>
+    <zorder>label_goHome_2</zorder>
+    <zorder>listWidgetEx</zorder>
+    <zorder>label_title_3</zorder>
+    <zorder>label_missionName_2</zorder>
+    <zorder>lblMissionNameEx</zorder>
+    <zorder>label_Controls_2</zorder>
+    <zorder>label_xboxIco</zorder>
+    <zorder>line_7</zorder>
+    <zorder>line_8</zorder>
+    <zorder>label_btnA_2</zorder>
+    <zorder>label_select</zorder>
+    <zorder>label_btnA_3</zorder>
+    <zorder>label_nav</zorder>
+    <zorder>line_12</zorder>
+    <zorder>lblPic</zorder>
    </widget>
   </widget>
  </widget>

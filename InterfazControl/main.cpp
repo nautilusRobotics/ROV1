@@ -15,20 +15,9 @@ int main(int argc, char *argv[])
 
     //------------------------------Init------------------------------------------
     QApplication app(argc, argv);
-    app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
-
-    QPixmap pixmap(createPath("icons/explorerDefault.png"));
-    QSplashScreen splash(pixmap);
-    splash.show();
-    app.processEvents();
-    splash.showMessage("Loading gui..");
-    MainApp welcomeScreen;
-    splash.showMessage("Loaded gui");
+   // app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
+    MainApp welcomeScreen;    
     welcomeScreen.show();
-
-    splash.finish(&welcomeScreen);
-
-
 
     return app.exec();
 }

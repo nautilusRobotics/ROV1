@@ -210,9 +210,10 @@ void MainApp::exploreMission(QString missionName){
   disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
   disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
 
+  stackedWidget->setCurrentIndex(2);
   missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
   connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
-  stackedWidget->setCurrentIndex(2);
+
 
 }
 
@@ -309,8 +310,16 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
         initControl.start(run);        
         initControl.waitForFinished();
         initControl.close();
+
+        QString run="lxterminal";
+        QProcess lxterminal;
+        lxterminal.start(run);
+        lxterminal.waitForFinished();
+        lxterminal.close();
+        #else
+            this->close();
         #endif
-          this->close();
+
 	}
     }
 

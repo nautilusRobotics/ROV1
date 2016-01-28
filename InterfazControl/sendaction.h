@@ -1,7 +1,7 @@
 #ifndef SENDACTION_H
 #define SENDACTION_H
 
-#ifdef QMP_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QProcess>
 #include <QDebug>
@@ -9,6 +9,7 @@
 #include "com.h"
 #include <QTcpSocket>
 #define ROBOT_IP "10.5.5.103"
+#define ROBOT_PORT 50002
 
 class SendAction : public QWidget
 {

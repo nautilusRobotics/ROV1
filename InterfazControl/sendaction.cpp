@@ -29,8 +29,9 @@ QString SendAction::sendComando(QString comando){
 
 void SendAction::conectClient(){ 
     qDebug()<<"Connecting Client";    
-    cliente->connectToHost(ROBOT_IP, 50002);
-    cliente->waitForConnected();
+    cliente->connectToHost(ROBOT_IP, ROBOT_PORT);
+    cliente->waitForConnected(500);
+
 }
 
 void SendAction::readyRead(){

@@ -16,16 +16,13 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
 
     loadSettings();
 
-    argumentos.push_back("-fps");
-    argumentos.push_back("30");
-    argumentos.push_back("-osdlevel");
-    argumentos.push_back("0");
-
-    defaultLbl=ui->lblDefault;
     picLbl=ui->lblPic;
+    showDefaultPic();
+
     mplayer=ui->mplayerEx;
     listFiles=ui->listWidgetEx;
-
+    lblMissionName=ui->lblMissionNameEx;
+    lblMissionName->setText(missionName);
     fileRow=0;
 
 
@@ -37,12 +34,11 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
     }    
     else qDebug()<< "file "+thumbsPath+" exist";
 
-
-
-    createPreviewList();
+    createPreviewList();        
+    listFiles->setCurrentRow(0);
+    listFiles->setStyleSheet("QListWidget::item { background-color: rgb(245, 245, 245);}QListWidget::item:selected {background-color: #F59236;}");
 
 }
-
 void MissionExplorer::createPreviewList(){
 
     qDebug()<<missionPath;
@@ -88,7 +84,7 @@ void MissionExplorer::createPreviewList(){
 
 void MissionExplorer::addPreviewItem(QString preThumb,bool type){
     QListWidgetItem *item=new QListWidgetItem();
-    item->setSizeHint(QSize(item->sizeHint().width(), 200));
+    item->setSizeHint(QSize(item->sizeHint().width(), 180));
     listFiles->addItem(item);
     QString thumbPath;
 
@@ -99,6 +95,7 @@ void MissionExplorer::addPreviewItem(QString preThumb,bool type){
     QImage img(thumbPath);
     QImage *thumb =new QImage( img.scaled(180, 180, Qt::IgnoreAspectRatio, Qt::FastTransformation));
     QLabel *thumbElement = new QLabel("");
+    thumbElement->setAlignment(Qt::AlignCenter);
 
     QPixmap p;
     if(!type)p.load(createPath("icons/pic.png"));else p.load(createPath("icons/movie.png"));
@@ -108,7 +105,11 @@ void MissionExplorer::addPreviewItem(QString preThumb,bool type){
     QPainter painter(&pixmap);
     painter.drawPixmap(58,58, p);
     thumbElement->setPixmap(pixmap);
-    listFiles->setItemWidget(item, thumbElement);
+    QWidget *w=new QWidget;
+    QHBoxLayout* layout=new QHBoxLayout;
+    layout->addWidget(thumbElement);
+    w->setLayout(layout);
+    listFiles->setItemWidget(item, w);
 }
 
 void MissionExplorer::loadSettings(){
@@ -124,58 +125,25 @@ void MissionExplorer::saveSettings(){
 void MissionExplorer::displaySource(){
    int index=listFiles->currentRow();
    QString fileToShow=files.at(index);
-   qDebug("Displaying Source");
-
-   defaultLbl->setVisible(false);
-   if(picLbl!=NULL){
-       picLbl->setVisible(false);
-       picLbl->clear();
-   }
-   /*if(player!=NULL){
-
-       player->setVisible(false);
-
-
-   }*/
-
+   qDebug()<<"Displaying Source"+fileToShow;
 
    if(isVideoFile.at(index)){
 
-       /********************************  Player  *****************************************************/
-     /*  QMPwidget *toKill=player;
-
-       player=new QMPwidget(argumentos, fileToShow, this);
-
-       delete(toKill);
-
-       player->setFixedSize(1650,1000);
-
-
-       connect(this, SIGNAL(play()), player, SLOT(play()));
-       connect(this, SIGNAL(pause()), player, SLOT(pause()));
-       connect(reloadButton, SIGNAL(released()), player, SLOT(reload()));
-       connect(player,SIGNAL(newState(QMediaPlayer::State)),this,SLOT(setState(QMediaPlayer::State)));
-       player->setSeekSlider(videoSlider);
-
-       layout->addWidget(player,0,0,1,3);
-       this->setState(QMediaPlayer::PlayingState);*/
+      /********************************  Player  *****************************************************/
+      picLbl->setVisible(false);
+      mplayer->setVisible(true);      
+      mplayer->start();
+      mplayer->load(fileToShow);
 
    }
    else{
-
-      /*
-      QString picToShow=QString("<img src=\"%1\">").arg(fileToShow);
-      picLbl=new QLabel(picToShow);
-      picLbl->setFixedSize(1650,900);*/
-
-
-      QImage img(fileToShow);
-      QImage *image =new QImage( img.scaled(1650, 900, Qt::IgnoreAspectRatio, Qt::FastTransformation));
-      picLbl= new QLabel("");
-      QPixmap pixmap = QPixmap::fromImage(*image);
+      mplayer->setVisible(false);
+      mplayer->stop();
+      picLbl->setVisible(true);
+      QPixmap pixmap;
+      pixmap.load(fileToShow);
+      pixmap = pixmap.scaled(1600, 1000, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
       picLbl->setPixmap(pixmap);
-
-      layout->addWidget(picLbl,0,0,1,3,Qt::AlignCenter);
    }
 
 
@@ -189,6 +157,7 @@ void MissionExplorer::axisEvent(QString axis,int value){
        fileRow=(fileRow-1<0)?0:fileRow-1;
 
    listFiles->setCurrentRow(fileRow);
+
 }
 
 void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *event){
@@ -196,11 +165,23 @@ void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *ev
         disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
         disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
         saveSettings();
+        mplayer->setVisible(false);
+        showDefaultPic();
+        mplayer->stop();
+
         emit returnToHome();
      }
     else if(button==button_A && !event->pressed()){
       displaySource();
     }
+    else if(button==button_B && !event->pressed())
+        this->focusNextChild();
 }
 
 
+void MissionExplorer::showDefaultPic(){
+    QPixmap pixmap;
+    pixmap.load(DEFAULT_PIC);
+    picLbl->setPixmap(pixmap);
+    picLbl->setVisible(true);
+}
