@@ -311,11 +311,10 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
         initControl.waitForFinished();
         initControl.close();
 
-        QString run="lxterminal";
-        QProcess lxterminal;
-        lxterminal.start(run);
-        lxterminal.waitForFinished();
-        lxterminal.close();
+        QProcess lxpanel;
+        lxpanel.start("lxpanel");
+        lxpanel.waitForFinished();
+        lxpanel.close();
         #else
             this->close();
         #endif

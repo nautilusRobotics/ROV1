@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     //------------------------------Init------------------------------------------
     QApplication app(argc, argv);
-   // app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
+    app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
     MainApp welcomeScreen;    
     welcomeScreen.show();
 
