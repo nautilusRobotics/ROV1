@@ -94,6 +94,16 @@ void MainApp::initWelcomeScreen(){
     sendAction=new SendAction();
     isWorkingOffline=false;
     isRobotOnline=false;
+
+      #ifdef Q_PROCESSOR_ARM
+     qDebug()<<"Starting pacman";
+     QProcess pcmanfm;
+     pcmanfm.start("pcmanfm -w /home/olimex/Documents/nautilusOff.png"); //Change WallPaper 
+     pcmanfm.waitForFinished();
+     QString pacman(pcmanfm.readAllStandardOutput());
+     pcmanfm.close();
+     qDebug()<<"pacman out" + pacman;
+     #endif
 }
 
 void MainApp::handleNewBtn(QString missionName){
@@ -105,6 +115,7 @@ void MainApp::handleNewBtn(QString missionName){
         runMission(missionName);
     else
         showToast("Invalid mission name",1000);
+
 }
 
 void MainApp::showMessage(QString message, bool okCancelbtns){
@@ -437,9 +448,10 @@ void MainApp::controlCrash(){
         initControl.start(run);
         initControl.waitForFinished();
         initControl.close();
+       
 
         QProcess powerOff;
-        powerOff.start(createPath("powerOff.sh"));
+        powerOff.start("sudo /mnt/disk1/NautilusOne/powerOff.sh");
         powerOff.waitForFinished();
         powerOff.close();
 
@@ -511,7 +523,7 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
         initControl.close();
      
         QProcess powerOff;
-        powerOff.start(createPath("powerOff.sh"));
+        powerOff.start("sudo /mnt/disk1/NautilusOne/powerOff.sh");
         powerOff.waitForFinished();
         powerOff.close();  
  

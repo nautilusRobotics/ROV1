@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'Intro.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.0
+** Created by: Qt User Interface Compiler version 5.1.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -1301,7 +1301,7 @@ public:
 
         retranslateUi(NautilusCommander);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(NautilusCommander);
