@@ -138,7 +138,9 @@ int main(int argc, char *argv[])
    }
 
    command = argv[2]; //See com.h-> defines with commands
-    		
+/*   sprintf(command,"%s\n",command);
+   printf(command);*/
+   
     if (write(sockfd, command, strlen(command)) == -1){
 		printf("ERROR_writting\n");   
 		exit(EXIT_FAILURE);	

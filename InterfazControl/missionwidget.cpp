@@ -322,7 +322,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
                      statusVideoOff->setVisible(true);
          }
 
-         qDebug("released Y");
+         qDebug("released B");
 
      }
      else if(button==button_RB && !event->pressed()){
@@ -341,9 +341,6 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
 
      }
      else if(button==button_Y && !event->pressed()){
-
-     }
-  /* else if(button==button_Y && !event->pressed()){
          islightsOn=!islightsOn;
          if(islightsOn){
             lblLightsOff->setVisible(false);
@@ -355,8 +352,8 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
              lblLightsOn->setVisible(false);
              sendAction->sendComando(OFF_LIGHT);
          }
+     }
 
-     }*/
 }
 
 void MissionWidget::resendCommand(){

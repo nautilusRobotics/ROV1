@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -1408,7 +1408,7 @@ font: bold 11pt;</string>
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>414</y>
+       <y>490</y>
        <width>32</width>
        <height>32</height>
       </rect>
@@ -1547,7 +1547,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>444</y>
+       <y>526</y>
        <width>41</width>
        <height>16</height>
       </rect>
@@ -1565,7 +1565,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>14</x>
-       <y>460</y>
+       <y>541</y>
        <width>51</width>
        <height>16</height>
       </rect>
@@ -1952,7 +1952,7 @@ font: bold 11pt;</string>
      <property name="geometry">
       <rect>
        <x>6</x>
-       <y>495</y>
+       <y>575</y>
        <width>70</width>
        <height>50</height>
       </rect>
@@ -1968,7 +1968,7 @@ font: bold 11pt;</string>
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>714</y>
+       <y>794</y>
        <width>50</width>
        <height>70</height>
       </rect>
@@ -2176,7 +2176,7 @@ font:  11pt;</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>574</y>
+       <y>654</y>
        <width>80</width>
        <height>16</height>
       </rect>
@@ -2193,7 +2193,7 @@ font:  11pt;</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>694</y>
+       <y>774</y>
        <width>80</width>
        <height>16</height>
       </rect>
@@ -2210,7 +2210,7 @@ font:  11pt;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>554</y>
+       <y>634</y>
        <width>71</width>
        <height>16</height>
       </rect>
@@ -2228,7 +2228,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>7</x>
-       <y>784</y>
+       <y>864</y>
        <width>71</width>
        <height>16</height>
       </rect>
@@ -2246,7 +2246,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>798</y>
+       <y>878</y>
        <width>61</width>
        <height>16</height>
       </rect>
@@ -2264,7 +2264,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>588</y>
+       <y>668</y>
        <width>50</width>
        <height>70</height>
       </rect>
@@ -2280,7 +2280,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>810</y>
+       <y>890</y>
        <width>80</width>
        <height>16</height>
       </rect>
@@ -2297,7 +2297,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>4</x>
-       <y>660</y>
+       <y>740</y>
        <width>71</width>
        <height>16</height>
       </rect>
@@ -2315,7 +2315,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>677</y>
+       <y>757</y>
        <width>71</width>
        <height>16</height>
       </rect>
@@ -2333,7 +2333,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>14</x>
-       <y>821</y>
+       <y>901</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -2349,7 +2349,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>866</y>
+       <y>946</y>
        <width>41</width>
        <height>16</height>
       </rect>
@@ -2367,7 +2367,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>17</x>
-       <y>882</y>
+       <y>962</y>
        <width>41</width>
        <height>16</height>
       </rect>
@@ -2385,7 +2385,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>900</y>
+       <y>980</y>
        <width>80</width>
        <height>16</height>
       </rect>
@@ -2402,7 +2402,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>14</x>
-       <y>910</y>
+       <y>990</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -2418,7 +2418,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>19</x>
-       <y>956</y>
+       <y>1036</y>
        <width>41</width>
        <height>16</height>
       </rect>
@@ -2436,7 +2436,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>31</x>
-       <y>970</y>
+       <y>1050</y>
        <width>41</width>
        <height>16</height>
       </rect>
@@ -2454,7 +2454,7 @@ font: bold 9pt;</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>980</y>
+       <y>1060</y>
        <width>80</width>
        <height>16</height>
       </rect>
@@ -2583,6 +2583,75 @@ font:  11pt;</string>
       <string>max</string>
      </property>
     </widget>
+    <widget class="Line" name="line_15">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>560</y>
+       <width>80</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(null);
+</string>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_btnY">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>413</y>
+       <width>32</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/new/prefix1/xboxY32.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_toggle">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>440</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(null);
+color: rgb(255, 255, 255);
+font: bold 9pt;</string>
+     </property>
+     <property name="text">
+      <string>Toggle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_toggle_2">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>458</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(null);
+color: rgb(255, 255, 255);
+font: bold 9pt;</string>
+     </property>
+     <property name="text">
+      <string>Lights</string>
+     </property>
+    </widget>
     <zorder>mplayerWG</zorder>
     <zorder>label_goHome</zorder>
     <zorder>label_title_2</zorder>
@@ -2652,6 +2721,10 @@ font:  11pt;</string>
     <zorder>labelControlBatt_8</zorder>
     <zorder>labelControlBatt_9</zorder>
     <zorder>labelControlBatt_10</zorder>
+    <zorder>line_15</zorder>
+    <zorder>label_btnY</zorder>
+    <zorder>label_toggle</zorder>
+    <zorder>label_toggle_2</zorder>
    </widget>
    <widget class="QWidget" name="explore_page">
     <property name="styleSheet">
