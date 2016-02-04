@@ -53,5 +53,11 @@
         <file>dialBack.png</file>
         <file>XboxRb48.png</file>
         <file>white1600x1000.png</file>
+        <file>hintExport.png</file>
+        <file>hintExportW.png</file>
+        <file>loadingBar.gif</file>
+        <file>btnFoot.svg</file>
+        <file>infoDialog.png</file>
+        <file>confirmDialog.png</file>
     </qresource>
 </RCC>

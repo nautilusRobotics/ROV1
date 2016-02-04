@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -1178,6 +1178,27 @@ color: rgb(148, 148, 148);</string>
      <property name="styleSheet">
       <string notr="true">background-image: url(null);</string>
      </property>
+     <widget class="QLabel" name="label_toastSS">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>910</y>
+        <width>591</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(70, 70, 70);
+font: 13pt ; font: bold;
+color: white;</string>
+      </property>
+      <property name="text">
+       <string>Screenshot taken</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
     <widget class="QLabel" name="label_goHome">
      <property name="geometry">
@@ -1632,7 +1653,7 @@ font: bold 11pt;</string>
        <string>Running Normally</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="lblOkIcon">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1688,7 +1709,7 @@ font: bold 11pt;</string>
        <string>Error</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="lblErrorIcon">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2736,7 +2757,7 @@ font: bold 9pt;</string>
        <x>80</x>
        <y>80</y>
        <width>1600</width>
-       <height>1000</height>
+       <height>942</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -3008,6 +3029,83 @@ font: bold 9pt;</string>
       <string/>
      </property>
     </widget>
+    <widget class="QGroupBox" name="groupPlayer">
+     <property name="geometry">
+      <rect>
+       <x>79</x>
+       <y>1020</y>
+       <width>1602</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(243, 240, 236);</string>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <widget class="QLabel" name="label_btnB_play">
+      <property name="geometry">
+       <rect>
+        <x>56</x>
+        <y>20</y>
+        <width>32</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/new/prefix1/xobxB32.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QSlider" name="playerSlider">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>28</y>
+        <width>1481</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 0, 0);</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="pageStep">
+       <number>10</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblPlayStop">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>25</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);
+font: bold;</string>
+      </property>
+      <property name="text">
+       <string>PLAY</string>
+      </property>
+     </widget>
+     <zorder>playerSlider</zorder>
+     <zorder>lblPlayStop</zorder>
+     <zorder>label_btnB_play</zorder>
+    </widget>
     <zorder>lblbackEx</zorder>
     <zorder>mplayerEx</zorder>
     <zorder>label_goHome_2</zorder>
@@ -3025,6 +3123,7 @@ font: bold 9pt;</string>
     <zorder>label_nav</zorder>
     <zorder>line_12</zorder>
     <zorder>lblPic</zorder>
+    <zorder>groupPlayer</zorder>
    </widget>
   </widget>
  </widget>

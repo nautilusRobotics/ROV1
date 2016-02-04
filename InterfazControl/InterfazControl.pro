@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     exportmanager.cpp \
     mywidgetusb.cpp \
     mainapp.cpp \
-    datathread.cpp
+    datathread.cpp \
+    exportthread.cpp
 
 HEADERS  += \
     joystickwidget.h \
@@ -45,7 +46,8 @@ HEADERS  += \
     mywidgetusb.h \
     main.h \
     mainapp.h \ 
-    datathread.h
+    datathread.h \
+    exportthread.h
 
 
 FORMS += \

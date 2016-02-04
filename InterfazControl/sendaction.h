@@ -1,7 +1,7 @@
 #ifndef SENDACTION_H
 #define SENDACTION_H
 
-//#define QT_NO_DEBUG_OUTPUT
+#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QProcess>
 #include <QDebug>

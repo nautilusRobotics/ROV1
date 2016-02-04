@@ -13,7 +13,13 @@
 #include <QDialog>
 #include <QWidget>
 #include <QGridLayout>
+#include <QLabel>
+#include <QMovie>
 #include "mywidgetusb.h"
+#include "joystickwidget.h"
+#include "qgamecontroller.h"
+#include "exportthread.h"
+
 
 class ExportManager : public QWidget
 {
@@ -25,22 +31,28 @@ private:
     QList<quint64> bytesFreeSpace;
     QString missionName;
     quint64 toBytes(QString str);
-    bool getExternalDevices();
     quint64 dir_size(const QString & str);
-    QDialog *msgBox;
+    QDialog *msgBox, *loadingBox;
+    int x,y,h,w;
+    bool isUSB, isSaving;
+    bool getExternalDevices();  
     bool checkUsb(int indexUSB);    
     bool copyDir(const QString &srcFilePath, const QString &tgtFilePath);
-    QGridLayout *layout;
+
 
 signals:
-   void success(bool);
+   void success(bool success);
+
 public:
   void setMissionName(QString missionName);
-public slots:
-   void launchDialog();
-   bool saveUsb(int indexUSB );
-   void cancelDialog();
 
+
+public slots:
+  void acceptDialogs();
+   void launchDialog();
+   bool saveUsb(int indexUSB );   
+   void joystickButtonUSB(QString button,QGameControllerButtonEvent* event);
+   //void joystickAxisUSB(QString axis, int value);
 
 
 };

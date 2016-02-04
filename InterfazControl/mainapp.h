@@ -11,7 +11,7 @@
 #include <QPixmap>
 #include <QLineEdit>
 #include <QToolTip>
-#include <QMessageBox>
+#include <QDialog>
 #include <QStyle>
 #include <QListWidget>
 #include <QDirIterator>
@@ -39,7 +39,8 @@
 #define QPUSH_STYLE_OPEN "QPushButton{color:white;border: 0px; border-radius:6px;font: bold;outline: none}QPushButton:focus:!pressed{border-style: outset;border-width: 4px;border-color: #555555;}"
 #define QPUSH_STYLE_OFF "QPushButton{color:white;border: 0px; border-radius:6px;font: bold;outline: none}QPushButton:focus:!pressed{border-style: outset;border-width: 4px;border-color: #555555;}"
 #define QLABEL_STYLE_HELP "QLabel{color: rgb(153, 153, 153);font: bold 10pt;text-decoration: underline;}QLabel:focus:!pressed{border-style: outset;border-width: 2px;border-bottom-color: #555555;}"
-#define QMESAGE_STYLE "QMessageBox {background-color: #f5f5f5;} QPushButton{color: #f5f5f5 ; background-color:#f5f5f5 ; border: 0px}"
+#define QMESAGE_STYLE_INFO "QDialog {background-color:rgb(255,255,255); background-image: url(:/new/prefix1/infoDialog.png); }"
+#define QMESAGE_STYLE_CONFIRM "QDialog {background-color:rgb(255,255,255); background-image: url(:/new/prefix1/confirmDialog.png);}"
 
 #define QKEY_NORMAL_STYLE "font-size: 18pt; font-weight: bold; background-color: rgb(89, 96, 102); color: rgb(255, 255, 255);"
 #define QKEY_SELECT_STYLE "font-size: 18pt; font-weight: bold; background-color: rgb(181, 205, 217); color: rgb(0, 0, 0);"
@@ -71,6 +72,7 @@ public slots:
     void showHome();
     void reconnectJoystick();
     void controlCrash();
+    void successExport(bool success);
 
 
     private:    
@@ -84,7 +86,7 @@ public slots:
         QString missionsPath;
         QStringList    *secretKeyList;
         QLineEdit *resultKeyBoard;
-        QMessageBox *toast;
+        QDialog *toast;
         QStringList *projectListStrings;
         QBitArray *projectListBools;
         QStackedWidget *stackedWidget;

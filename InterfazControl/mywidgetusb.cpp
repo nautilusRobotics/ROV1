@@ -11,7 +11,7 @@ myWidgetUsb::myWidgetUsb(QWidget *parent,int index,bool isSave,QString usbName) 
     btn=new QPushButton();
     btn->setIcon(QIcon(createPath("icons/usb.png")));
     btn->setIconSize(QSize(32,32));
-    btn->setFocusPolicy(Qt::NoFocus);
+    //btn->setFocusPolicy(Qt::NoFocus);
 
     QString btnName;
     if(isSave){
@@ -23,7 +23,6 @@ myWidgetUsb::myWidgetUsb(QWidget *parent,int index,bool isSave,QString usbName) 
         btnName=QString("%1 has not enough space").arg(usbName);
         btn->setStyleSheet("QPushButton{font-size:15px;font-weight:bold;color:black;background:#EE4545}");
         //btn->setEnabled(false);
-
     }
     btn->setText(btnName);
 

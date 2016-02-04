@@ -33,6 +33,7 @@ public slots:
     void displaySource();    
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
+    void sliderChange(int value);
 
 
 private:
@@ -44,13 +45,17 @@ private:
     ThumbViewer *thumbElement;
     QList<QString> files;
     QList<bool> isVideoFile;
-    QLabel *picLbl, *defaultLbl, *lblMissionName;
+    QLabel *picLbl, *defaultLbl, *lblMissionName, *lblPlayPause;
     QPushButton *btn_export,*button_home;
     int fileRow;
     ExportManager *exm;    
     Ui::NautilusCommander *ui;
+    QGroupBox *groupPlayer;
+    QSlider *progressPlay;
+    QString videoFile;
 
     bool createThumbs;
+    bool isPlaying, isVideoActive;
     void createPreviewList();
     void addPreviewItem(QString preThumb, bool type);
     void loadSettings();

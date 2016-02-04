@@ -91,6 +91,7 @@ public:
     QLabel *label_tipKeyB;
     QWidget *mission_page;
     QMPwidget *mplayerWG;
+    QLabel *label_toastSS;
     QLabel *label_goHome;
     QLabel *label_title_2;
     QLabel *label_missionName;
@@ -117,10 +118,10 @@ public:
     QFrame *line_6;
     QGroupBox *statusOkBox;
     QLabel *label_Controls_3;
-    QLabel *label_2;
+    QLabel *lblOkIcon;
     QGroupBox *statusErrorBox;
     QLabel *lblError;
-    QLabel *label_4;
+    QLabel *lblErrorIcon;
     QLabel *labelControlBatt_2;
     QLabel *lblMissionName;
     QLabel *label_depthIco;
@@ -189,6 +190,10 @@ public:
     QFrame *line_12;
     QLabel *lblPic;
     QLabel *lblbackEx;
+    QGroupBox *groupPlayer;
+    QLabel *label_btnB_play;
+    QSlider *playerSlider;
+    QLabel *lblPlayStop;
 
     void setupUi(QWidget *NautilusCommander)
     {
@@ -660,6 +665,13 @@ public:
         mplayerWG->setEnabled(false);
         mplayerWG->setGeometry(QRect(80, 80, 1600, 1000));
         mplayerWG->setStyleSheet(QStringLiteral("background-image: url(null);"));
+        label_toastSS = new QLabel(mplayerWG);
+        label_toastSS->setObjectName(QStringLiteral("label_toastSS"));
+        label_toastSS->setGeometry(QRect(510, 910, 591, 31));
+        label_toastSS->setStyleSheet(QLatin1String("background-color: rgb(70, 70, 70);\n"
+"font: 13pt ; font: bold;\n"
+"color: white;"));
+        label_toastSS->setAlignment(Qt::AlignCenter);
         label_goHome = new QLabel(mission_page);
         label_goHome->setObjectName(QStringLiteral("label_goHome"));
         label_goHome->setGeometry(QRect(120, 30, 221, 21));
@@ -812,11 +824,11 @@ public:
         label_Controls_3->setStyleSheet(QLatin1String("background-image: url(null);\n"
 "color: rgb(163, 175, 179);\n"
 "font: bold 11pt;"));
-        label_2 = new QLabel(statusOkBox);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 30, 32, 32));
-        label_2->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/ok.png);"));
-        label_2->setFrameShadow(QFrame::Plain);
+        lblOkIcon = new QLabel(statusOkBox);
+        lblOkIcon->setObjectName(QStringLiteral("lblOkIcon"));
+        lblOkIcon->setGeometry(QRect(10, 30, 32, 32));
+        lblOkIcon->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/ok.png);"));
+        lblOkIcon->setFrameShadow(QFrame::Plain);
         statusErrorBox = new QGroupBox(mission_page);
         statusErrorBox->setObjectName(QStringLiteral("statusErrorBox"));
         statusErrorBox->setGeometry(QRect(1680, 1000, 240, 80));
@@ -830,11 +842,11 @@ public:
         lblError->setStyleSheet(QLatin1String("\n"
 "color: rgb(163, 175, 179);\n"
 "font: bold 11pt;"));
-        label_4 = new QLabel(statusErrorBox);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(10, 30, 32, 32));
-        label_4->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/alert.png);"));
-        label_4->setFrameShadow(QFrame::Plain);
+        lblErrorIcon = new QLabel(statusErrorBox);
+        lblErrorIcon->setObjectName(QStringLiteral("lblErrorIcon"));
+        lblErrorIcon->setGeometry(QRect(10, 30, 32, 32));
+        lblErrorIcon->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/alert.png);"));
+        lblErrorIcon->setFrameShadow(QFrame::Plain);
         labelControlBatt_2 = new QLabel(mission_page);
         labelControlBatt_2->setObjectName(QStringLiteral("labelControlBatt_2"));
         labelControlBatt_2->setGeometry(QRect(1750, 290, 91, 31));
@@ -1225,7 +1237,7 @@ public:
         explore_page->setStyleSheet(QStringLiteral(""));
         mplayerEx = new QMPwidget(explore_page);
         mplayerEx->setObjectName(QStringLiteral("mplayerEx"));
-        mplayerEx->setGeometry(QRect(80, 80, 1600, 1000));
+        mplayerEx->setGeometry(QRect(80, 80, 1600, 942));
         mplayerEx->setStyleSheet(QStringLiteral(""));
         label_goHome_2 = new QLabel(explore_page);
         label_goHome_2->setObjectName(QStringLiteral("label_goHome_2"));
@@ -1307,6 +1319,30 @@ public:
         lblbackEx->setObjectName(QStringLiteral("lblbackEx"));
         lblbackEx->setGeometry(QRect(0, 0, 1920, 1080));
         lblbackEx->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/backVideo.svg);"));
+        groupPlayer = new QGroupBox(explore_page);
+        groupPlayer->setObjectName(QStringLiteral("groupPlayer"));
+        groupPlayer->setGeometry(QRect(79, 1020, 1602, 80));
+        groupPlayer->setStyleSheet(QStringLiteral("background-color: rgb(243, 240, 236);"));
+        groupPlayer->setFlat(false);
+        label_btnB_play = new QLabel(groupPlayer);
+        label_btnB_play->setObjectName(QStringLiteral("label_btnB_play"));
+        label_btnB_play->setGeometry(QRect(56, 20, 32, 32));
+        label_btnB_play->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xobxB32.png);"));
+        playerSlider = new QSlider(groupPlayer);
+        playerSlider->setObjectName(QStringLiteral("playerSlider"));
+        playerSlider->setGeometry(QRect(100, 28, 1481, 16));
+        playerSlider->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+        playerSlider->setMaximum(100);
+        playerSlider->setPageStep(10);
+        playerSlider->setOrientation(Qt::Horizontal);
+        lblPlayStop = new QLabel(groupPlayer);
+        lblPlayStop->setObjectName(QStringLiteral("lblPlayStop"));
+        lblPlayStop->setGeometry(QRect(11, 25, 51, 20));
+        lblPlayStop->setStyleSheet(QLatin1String("color: rgb(0, 0, 0);\n"
+"font: bold;"));
+        playerSlider->raise();
+        lblPlayStop->raise();
+        label_btnB_play->raise();
         stackedWidget->addWidget(explore_page);
         lblbackEx->raise();
         mplayerEx->raise();
@@ -1325,6 +1361,7 @@ public:
         label_nav->raise();
         line_12->raise();
         lblPic->raise();
+        groupPlayer->raise();
         QWidget::setTabOrder(btnNew, btnOpen);
         QWidget::setTabOrder(btnOpen, btnOff);
         QWidget::setTabOrder(btnOff, lblHelp);
@@ -1332,7 +1369,7 @@ public:
 
         retranslateUi(NautilusCommander);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(NautilusCommander);
@@ -1395,6 +1432,7 @@ public:
         keyEnter->setText(QApplication::translate("NautilusCommander", "Enter", 0));
         keyErase->setText(QString());
         label_tipKeyB->setText(QApplication::translate("NautilusCommander", "Please enter the new mission's name: ", 0));
+        label_toastSS->setText(QApplication::translate("NautilusCommander", "Screenshot taken", 0));
         label_goHome->setText(QApplication::translate("NautilusCommander", "Press           Back to Home", 0));
         label_title_2->setText(QApplication::translate("NautilusCommander", "Nautilus Commander ROV Control", 0));
         label_missionName->setText(QApplication::translate("NautilusCommander", "Mission Name: ", 0));
@@ -1414,10 +1452,10 @@ public:
         label_camera->setText(QApplication::translate("NautilusCommander", "Camera", 0));
         statusOkBox->setTitle(QApplication::translate("NautilusCommander", "Status", 0));
         label_Controls_3->setText(QApplication::translate("NautilusCommander", "Running Normally", 0));
-        label_2->setText(QString());
+        lblOkIcon->setText(QString());
         statusErrorBox->setTitle(QApplication::translate("NautilusCommander", "Status", 0));
         lblError->setText(QApplication::translate("NautilusCommander", "Error", 0));
-        label_4->setText(QString());
+        lblErrorIcon->setText(QString());
         labelControlBatt_2->setText(QApplication::translate("NautilusCommander", "Depth (m)", 0));
         lblMissionName->setText(QString());
         label_depthIco->setText(QString());
@@ -1471,6 +1509,9 @@ public:
         label_nav->setText(QApplication::translate("NautilusCommander", "Navigate", 0));
         lblPic->setText(QString());
         lblbackEx->setText(QString());
+        groupPlayer->setTitle(QString());
+        label_btnB_play->setText(QString());
+        lblPlayStop->setText(QApplication::translate("NautilusCommander", "PLAY", 0));
     } // retranslateUi
 
 };

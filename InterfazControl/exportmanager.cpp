@@ -5,9 +5,13 @@ extern QString createPath(QString path);
 ExportManager::ExportManager(QWidget *parent,QString mission) :
     QWidget(parent)
 {
-  missionName=mission;
-  layout=new QGridLayout();
-  msgBox=new QDialog();
+  missionName=mission;  
+  isUSB=false;
+  isSaving=false;
+  x =parentWidget()->x();
+  y = parentWidget()->y();
+  h= parentWidget()->height();
+  w=parentWidget()->width();
 }
 
 
@@ -134,22 +138,9 @@ bool ExportManager::saveUsb(int indexUSB ){
     QString file=QString("%1/%2").arg(createPath("Missions")).arg(missionName);
     QString ext=QString("/media/%1/NautilusRobotics/").arg(names.at(indexUSB));
 
-    if(!QDir(ext).exists())
-        QDir().mkpath(ext);
-
-    QProcess copyFiles;
-    QString run=QString("cp -r %1 %2").arg(file).arg(ext);
-    copyFiles.start(run);
-    copyFiles.waitForFinished();
-
-
-   QProcess fixFiles;
-   QString fix=QString("rm %1%2/settings.ini %1%2/thumb.sh").arg(ext).arg(missionName);
-   fixFiles.start(fix);
-   fixFiles.waitForFinished();
-
-
-    msgBox->accept();
+    ExportThread *exportT=new ExportThread(this,file,ext,missionName);
+    connect(exportT,SIGNAL(saveFinish()),this,SLOT(acceptDialogs()));
+    exportT->start();
 
     return true;
 
@@ -167,66 +158,93 @@ void ExportManager::setMissionName(QString missionName){
 }
 
 void ExportManager::launchDialog(){
-
-
-    int x =parentWidget()->x();
-    int y = parentWidget()->y();
-    int h= parentWidget()->height();
-    int w=parentWidget()->width();
-
-    delete(msgBox);
     msgBox=new QDialog();
-    msgBox->setGeometry(x+(w/3),y+(h/2),500,100);
-    //msgBox.setFixedSize(msgBox.width(), msgBox.height());
-    msgBox->setWindowFlags( Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint );
+    msgBox->setGeometry(x+(w/3),y+(h/3),500,100);
+    msgBox->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
+   // msgBox->setWindowFlags(Qt::FramelessWindowHint);
 
-    //delete(layout);
-    layout=new QGridLayout();
-
-    /*
-    int rowCount=layout->rowCount();
-    qDebug()<<"ROW COUNT"+rowCount;
-    for(int i=0; i<rowCount ;i++){
-       layout->takeAt(i);
-       delete(layout->itemAt(i));
-    }*/
+    QGridLayout *layout=new QGridLayout();
+    QLabel *titleLbl=new QLabel("Export to: ");
+    titleLbl->setFocusPolicy(Qt::NoFocus);
+    titleLbl->setStyleSheet("background-image: url(null);color: rgb(153, 153, 153);font: bold 11pt;");
+    titleLbl->setFixedSize(482,45);
+    layout->addWidget(titleLbl,0,0,1,1,Qt::AlignCenter);
 
 
-    if(getExternalDevices()){
-         msgBox->setWindowTitle("Export to:");
+    if(getExternalDevices()){     
         for(int i=0; i<names.length();i++){
             myWidgetUsb *btn=new myWidgetUsb(this,i,checkUsb(i),names.at(i));
-            btn->setFixedSize(500,60);
-            connect(btn,SIGNAL(usbSelected(int)),this,SLOT(saveUsb(int)));
+            btn->setFixedSize(500,60);         
             layout->addWidget(btn);
         }
+        isUSB=true;
     }
-    else
-    msgBox->setWindowTitle("No USB devices");
+    else{
+      titleLbl->setText("No USB devices");
+      isUSB=false;
+    }
+
+
 
    /****************Close Button********************************************/
-    QPushButton *closeBtn=new QPushButton(" Close");
-    closeBtn->setIcon(QIcon(createPath("icons/close.png")));
-    closeBtn->setIconSize(QSize(32,32));
-    closeBtn->setFocusPolicy(Qt::NoFocus);
-    closeBtn->setStyleSheet("QPushButton{font-size:15px;font-weight:bold;color:black;background:#EE4545}");
-    closeBtn->setFixedSize(482,45);
-    connect(closeBtn,SIGNAL(released()),this,SLOT(cancelDialog()));
-    qDebug()<<"ROW COUNT POSt"+layout->rowCount();
-    layout->addWidget(closeBtn,layout->rowCount(),0,1,1,Qt::AlignCenter);
-   /************************************************************/
-
-
+    QLabel *hintlbl=new QLabel("");
+    hintlbl->setFocusPolicy(Qt::NoFocus);
+    hintlbl->setStyleSheet("background-image: url(:/new/prefix1/hintExport.png);");
+    hintlbl->setFixedSize(482,45);
+    layout->addWidget(hintlbl,layout->rowCount(),0,1,1,Qt::AlignCenter);
+   /************************************************************************/
     msgBox->setLayout(layout);
     msgBox->adjustSize();
-    msgBox->exec();
-
-
+    msgBox->show();
 }
 
-void ExportManager::cancelDialog(){
-    msgBox->accept();
+void ExportManager::joystickButtonUSB(QString button,QGameControllerButtonEvent* event){
+    qDebug()<<"Button Pressed";
+    if(button==button_A && !event->pressed() && isUSB && !isSaving){
+      isSaving=true;
 
+      loadingBox=new QDialog();
+      loadingBox->setGeometry(x+(w/3),y+(h/3),522,183);
+      loadingBox->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
+
+      QGridLayout *loadingBoxlayout=new QGridLayout();
+      QLabel *loadingTitleLbl=new QLabel("Saving ... ");
+      loadingTitleLbl->setFocusPolicy(Qt::NoFocus);
+      loadingTitleLbl->setStyleSheet("background-image: url(null);color: rgb(153, 153, 153);font: bold 13pt;");
+      loadingTitleLbl->setFixedSize(482,45);
+      loadingBoxlayout->addWidget(loadingTitleLbl,0,0,1,1,Qt::AlignCenter);
+
+      QMovie *movie=new QMovie(":/new/prefix1/loadingBar.gif");
+      QLabel *loadingLbl=new QLabel();
+      loadingLbl->setFixedSize(280,45);
+      loadingLbl->setMovie(movie);
+      movie->start();
+
+      loadingBoxlayout->addWidget(loadingLbl,1,0,1,1,Qt::AlignCenter);
+      loadingBox->setLayout(loadingBoxlayout);
+      loadingBox->show();
+
+      saveUsb(0);
+    }
+    else if(button==button_B && !event->pressed() && !isSaving){
+       emit success(false);       
+       msgBox->accept();       
+    }
+}
+
+/*
+void ExportManager::joystickAxisUSB(QString axis, int value){
+
+}
+*/
+
+
+void ExportManager::acceptDialogs(){
+    qDebug()<<"Saved..";
+    loadingBox->accept();
+    msgBox->accept();
+    sleep(0.6);
+    emit success(true);
 }
 
 

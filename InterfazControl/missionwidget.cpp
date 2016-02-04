@@ -31,6 +31,9 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     statusVideoOff->setVisible(true);
     isRecording=false;
 
+    lblScreenShot=ui->label_toastSS;
+    lblScreenShot->setVisible(false);
+
 
     missionNameLabel=ui->lblMissionName;
     missionNameLabel->setText(missionName);
@@ -138,6 +141,9 @@ void MissionWidget::updateControlStatus(bool isConnected){
 
 void MissionWidget::takeScreenshot(){
    if(isCameraOnline){
+        lblScreenShot->setVisible(true);
+        QTimer::singleShot(500,Qt::PreciseTimer ,this, SLOT(closeScreenShot()));
+
         qDebug()<<"ScreenShot-----------------------------------";
         QProcess procRTSP;
         QString run=QString("sh rtspShot.sh %1/%2 pic_%3.png").arg(createPath("Missions")).arg(missionName).arg(numPic);
@@ -145,13 +151,14 @@ void MissionWidget::takeScreenshot(){
         procRTSP.start(run);
         procRTSP.waitForFinished();
         numPic++;
+
    }
    else
         qDebug()<<"ScreenShot ERROR";
 }
 
-void MissionWidget::updateRobotDepth(double value){
-
+void MissionWidget::closeScreenShot(){
+    lblScreenShot->setVisible(false);
 }
 
 void MissionWidget::loadSettings(){
@@ -186,20 +193,14 @@ void MissionWidget::saveSettings()
 void MissionWidget::axisEvent(QString axis,int value){
      qDebug("axis  %d",value);
 
-    if(axis== axis_left_horizontal){
-       /* QString mappedSpeed=mapSpeed(-value);
-        QString command=value<0?RIGHT_ROBOT:LEFT_ROBOT;
-        QString strToSend=QString("%1%2").arg(command).arg(mappedSpeed);
-        sendAction->sendComando(strToSend);
-        if(value==0 || value==maxControl || value ==minControl) //Se repite el comando para asegurar que se realice
-            sendAction->sendComando(strToSend);*/
+    if(axis== axis_left_horizontal){  
         QString command="";
 
         switch (value) {
-        case 1000:
+        case -1000:
             command= QString("%1%2").arg(RIGHT_ROBOT).arg(speeds[2][dialIndex]);
             break;
-        case -1000:
+        case 1000:
             command=QString("%1%2").arg(LEFT_ROBOT).arg(speeds[1][dialIndex]);
             break;
         case  0:
@@ -213,12 +214,7 @@ void MissionWidget::axisEvent(QString axis,int value){
 
 
     }
-    else if(axis==axis_left_vertical){
-           /* QString mappedSpeed=mapSpeed(-value);
-            QString strToSend=QString("%1%2").arg(GO_ROBOT).arg(mappedSpeed);
-            sendAction->sendComando(strToSend);
-            if(value==0 || value==maxControl || value ==minControl) //Se repite el comando para asegurar que se realice
-                sendAction->sendComando(strToSend);*/
+    else if(axis==axis_left_vertical){     
             QString command="";
             switch (value) {
             case 1000:
@@ -239,11 +235,6 @@ void MissionWidget::axisEvent(QString axis,int value){
 
     }
     else if(axis==axis_right_vertical){
-           /* QString mappedSpeed=mapSpeed(-value);
-            QString strToSend=QString("%1%2").arg(UPDOWN_ROBOT).arg(mappedSpeed);
-            sendAction->sendComando(strToSend);
-            if(value==0 || value==maxControl || value ==minControl) //Se repite el comando para asegurar que se realice
-                sendAction->sendComando(strToSend);*/
         QString command="";
         switch (value) {
         case 1000:
@@ -263,31 +254,20 @@ void MissionWidget::axisEvent(QString axis,int value){
             lastCommand=command;
         }
     }
-    else if((axis==axis_cross_vertical)&& value==-1000){
+    else if((axis==axis_cross_vertical)&& value==-1000)
        sendAction->sendComando(TILT_UP);
-       //sendAction->sendComando(NULL_CMD);
-
-    }
-    else if((axis==axis_cross_vertical) && value==0){
-       sendAction->sendComando(TILT_STOP);
-       //sendAction->sendComando(NULL_CMD);
-    }
-    else if((axis==axis_cross_vertical)&& value==1000){  
+    else if((axis==axis_cross_vertical) && value==0)
+       sendAction->sendComando(TILT_STOP);       
+    else if((axis==axis_cross_vertical)&& value==1000)
         sendAction->sendComando(TILT_DOWN);
-       // sendAction->sendComando(NULL_CMD);
-    }
-    else if((axis==axis_cross_horizontal)&& value==-1000){     
+    else if((axis==axis_cross_horizontal)&& value==-1000)
         sendAction->sendComando(PAN_UP);
-       // sendAction->sendComando(NULL_CMD);
-    }
-    else if((axis==axis_cross_horizontal) && value==0){
-       sendAction->sendComando(PAN_STOP);
-       //sendAction->sendComando(NULL_CMD);
-    }
-    else if((axis==axis_cross_horizontal)&& value==1000){ 
-        sendAction->sendComando(PAN_DOWN);
-        //sendAction->sendComando(NULL_CMD);
-    }
+    else if((axis==axis_cross_horizontal) && value==0)
+       sendAction->sendComando(PAN_STOP);           
+    else if((axis==axis_cross_horizontal)&& value==1000)
+       sendAction->sendComando(PAN_DOWN);
+
+
 
 }
 
@@ -410,9 +390,9 @@ void MissionWidget::searchCamera(){
 
     if(isCameraOnline){
         qDebug()<<"CAMERA LIVE";
-        mplayer=ui->mplayerWG;
-        mplayer->start();       
+        mplayer=ui->mplayerWG;               
         mplayer->load("rtsp://admin:12345@10.5.5.110:554");
+        mplayer->start();
         connect(mplayer,SIGNAL(stateChanged(int)),this,SLOT(updatePlayerStatus(int)));
         statusErrorBox->setVisible(false);
     }

@@ -56,7 +56,7 @@ void MainApp::initWelcomeScreen(){
 
 
     /********************************  Joystick *****************************************************/
-    joystick=new JoystickWidget();
+    joystick=new JoystickWidget(this);
     connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
     connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
@@ -90,8 +90,8 @@ void MainApp::initWelcomeScreen(){
     keyCol=0;
     resultKeyBoard=ui.keyboardLine;
 
-   
-    sendAction=new SendAction();
+
+    sendAction=new SendAction(this);
     isWorkingOffline=false;
     isRobotOnline=false;
 
@@ -114,39 +114,52 @@ void MainApp::handleNewBtn(QString missionName){
     if(missionName.compare(""))
         runMission(missionName);
     else
-        showToast("Invalid mission name",1000);
+        showToast("Invalid mission name",100);
 
 }
 
 void MainApp::showMessage(QString message, bool okCancelbtns){
 
     lblShadow->setVisible(true);
-    toast=new QMessageBox();
-    toast->setText(message);
-    toast->setIcon(QMessageBox::Warning);
+    toast=new QDialog(this);
+    int w=507;
+    int h=323;
+    int x=(width()/2)-(w/2);
+    int y=(height()/2)-(h/2);
+    toast->setGeometry(x,y,w,h);
     toast->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
-    toast->setStyleSheet(QMESAGE_STYLE);
 
-    QSpacerItem* horizontalSpacer = new QSpacerItem(1000, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    QGridLayout* layout = (QGridLayout*)toast->layout();
+    if(!okCancelbtns)
+        toast->setStyleSheet(QMESAGE_STYLE_INFO);
+    else
+        toast->setStyleSheet(QMESAGE_STYLE_CONFIRM);
 
-    layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+
+    QGridLayout* layout = new QGridLayout(this);
 
 
-    if(okCancelbtns){
-        QLabel *tempLbl=new QLabel(QString("<img src=\"%1\">").arg(createPath("icons/btnFoot.svg")));
-        layout->addWidget(tempLbl,layout->rowCount(), 0, 1, layout->columnCount());
-    }
+    QSpacerItem* verticalSpacer = new QSpacerItem(0, 30, QSizePolicy::Minimum);
+    layout->addItem(verticalSpacer, 0, 0, 1, 1);
+
+
+    QLabel *msgLbl=new QLabel(message);
+    msgLbl->setFocusPolicy(Qt::NoFocus);
+    msgLbl->setStyleSheet("color: rgb(153, 153, 153);font: bold 14pt;");
+    layout->addWidget(msgLbl,1,0,1,1,Qt::AlignCenter);
+
+
+    toast->setLayout(layout);
     toast->show();
-    //toast->exec();
+
 }
 
 void MainApp::showToast(QString message, int time){    
+    showMessage(message,false);
     QTimer::singleShot(time,Qt::PreciseTimer ,this, SLOT(preCloseMessage()));
-    showMessage(message,false);        
 }
 
 void MainApp::preCloseMessage(){
+    sleep(2);
     closeMessage(true);
 }
 
@@ -192,7 +205,7 @@ void MainApp::createProjectList(){
         projectListBools->resize(idx+1);
         projectListBools->setBit(idx,myListItem->isExploreAndExport());
         idx++;
-        exm->setMissionName(missionName);     
+
 
         projectList->addItem(item);
         projectList->setItemWidget(item, myListItem);
@@ -257,12 +270,10 @@ void MainApp::showHome(){
 }
 
 void MainApp::handleButtonOff(){
-
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
-
     connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOffMessage(QString,QGameControllerButtonEvent*)));
-    showMessage("Are you sure? \n The robot is save? \n the system is going to turning off",true);
+    showMessage("\nThe system is going to turning off\n       Please put the robot safely",true);
 }
 
 void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event){
@@ -394,9 +405,16 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
     }
     else if(button==button_Y && !event->pressed()){
         int item= projectList->currentRow();
+        if(projectListBools->at(item)){
+            lblShadow->setVisible(true);
+            exm->setMissionName(projectListStrings->at(item));
+            disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+            connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),exm,SLOT(joystickButtonUSB(QString,QGameControllerButtonEvent*)));
+            connect(exm,SIGNAL(success(bool)),this,SLOT(successExport(bool)));
+            exm->launchDialog();
+        }
 
-       // if(projectListBools->at(item))
-           // exploreMission(projectListStrings->at(item));
     }
     else if(button==button_back && !event->pressed()){
        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
@@ -645,5 +663,14 @@ bool MainApp::checkRobot(){
   return sendAction->isConnected();
 }
 
+
+void MainApp::successExport(bool success){    
+    qDebug()<<"succes Export";
+    lblShadow->setVisible(false);
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),exm,SLOT(joystickButtonUSB(QString,QGameControllerButtonEvent*)));
+    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+     //exm->acceptDialogs();
+}
 
 

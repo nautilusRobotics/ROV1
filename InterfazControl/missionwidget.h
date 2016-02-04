@@ -48,18 +48,18 @@ signals:
 
 public slots:
     void updatePlayerStatus(int state);
-    void updateControlStatus(bool isConnected);
-    void updateRobotDepth(double value);             
+    void updateControlStatus(bool isConnected);                 
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
     void searchCamera(void);
     void robotDisconnected(void);
+    void closeScreenShot(void);
 
 
 private:
     JoystickWidget *joystick;
     QProgressBar *batteryROV,*batteryControl;
-    QLabel *statusJoystick,*robotDepth,*statusRecording,*missionNameLabel, *lblError;
+    QLabel *statusJoystick,*robotDepth,*statusRecording,*missionNameLabel, *lblError, *lblScreenShot;
     QString missionName;
     openRTSP *rtsp;    
     QString m_sSettingsFile;         

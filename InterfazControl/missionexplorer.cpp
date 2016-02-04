@@ -21,6 +21,8 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
 
     mplayer=ui->mplayerEx;
     listFiles=ui->listWidgetEx;
+    listFiles->clear();
+
     lblMissionName=ui->lblMissionNameEx;
     lblMissionName->setText(missionName);
     fileRow=0;
@@ -37,6 +39,17 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
     createPreviewList();        
     listFiles->setCurrentRow(0);
     listFiles->setStyleSheet("QListWidget::item { background-color: rgb(245, 245, 245);}QListWidget::item:selected {background-color: #F59236;}");
+
+    groupPlayer=ui->groupPlayer;
+    groupPlayer->setVisible(false);
+    progressPlay=ui->playerSlider;
+    progressPlay->setFocusPolicy(Qt::NoFocus);
+    connect(progressPlay,SIGNAL(valueChanged(int)),this,SLOT(sliderChange(int)));
+    mplayer->setSeekSlider(progressPlay);
+    lblPlayPause=ui->lblPlayStop;
+    isPlaying=false;
+    videoFile=" ";
+    isVideoActive=false;
 
 }
 void MissionExplorer::createPreviewList(){
@@ -125,18 +138,26 @@ void MissionExplorer::saveSettings(){
 void MissionExplorer::displaySource(){
    int index=listFiles->currentRow();
    QString fileToShow=files.at(index);
+   videoFile=fileToShow;
    qDebug()<<"Displaying Source"+fileToShow;
 
    if(isVideoFile.at(index)){
 
       /********************************  Player  *****************************************************/
+      groupPlayer->setVisible(true);
+      lblPlayPause->setText("Pause");
       picLbl->setVisible(false);
-      mplayer->setVisible(true);      
+      mplayer->setVisible(true);          
+      isPlaying=true;
+      isVideoActive=true;
       mplayer->start();
       mplayer->load(fileToShow);
 
+
    }
    else{
+      isVideoActive=false;
+      groupPlayer->setVisible(false);
       mplayer->setVisible(false);
       mplayer->stop();
       picLbl->setVisible(true);
@@ -174,8 +195,26 @@ void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *ev
     else if(button==button_A && !event->pressed()){
       displaySource();
     }
-    else if(button==button_B && !event->pressed())
-        this->focusNextChild();
+    else if(button==button_B && !event->pressed() && isVideoActive){
+
+        if(isPlaying){
+            mplayer->pause();
+            lblPlayPause->setText("Play");
+        }
+        else if(progressPlay->value()!=0){
+            mplayer->play();
+            lblPlayPause->setText("Pause");
+        }
+        else{
+            mplayer->start();
+            mplayer->load(videoFile);
+          lblPlayPause->setText("Pause");
+        }
+
+        isPlaying=!isPlaying;
+
+    }
+
 }
 
 
@@ -184,4 +223,12 @@ void MissionExplorer::showDefaultPic(){
     pixmap.load(DEFAULT_PIC);
     picLbl->setPixmap(pixmap);
     picLbl->setVisible(true);
+}
+
+void MissionExplorer::sliderChange(int value){
+  if(value==progressPlay->maximum()){
+      progressPlay->setValue(0);
+      isPlaying=false;
+      lblPlayPause->setText("Play");
+  }
 }
