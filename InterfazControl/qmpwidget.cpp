@@ -1,4 +1,4 @@
-#define QT_NO_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QAbstractSlider>
 #include <QKeyEvent>
 #include <QLocalSocket>

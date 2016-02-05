@@ -44,9 +44,10 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
     groupPlayer->setVisible(false);
     progressPlay=ui->playerSlider;
     progressPlay->setFocusPolicy(Qt::NoFocus);
+
     connect(progressPlay,SIGNAL(valueChanged(int)),this,SLOT(sliderChange(int)));
-    mplayer->setSeekSlider(progressPlay);
-    lblPlayPause=ui->lblPlayStop;
+    lblPlayPause=ui->lblPlayStopIcon;
+    mplayer->setSeekSlider(progressPlay);    
     isPlaying=false;
     videoFile=" ";
     isVideoActive=false;
@@ -142,18 +143,15 @@ void MissionExplorer::displaySource(){
    qDebug()<<"Displaying Source"+fileToShow;
 
    if(isVideoFile.at(index)){
-
       /********************************  Player  *****************************************************/
       groupPlayer->setVisible(true);
-      lblPlayPause->setText("Pause");
+      lblPlayPause->setStyleSheet("background-image: url(:/new/prefix1/pause50.png);");
       picLbl->setVisible(false);
       mplayer->setVisible(true);          
       isPlaying=true;
       isVideoActive=true;
       mplayer->start();
       mplayer->load(fileToShow);
-
-
    }
    else{
       isVideoActive=false;
@@ -199,16 +197,16 @@ void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *ev
 
         if(isPlaying){
             mplayer->pause();
-            lblPlayPause->setText("Play");
+            lblPlayPause->setStyleSheet("background-image: url(:/new/prefix1/play50.png);");
         }
         else if(progressPlay->value()!=0){
             mplayer->play();
-            lblPlayPause->setText("Pause");
+            lblPlayPause->setStyleSheet("background-image: url(:/new/prefix1/pause50.png);");
         }
         else{
             mplayer->start();
             mplayer->load(videoFile);
-          lblPlayPause->setText("Pause");
+            lblPlayPause->setStyleSheet("background-image: url(:/new/prefix1/pause50.png);");
         }
 
         isPlaying=!isPlaying;
@@ -229,6 +227,6 @@ void MissionExplorer::sliderChange(int value){
   if(value==progressPlay->maximum()){
       progressPlay->setValue(0);
       isPlaying=false;
-      lblPlayPause->setText("Play");
+     lblPlayPause->setStyleSheet("background-image: url(:/new/prefix1/play50.png);");
   }
 }

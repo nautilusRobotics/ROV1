@@ -20,6 +20,8 @@
 #define DEFAULT_PIC ":/new/prefix1/explorerDefault2.png"
 #define WHITE_PIC ":/new/prefix1/white1600x1000.png"
 
+#define STYLE_SLIDER "QSlider::groove:horizontal {border: 1px solid #bbb;background: rgb(153,153,153);height: 9px; border-top-right-radius: 9px;border-bottom-right-radius: 9px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;} QSlider::sub-page:horizontal {background: #408af1 ;height: 3px;} QSlider::handle:horizontal {width: 10px; background-image: url(:/new/prefix1/dotGreen.png);}"
+
 class MissionExplorer : public QWidget
 {
     Q_OBJECT

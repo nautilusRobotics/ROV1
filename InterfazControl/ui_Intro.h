@@ -191,9 +191,11 @@ public:
     QLabel *lblPic;
     QLabel *lblbackEx;
     QGroupBox *groupPlayer;
-    QLabel *label_btnB_play;
     QSlider *playerSlider;
-    QLabel *lblPlayStop;
+    QLabel *lblPlayStopIcon;
+    QLabel *label_btnB_play;
+    QLabel *label_palyStop;
+    QFrame *line_16;
 
     void setupUi(QWidget *NautilusCommander)
     {
@@ -1324,25 +1326,38 @@ public:
         groupPlayer->setGeometry(QRect(79, 1020, 1602, 80));
         groupPlayer->setStyleSheet(QStringLiteral("background-color: rgb(243, 240, 236);"));
         groupPlayer->setFlat(false);
-        label_btnB_play = new QLabel(groupPlayer);
-        label_btnB_play->setObjectName(QStringLiteral("label_btnB_play"));
-        label_btnB_play->setGeometry(QRect(56, 20, 32, 32));
-        label_btnB_play->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xobxB32.png);"));
         playerSlider = new QSlider(groupPlayer);
         playerSlider->setObjectName(QStringLiteral("playerSlider"));
-        playerSlider->setGeometry(QRect(100, 28, 1481, 16));
-        playerSlider->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+        playerSlider->setGeometry(QRect(100, 23, 1481, 16));
+        playerSlider->setStyleSheet(QLatin1String("QSlider::groove:horizontal {border: 1px solid #999999;height: 10px;border-radius: 5px;}\n"
+"QSlider::handle:horizontal {width: 10px; background-image: url(:/new/prefix1/dotOrange.png)}\n"
+"QSlider::add-page:qlineargradient {background: lightgrey;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}\n"
+"QSlider::sub-page:qlineargradient {background: #408af1 ;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-top-left-radius:5px;border-bottom-left-radius: 5px;}\n"
+""));
         playerSlider->setMaximum(100);
         playerSlider->setPageStep(10);
+        playerSlider->setValue(50);
         playerSlider->setOrientation(Qt::Horizontal);
-        lblPlayStop = new QLabel(groupPlayer);
-        lblPlayStop->setObjectName(QStringLiteral("lblPlayStop"));
-        lblPlayStop->setGeometry(QRect(11, 25, 51, 20));
-        lblPlayStop->setStyleSheet(QLatin1String("color: rgb(0, 0, 0);\n"
-"font: bold;"));
-        playerSlider->raise();
-        lblPlayStop->raise();
-        label_btnB_play->raise();
+        lblPlayStopIcon = new QLabel(groupPlayer);
+        lblPlayStopIcon->setObjectName(QStringLiteral("lblPlayStopIcon"));
+        lblPlayStopIcon->setGeometry(QRect(42, 8, 48, 50));
+        lblPlayStopIcon->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/play50.png);"));
+        label_btnB_play = new QLabel(explore_page);
+        label_btnB_play->setObjectName(QStringLiteral("label_btnB_play"));
+        label_btnB_play->setGeometry(QRect(24, 364, 32, 32));
+        label_btnB_play->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/xobxB32.png);"));
+        label_palyStop = new QLabel(explore_page);
+        label_palyStop->setObjectName(QStringLiteral("label_palyStop"));
+        label_palyStop->setGeometry(QRect(8, 400, 71, 21));
+        label_palyStop->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
+"font: bold 9pt;"));
+        line_16 = new QFrame(explore_page);
+        line_16->setObjectName(QStringLiteral("line_16"));
+        line_16->setGeometry(QRect(0, 420, 80, 16));
+        line_16->setStyleSheet(QLatin1String("background-image: url(null);\n"
+""));
+        line_16->setFrameShape(QFrame::HLine);
+        line_16->setFrameShadow(QFrame::Sunken);
         stackedWidget->addWidget(explore_page);
         lblbackEx->raise();
         mplayerEx->raise();
@@ -1362,6 +1377,10 @@ public:
         line_12->raise();
         lblPic->raise();
         groupPlayer->raise();
+        label_btnB_play->raise();
+        label_btnB_play->raise();
+        label_palyStop->raise();
+        line_16->raise();
         QWidget::setTabOrder(btnNew, btnOpen);
         QWidget::setTabOrder(btnOpen, btnOff);
         QWidget::setTabOrder(btnOff, lblHelp);
@@ -1510,8 +1529,9 @@ public:
         lblPic->setText(QString());
         lblbackEx->setText(QString());
         groupPlayer->setTitle(QString());
+        lblPlayStopIcon->setText(QString());
         label_btnB_play->setText(QString());
-        lblPlayStop->setText(QApplication::translate("NautilusCommander", "PLAY", 0));
+        label_palyStop->setText(QApplication::translate("NautilusCommander", "Play/Stop", 0));
     } // retranslateUi
 
 };

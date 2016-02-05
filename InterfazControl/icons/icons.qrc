@@ -59,5 +59,9 @@
         <file>btnFoot.svg</file>
         <file>infoDialog.png</file>
         <file>confirmDialog.png</file>
+        <file>play50.png</file>
+        <file>Play25.png</file>
+        <file>play30.png</file>
+        <file>pause50.png</file>
     </qresource>
 </RCC>

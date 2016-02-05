@@ -3047,33 +3047,21 @@ font: bold 9pt;</string>
      <property name="flat">
       <bool>false</bool>
      </property>
-     <widget class="QLabel" name="label_btnB_play">
-      <property name="geometry">
-       <rect>
-        <x>56</x>
-        <y>20</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-image: url(:/new/prefix1/xobxB32.png);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QSlider" name="playerSlider">
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>28</y>
+        <y>23</y>
         <width>1481</width>
         <height>16</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 0, 0);</string>
+       <string notr="true">QSlider::groove:horizontal {border: 1px solid #999999;height: 10px;border-radius: 5px;}
+QSlider::handle:horizontal {width: 10px; background-image: url(:/new/prefix1/dotOrange.png)}
+QSlider::add-page:qlineargradient {background: lightgrey;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}
+QSlider::sub-page:qlineargradient {background: #408af1 ;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-top-left-radius:5px;border-bottom-left-radius: 5px;}
+</string>
       </property>
       <property name="maximum">
        <number>100</number>
@@ -3081,30 +3069,79 @@ font: bold 9pt;</string>
       <property name="pageStep">
        <number>10</number>
       </property>
+      <property name="value">
+       <number>50</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="lblPlayStop">
+     <widget class="QLabel" name="lblPlayStopIcon">
       <property name="geometry">
        <rect>
-        <x>11</x>
-        <y>25</y>
-        <width>51</width>
-        <height>20</height>
+        <x>42</x>
+        <y>8</y>
+        <width>48</width>
+        <height>50</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-font: bold;</string>
+       <string notr="true">background-image: url(:/new/prefix1/play50.png);</string>
       </property>
       <property name="text">
-       <string>PLAY</string>
+       <string/>
       </property>
      </widget>
-     <zorder>playerSlider</zorder>
-     <zorder>lblPlayStop</zorder>
-     <zorder>label_btnB_play</zorder>
+    </widget>
+    <widget class="QLabel" name="label_btnB_play">
+     <property name="geometry">
+      <rect>
+       <x>24</x>
+       <y>364</y>
+       <width>32</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/new/prefix1/xobxB32.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_palyStop">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>400</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+font: bold 9pt;</string>
+     </property>
+     <property name="text">
+      <string>Play/Stop</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_16">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>420</y>
+       <width>80</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(null);
+</string>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
     </widget>
     <zorder>lblbackEx</zorder>
     <zorder>mplayerEx</zorder>
@@ -3124,6 +3161,10 @@ font: bold;</string>
     <zorder>line_12</zorder>
     <zorder>lblPic</zorder>
     <zorder>groupPlayer</zorder>
+    <zorder>label_btnB_play</zorder>
+    <zorder>label_btnB_play</zorder>
+    <zorder>label_palyStop</zorder>
+    <zorder>line_16</zorder>
    </widget>
   </widget>
  </widget>
