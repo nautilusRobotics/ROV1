@@ -34,6 +34,7 @@
 #include "sendaction.h"
 
 
+
 #define maxOptions 3
 #define QPUSH_STYLE_START "QPushButton{color:white;border: 0px; border-radius:6px;font: bold;outline: none}QPushButton:focus:!pressed{border-style: outset;border-width: 4px;border-color: #555555;}"
 #define QPUSH_STYLE_OPEN "QPushButton{color:white;border: 0px; border-radius:6px;font: bold;outline: none}QPushButton:focus:!pressed{border-style: outset;border-width: 4px;border-color: #555555;}"
@@ -98,6 +99,7 @@ public slots:
         QVBoxLayout *generateKeyboard(void);
         QPushButton *keyboardMatrix[4][10];
         SendAction *sendAction;
+        QProcess rumble;
         int focused, openProjectRow, secretKey, keyRow,keyCol;
         bool isOpen, isWorkingOffline, isRobotOnline;
         void showMessage(QString message, bool okCancelbtns);

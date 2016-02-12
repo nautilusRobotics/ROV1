@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -2329,7 +2329,7 @@ color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
-      <string>Fordwards</string>
+      <string> Forwards</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_backwards">
@@ -3161,7 +3161,6 @@ font: bold 9pt;</string>
     <zorder>line_12</zorder>
     <zorder>lblPic</zorder>
     <zorder>groupPlayer</zorder>
-    <zorder>label_btnB_play</zorder>
     <zorder>label_btnB_play</zorder>
     <zorder>label_palyStop</zorder>
     <zorder>line_16</zorder>

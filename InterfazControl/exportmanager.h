@@ -38,7 +38,7 @@ private:
     bool getExternalDevices();  
     bool checkUsb(int indexUSB);    
     bool copyDir(const QString &srcFilePath, const QString &tgtFilePath);
-
+    QProcess rumble;
 
 signals:
    void success(bool success);

@@ -273,6 +273,7 @@ void MissionWidget::axisEvent(QString axis,int value){
 
 void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *event){
      if(button==button_back && !event->pressed()){
+          rumble.start(createPath("rumbleGamepad.o"));
           sendAction->sendComando(STOP_ROBOT);
           disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
           disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
@@ -284,15 +285,18 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
 
      }
      else if(button==button_X && !event->pressed()){
+         rumble.start(createPath("rumbleGamepad.o"));
          tiltCamera->setValue(centerCamera);
          panCamera->setValue(centerCamera);
          sendAction->sendComando(CENTER_CAMARA);
      }
      else if(button==button_A && !event->pressed()){
+            rumble.start(createPath("rumbleGamepad.o"));
             takeScreenshot();
             qDebug("released B");
      }
      else if(button==button_B && !event->pressed()){
+         rumble.start(createPath("rumbleGamepad.o"));
          if(isCameraOnline){
                  emit saveVideo();
                  isRecording=!isRecording;
@@ -306,6 +310,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
 
      }
      else if(button==button_RB && !event->pressed()){
+         rumble.start(createPath("rumbleGamepad.o"));
          int maxDial=speeds[0][3];
          dialIndex=(speedDial->value()<maxDial)?dialIndex+1:dialIndex;
          speedDial->setValue(speeds[0][dialIndex]);
@@ -313,6 +318,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
          qDebug() <<"released RB dial:"+speedDial->value();
      }
      else if(button==button_LB && !event->pressed()){
+         rumble.start(createPath("rumbleGamepad.o"));
          int minDial=speeds[0][0];
          dialIndex=(speedDial->value()>minDial)?dialIndex-1:dialIndex;
          speedDial->setValue(speeds[0][dialIndex]);
@@ -321,6 +327,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
 
      }
      else if(button==button_Y && !event->pressed()){
+         rumble.start(createPath("rumbleGamepad.o"));
          islightsOn=!islightsOn;
          if(islightsOn){
             lblLightsOff->setVisible(false);

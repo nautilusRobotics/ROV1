@@ -55,7 +55,7 @@ private:
     QGroupBox *groupPlayer;
     QSlider *progressPlay;
     QString videoFile;
-
+    QProcess rumble;
     bool createThumbs;
     bool isPlaying, isVideoActive;
     void createPreviewList();

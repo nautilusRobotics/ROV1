@@ -170,10 +170,14 @@ void MissionExplorer::displaySource(){
 
 
 void MissionExplorer::axisEvent(QString axis,int value){
-   if(axis==axis_cross_vertical && value==1000)
+   if(axis==axis_cross_vertical && value==1000){
+       rumble.start(createPath("rumbleGamepad.o"));
        fileRow=(fileRow+1>listFiles->count()-1)?0:fileRow+1;
-   else if(axis==axis_cross_vertical && value==-1000)
+   }
+   else if(axis==axis_cross_vertical && value==-1000){
+       rumble.start(createPath("rumbleGamepad.o"));
        fileRow=(fileRow-1<0)?0:fileRow-1;
+   }
 
    listFiles->setCurrentRow(fileRow);
 
@@ -181,6 +185,7 @@ void MissionExplorer::axisEvent(QString axis,int value){
 
 void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *event){
     if(button==button_back && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
         disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
         saveSettings();
@@ -191,9 +196,11 @@ void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *ev
         emit returnToHome();
      }
     else if(button==button_A && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
       displaySource();
     }
     else if(button==button_B && !event->pressed() && isVideoActive){
+        rumble.start(createPath("rumbleGamepad.o"));
 
         if(isPlaying){
             mplayer->pause();

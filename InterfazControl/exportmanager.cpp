@@ -201,6 +201,7 @@ void ExportManager::launchDialog(){
 void ExportManager::joystickButtonUSB(QString button,QGameControllerButtonEvent* event){
     qDebug()<<"Button Pressed";
     if(button==button_A && !event->pressed() && isUSB && !isSaving){
+      rumble.start(createPath("rumbleGamepad.o"));
       isSaving=true;
 
       loadingBox=new QDialog();
@@ -226,7 +227,13 @@ void ExportManager::joystickButtonUSB(QString button,QGameControllerButtonEvent*
 
       saveUsb(0);
     }
+    else if(button==button_A && !event->pressed() && !isUSB){
+        rumble.start(createPath("rumbleGamepad.o"));
+        emit success(false);
+        msgBox->accept();
+    }
     else if(button==button_B && !event->pressed() && !isSaving){
+       rumble.start(createPath("rumbleGamepad.o"));
        emit success(false);       
        msgBox->accept();       
     }

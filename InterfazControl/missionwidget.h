@@ -74,6 +74,7 @@ private:
     SendAction *sendAction;
     QDial *speedDial;
     QString lastCommand;
+    QProcess rumble;
     int numPic,numVideos,dialIndex,status;
     int speeds[3][4];
     bool islightsOn, isRecording, isCameraOnline;

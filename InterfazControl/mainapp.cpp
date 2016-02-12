@@ -104,6 +104,8 @@ void MainApp::initWelcomeScreen(){
      pcmanfm.close();
      qDebug()<<"pacman out" + pacman;
      #endif
+
+
 }
 
 void MainApp::handleNewBtn(QString missionName){
@@ -277,8 +279,12 @@ void MainApp::handleButtonOff(){
 }
 
 void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event){
-   if(button==button_A && !event->pressed()){
-       switch(focused){
+   if(button==button_A && !event->pressed()){            
+
+       rumble.start(createPath("rumbleGamepad.o"));
+
+
+       switch(focused){        
           case 0:{
             qDebug("option Start");
             if(checkRobot()){             
@@ -313,7 +319,8 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
           case maxOptions:
            qDebug("option Help");
            break;
-       }
+       }        
+
     }
     else  if(button==button_start && !event->pressed()){
       // sendAction->sendComando("goro1600");
@@ -347,30 +354,41 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
 }
 
 void MainApp::joystickAxisEventMenu(QString axis, int value){
-        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
+        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){          
+          rumble.start(createPath("rumbleGamepad.o"));
           this->focusNextChild();        
           focused++;
           focused=(focused>maxOptions)?0:focused;
+
         }
-        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){
+        if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){           
+           rumble.start(createPath("rumbleGamepad.o"));
            this->focusPreviousChild();
            focused--;
            focused=(focused<0)?maxOptions:focused;
-        }    
+        }
 }
 
 void MainApp::joystickAxisEventOpen(QString axis, int value){
 
-    if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000)
+    if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
+       rumble.start(createPath("rumbleGamepad.o"));
        openProjectRow=(openProjectRow+1>projectList->count()-1)?0:openProjectRow+1;
-    if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000)
+
+
+    }
+    if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){
+        rumble.start(createPath("rumbleGamepad.o"));
         openProjectRow=(openProjectRow-1<0)?0:openProjectRow-1;
+
+    }
 
     projectList->setCurrentRow(openProjectRow);
 }
 
 void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
-    if(button==button_A && !event->pressed()){        
+    if(button==button_A && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         int item= projectList->currentRow();
 
         if(sendAction->isConnected()){
@@ -383,6 +401,7 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
 
     }
     else if(button==button_X && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         int item= projectList->currentRow();
 
         if(projectListBools->at(item)){
@@ -394,6 +413,7 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
         }
     }
     else if(button==button_B && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         int item= projectList->currentRow();
         QString msg=QString("Are you sure you want to delete the Mission: \"%1\"\n You can't undo this action").arg(projectListStrings->at(item));
 
@@ -404,6 +424,7 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
         showMessage(msg,true);
     }
     else if(button==button_Y && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         int item= projectList->currentRow();
         if(projectListBools->at(item)){
             lblShadow->setVisible(true);
@@ -417,6 +438,7 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
 
     }
     else if(button==button_back && !event->pressed()){
+       rumble.start(createPath("rumbleGamepad.o"));
        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
@@ -513,6 +535,7 @@ void MainApp::launchKeyBoard(){
 void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEvent* event){
 
     if(button==button_A && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         qDebug()<<"BUTTON A message";
         int item= projectList->currentRow();
 
@@ -521,6 +544,7 @@ void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEve
         closeMessage(false);
     }
     else if(button==button_B && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         qDebug()<<"BUTTON B message";
         disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMessage(QString,QGameControllerButtonEvent*)));        
         closeMessage(false);
@@ -530,6 +554,7 @@ void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEve
 void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButtonEvent* event){
 
     if(button==button_A && !event->pressed()){
+      rumble.start(createPath("rumbleGamepad.o"));
       if(sendAction->isConnected())
         sendAction->sendComando(POWEROFF_ROBOT);
 
@@ -550,6 +575,7 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
         closeMessage(true);
     }
     else if(button==button_B && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
         disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOffMessage(QString,QGameControllerButtonEvent*)));        
         closeMessage(true);
     }
@@ -557,16 +583,19 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
 
 void MainApp::joystickAxisEventKeyBoard(QString axis, int value){
         if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==1000){
+            rumble.start(createPath("rumbleGamepad.o"));
             setNormalkey();
             keyRow=(keyRow+1>3)?3:keyRow+1;
             setSelectkey();
         }
         if((!axis.compare(axis_cross_vertical) || !axis.compare(axis_left_vertical) || !axis.compare(axis_right_vertical)) && value==-1000){
+            rumble.start(createPath("rumbleGamepad.o"));
             setNormalkey();
             keyRow=(keyRow-1<0)?0:keyRow-1;
             setSelectkey();
         }
         if((!axis.compare(axis_cross_horizontal) || !axis.compare(axis_left_horizontal) || !axis.compare(axis_right_horizontal)) && value==1000){
+            rumble.start(createPath("rumbleGamepad.o"));
             setNormalkey();
 
             if(keyRow==3 && (keyCol>=2 && keyCol <=6))
@@ -579,6 +608,7 @@ void MainApp::joystickAxisEventKeyBoard(QString axis, int value){
             setSelectkey();
         }
         if((!axis.compare(axis_cross_horizontal) || !axis.compare(axis_left_horizontal) || !axis.compare(axis_right_horizontal)) && value==-1000){
+            rumble.start(createPath("rumbleGamepad.o"));
             setNormalkey();
 
             if(keyRow==3 && (keyCol>=2 && keyCol <=6))
@@ -620,6 +650,7 @@ void MainApp::setSelectkey(){
 void MainApp::joystickButtonEventKeyBoard(QString button,QGameControllerButtonEvent* event){
 
     if(button==button_A && !event->pressed()){
+        rumble.start(createPath("rumbleGamepad.o"));
          QString newKey = keyboardMatrix[keyRow][keyCol]->text();
          QString tmpReceiptString = resultKeyBoard->text();
 

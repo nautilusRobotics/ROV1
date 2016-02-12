@@ -1378,7 +1378,6 @@ public:
         lblPic->raise();
         groupPlayer->raise();
         label_btnB_play->raise();
-        label_btnB_play->raise();
         label_palyStop->raise();
         line_16->raise();
         QWidget::setTabOrder(btnNew, btnOpen);
@@ -1388,7 +1387,7 @@ public:
 
         retranslateUi(NautilusCommander);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(NautilusCommander);
@@ -1501,7 +1500,7 @@ public:
         label_submerge->setText(QApplication::translate("NautilusCommander", "Submerge", 0));
         label_move_4->setText(QApplication::translate("NautilusCommander", "Emerge", 0));
         label_AleftUD_4->setText(QString());
-        label_fordward->setText(QApplication::translate("NautilusCommander", "Fordwards", 0));
+        label_fordward->setText(QApplication::translate("NautilusCommander", " Forwards", 0));
         label_backwards->setText(QApplication::translate("NautilusCommander", "Backwards", 0));
         label_speedDown->setText(QString());
         label_speed->setText(QApplication::translate("NautilusCommander", "Speed", 0));
