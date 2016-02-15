@@ -30,12 +30,14 @@ public:
 
 signals:
     void returnToHome();
+    void controlOut(void);
 
 public slots:
     void displaySource();    
     void axisEvent(QString axis,int value);
     void buttonEvent(QString button,QGameControllerButtonEvent* event);
     void sliderChange(int value);
+    void updateControlStatus(bool isConnected);
 
 
 private:

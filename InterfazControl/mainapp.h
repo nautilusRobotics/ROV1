@@ -2,7 +2,7 @@
 #define MAINAPP_H
 
 
-#define QT_NO_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QApplication>
 #include <QLabel>
@@ -41,6 +41,8 @@
 #define QPUSH_STYLE_OFF "QPushButton{color:white;border: 0px; border-radius:6px;font: bold;outline: none}QPushButton:focus:!pressed{border-style: outset;border-width: 4px;border-color: #555555;}"
 #define QLABEL_STYLE_HELP "QLabel{color: rgb(153, 153, 153);font: bold 10pt;text-decoration: underline;}QLabel:focus:!pressed{border-style: outset;border-width: 2px;border-bottom-color: #555555;}"
 #define QMESAGE_STYLE_INFO "QDialog {background-color:rgb(255,255,255); background-image: url(:/new/prefix1/infoDialog.png); }"
+#define QMESAGE_STYLE_HELP_INTRO "QDialog {background-color:rgba(255,255,255,0); background-image: url(:/new/prefix1/helpIntro.png); }"
+#define QMESAGE_STYLE_HELP_XBOX  "QDialog {background-image: url(:/new/prefix1/helpControllerLayout.png);}"
 #define QMESAGE_STYLE_CONFIRM "QDialog {background-color:rgb(255,255,255); background-image: url(:/new/prefix1/confirmDialog.png);}"
 
 #define QKEY_NORMAL_STYLE "font-size: 18pt; font-weight: bold; background-color: rgb(89, 96, 102); color: rgb(255, 255, 255);"
@@ -62,6 +64,8 @@ public slots:
     void updateControlStatus(bool isConnected);
     void joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event);
     void joystickAxisEventMenu(QString axis, int value);
+    void joystickButtonEventHelp(QString button,QGameControllerButtonEvent* event);
+    void joystickAxisEventHelp(QString axis, int value);
     void joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event);
     void joystickAxisEventOpen(QString axis, int value);
     void joystickButtonEventMessage(QString button,QGameControllerButtonEvent* event);
@@ -74,6 +78,7 @@ public slots:
     void reconnectJoystick();
     void controlCrash();
     void successExport(bool success);
+    void controlOut();
 
 
     private:    
@@ -87,8 +92,8 @@ public slots:
         QString missionsPath;
         QStringList    *secretKeyList;
         QLineEdit *resultKeyBoard;
-        QDialog *toast;
-        QStringList *projectListStrings;
+        QDialog *toast, *help;
+        QStringList *projectListStrings, *helpList;
         QBitArray *projectListBools;
         QStackedWidget *stackedWidget;
         QGroupBox *openMissionBox, *keyBoardBox;
@@ -100,7 +105,7 @@ public slots:
         QPushButton *keyboardMatrix[4][10];
         SendAction *sendAction;
         QProcess rumble;
-        int focused, openProjectRow, secretKey, keyRow,keyCol;
+        int focused, openProjectRow, secretKey, keyRow,keyCol, helpIdx;
         bool isOpen, isWorkingOffline, isRobotOnline;
         void showMessage(QString message, bool okCancelbtns);
         void initWelcomeScreen();        

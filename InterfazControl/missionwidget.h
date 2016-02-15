@@ -1,7 +1,7 @@
 #ifndef MISSIONWIDGET_H
 #define MISSIONWIDGET_H
 
-#define QT_NO_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QGridLayout>
 #include <QShowEvent>
 #include <QFileDialog>
@@ -44,6 +44,8 @@ public:
 signals:
     void returnToHome();
     void saveVideo(void);
+    void controlOut(void);
+
 
 
 public slots:

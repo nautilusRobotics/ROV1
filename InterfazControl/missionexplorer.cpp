@@ -7,6 +7,7 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
 {
     ui=gui;
     this->joystick=joystick;
+    connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
     connect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
     connect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
 
@@ -236,4 +237,17 @@ void MissionExplorer::sliderChange(int value){
       isPlaying=false;
      lblPlayPause->setStyleSheet("background-image: url(:/new/prefix1/play50.png);");
   }
+}
+
+void MissionExplorer::updateControlStatus(bool isConnected){
+   if(!isConnected){
+       disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
+       disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
+       saveSettings();
+       mplayer->setVisible(false);
+       showDefaultPic();
+       mplayer->stop();
+
+       emit controlOut();
+   }
 }

@@ -1,4 +1,4 @@
-//#define QT_NO_DEBUG_OUTPUT
+#define QT_NO_DEBUG_OUTPUT
 #include <QAbstractSlider>
 #include <QKeyEvent>
 #include <QLocalSocket>
@@ -202,7 +202,7 @@ public:
         }
     }
     // Starts the MPlayer process in idle mode
-    void start(QWidget *widget, const QStringList &args)
+    void start(QWidget *widget, const QStringList /* unused &args*/)
     {
         if (m_mode == QMPwidget::PipeMode) {
 #ifdef QMP_USE_YUVPIPE

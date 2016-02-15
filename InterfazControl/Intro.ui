@@ -447,7 +447,7 @@ background-color: rgb(39, 43, 44);</string>
      <widget class="QPushButton" name="keyQ">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>40</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -469,7 +469,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyW">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>110</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -490,7 +490,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyE">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>180</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -512,7 +512,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyR">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>250</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -534,7 +534,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyT">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>320</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -556,7 +556,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyY">
       <property name="geometry">
        <rect>
-        <x>380</x>
+        <x>390</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -578,7 +578,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyU">
       <property name="geometry">
        <rect>
-        <x>450</x>
+        <x>460</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -600,7 +600,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyI">
       <property name="geometry">
        <rect>
-        <x>520</x>
+        <x>530</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -622,7 +622,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyO">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>600</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -644,7 +644,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyP">
       <property name="geometry">
        <rect>
-        <x>660</x>
+        <x>670</x>
         <y>90</y>
         <width>60</width>
         <height>83</height>
@@ -666,7 +666,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyA">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>70</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -688,7 +688,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyS">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>140</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -710,7 +710,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyD">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>210</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -732,7 +732,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyF">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -754,7 +754,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyG">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>350</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -776,7 +776,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyH">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>420</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -798,7 +798,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyJ">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>490</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -820,7 +820,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyK">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>560</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -842,7 +842,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyL">
       <property name="geometry">
        <rect>
-        <x>620</x>
+        <x>630</x>
         <y>190</y>
         <width>60</width>
         <height>83</height>
@@ -864,7 +864,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyB">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>420</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -886,7 +886,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyZ">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>140</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -908,7 +908,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyC">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -930,7 +930,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyX">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>210</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -952,7 +952,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyM">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>560</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -974,7 +974,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyV">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>350</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -996,7 +996,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyN">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>490</x>
         <y>290</y>
         <width>60</width>
         <height>83</height>
@@ -1018,7 +1018,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keySpace">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>210</x>
         <y>380</y>
         <width>351</width>
         <height>83</height>
@@ -1040,7 +1040,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyBackspace">
       <property name="geometry">
        <rect>
-        <x>633</x>
+        <x>650</x>
         <y>290</y>
         <width>81</width>
         <height>83</height>
@@ -1081,7 +1081,7 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="keyEnter">
       <property name="geometry">
        <rect>
-        <x>560</x>
+        <x>570</x>
         <y>380</y>
         <width>161</width>
         <height>83</height>
@@ -1161,7 +1161,7 @@ color: rgb(148, 148, 148);</string>
    </widget>
    <widget class="QWidget" name="mission_page">
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/new/prefix1/backVideo.svg);</string>
+     <string notr="true"/>
     </property>
     <widget class="QMPwidget" name="mplayerWG" native="true">
      <property name="enabled">
@@ -1176,7 +1176,7 @@ color: rgb(148, 148, 148);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);</string>
+      <string notr="true"/>
      </property>
      <widget class="QLabel" name="label_toastSS">
       <property name="geometry">
@@ -1203,15 +1203,14 @@ color: white;</string>
     <widget class="QLabel" name="label_goHome">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>100</x>
        <y>30</y>
        <width>221</width>
        <height>21</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -1229,7 +1228,7 @@ font: bold 11pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: bold 20pt;
-background-image: url(null);</string>
+</string>
      </property>
      <property name="text">
       <string>Nautilus Commander ROV Control</string>
@@ -1245,8 +1244,7 @@ background-image: url(null);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -1263,7 +1261,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); }
+      <string notr="true">QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; }
 QProgressBar::chunk {background-color: #37A2E5;width: 20px}</string>
      </property>
      <property name="maximum">
@@ -1283,8 +1281,7 @@ QProgressBar::chunk {background-color: #37A2E5;width: 20px}</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -1301,8 +1298,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: 11pt;</string>
      </property>
      <property name="text">
@@ -1319,7 +1315,7 @@ font: 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center; background-image:  url(:/null); }
+      <string notr="true">QProgressBar {border: 2px solid grey;border-radius: 5px; text-align: center;}
 QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}</string>
      </property>
      <property name="value">
@@ -1352,8 +1348,7 @@ QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}</string
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -1370,8 +1365,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -1451,8 +1445,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -1469,8 +1462,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -1486,8 +1478,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -1504,8 +1495,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -1521,8 +1511,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -1538,8 +1527,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -1556,8 +1544,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -1574,8 +1561,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -1592,8 +1578,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -1610,8 +1595,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -1627,8 +1611,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-background-color: rgb(244, 244, 244);
+      <string notr="true">background-color: rgb(244, 244, 244);
 color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
@@ -1645,8 +1628,7 @@ font: bold 11pt;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(null);
-color: rgb(163, 175, 179);
+       <string notr="true">color: rgb(163, 175, 179);
 font: bold 11pt;</string>
       </property>
       <property name="text">
@@ -1683,8 +1665,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-background-color: rgb(244, 244, 244);
+      <string notr="true">background-color: rgb(244, 244, 244);
 color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
@@ -1701,8 +1682,7 @@ font: bold 11pt;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-color: rgb(163, 175, 179);
+       <string notr="true">color: rgb(163, 175, 179);
 font: bold 11pt;</string>
       </property>
       <property name="text">
@@ -1739,8 +1719,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -1757,8 +1736,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
      <property name="text">
@@ -1794,8 +1772,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 30pt;</string>
      </property>
      <property name="text">
@@ -1812,8 +1789,7 @@ font: bold 30pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font: bold 30pt;</string>
      </property>
      <property name="text">
@@ -1830,15 +1806,14 @@ font: bold 30pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
       <string>Temperature(°C)</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_depthIco_2">
+    <widget class="QLabel" name="label_tempIco">
      <property name="geometry">
       <rect>
        <x>1830</x>
@@ -1867,8 +1842,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-background-color: rgb(244, 244, 244);
+      <string notr="true">background-color: rgb(244, 244, 244);
 color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
@@ -1885,8 +1859,7 @@ font: bold 11pt;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(null);
-color: rgb(163, 175, 179);
+       <string notr="true">color: rgb(163, 175, 179);
 font: bold 11pt;</string>
       </property>
       <property name="text">
@@ -1923,8 +1896,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-background-color: rgb(244, 244, 244);
+      <string notr="true">background-color: rgb(244, 244, 244);
 color: rgb(153, 153, 153);
 font: bold 11pt;</string>
      </property>
@@ -1941,8 +1913,7 @@ font: bold 11pt;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(null);
-color: rgb(163, 175, 179);
+       <string notr="true">color: rgb(163, 175, 179);
 font: bold 11pt;</string>
       </property>
       <property name="text">
@@ -1985,7 +1956,7 @@ font: bold 11pt;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_AleftUD_3">
+    <widget class="QLabel" name="label_ARightUD">
      <property name="geometry">
       <rect>
        <x>15</x>
@@ -2001,7 +1972,7 @@ font: bold 11pt;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="label_camera_pic">
      <property name="geometry">
       <rect>
        <x>1770</x>
@@ -2027,8 +1998,7 @@ font: bold 11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -2048,8 +2018,7 @@ font:  11pt;</string>
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider{background-image: url(null);}
-QSlider::groove:horizontal {border: 0px solid #999999;height: 10px;border-radius: 10px;}
+      <string notr="true">QSlider::groove:horizontal {border: 0px solid #999999;height: 10px;border-radius: 10px;}
 QSlider::add-page{background: rgb(91, 107, 117);border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}
 QSlider::sub-page:qlineargradient {background: rgb(91, 107, 117);border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
 QSlider::handle:horizontal {width: 10px; background-image: url(:/new/prefix1/dotGreen.png)}
@@ -2087,8 +2056,7 @@ QSlider::handle:horizontal {width: 10px; background-image: url(:/new/prefix1/dot
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider{background-image: url(null);}
-QSlider::groove:vertical {border: 0px solid #999999;width: 10px;border-radius: 5px;}
+      <string notr="true">QSlider::groove:vertical {border: 0px solid #999999;width: 10px;border-radius: 5px;}
 QSlider::add-page{background: rgb(91, 107, 117);border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
 QSlider::sub-page:qlineargradient {background: rgb(91, 107, 117);border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
 QSlider::handle:vertical{height: 10px; background-image: url(:/new/prefix1/dotGreen.png)}
@@ -2117,15 +2085,14 @@ QSlider::handle:vertical{height: 10px; background-image: url(:/new/prefix1/dotGr
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Center</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_take_4">
+    <widget class="QLabel" name="label_cameraCenter">
      <property name="geometry">
       <rect>
        <x>16</x>
@@ -2135,8 +2102,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2153,8 +2119,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -2203,8 +2168,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -2220,8 +2184,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -2237,8 +2200,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2255,15 +2217,14 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Submerge</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_move_4">
+    <widget class="QLabel" name="label_emerge">
      <property name="geometry">
       <rect>
        <x>15</x>
@@ -2273,15 +2234,14 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Emerge</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_AleftUD_4">
+    <widget class="QLabel" name="label_AleftUD">
      <property name="geometry">
       <rect>
        <x>15</x>
@@ -2307,14 +2267,13 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_fordward">
+    <widget class="QLabel" name="label_forwards">
      <property name="geometry">
       <rect>
        <x>4</x>
@@ -2324,8 +2283,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2342,15 +2300,14 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Backwards</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_speedDown">
+    <widget class="QLabel" name="label_speedLB">
      <property name="geometry">
       <rect>
        <x>14</x>
@@ -2376,8 +2333,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2394,8 +2350,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2412,14 +2367,13 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_speedDown_2">
+    <widget class="QLabel" name="label_speedRB">
      <property name="geometry">
       <rect>
        <x>14</x>
@@ -2445,8 +2399,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2463,8 +2416,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2481,8 +2433,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -2560,8 +2511,7 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -2578,8 +2528,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -2596,8 +2545,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(153, 153, 153);
+      <string notr="true">color: rgb(153, 153, 153);
 font:  11pt;</string>
      </property>
      <property name="text">
@@ -2614,8 +2562,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -2647,8 +2594,7 @@ font:  11pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
@@ -2665,14 +2611,30 @@ font: bold 9pt;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(null);
-color: rgb(255, 255, 255);
+      <string notr="true">color: rgb(255, 255, 255);
 font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Lights</string>
      </property>
     </widget>
+    <widget class="QLabel" name="labelBackMW">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1920</width>
+       <height>1080</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/new/prefix1/backVideo.svg);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>labelBackMW</zorder>
     <zorder>mplayerWG</zorder>
     <zorder>label_goHome</zorder>
     <zorder>label_title_2</zorder>
@@ -2706,17 +2668,17 @@ font: bold 9pt;</string>
     <zorder>labelControlBatt_3</zorder>
     <zorder>labelControlBatt_4</zorder>
     <zorder>labelControlBatt_5</zorder>
-    <zorder>label_depthIco_2</zorder>
+    <zorder>label_tempIco</zorder>
     <zorder>statusVideoOn</zorder>
     <zorder>statusVideoOff</zorder>
     <zorder>label_leftRL</zorder>
-    <zorder>label_AleftUD_3</zorder>
-    <zorder>label_3</zorder>
+    <zorder>label_ARightUD</zorder>
+    <zorder>label_camera_pic</zorder>
     <zorder>labelControlBatt_6</zorder>
     <zorder>panCamera</zorder>
     <zorder>tiltCamera</zorder>
     <zorder>label_center</zorder>
-    <zorder>label_take_4</zorder>
+    <zorder>label_cameraCenter</zorder>
     <zorder>labelControlBatt_7</zorder>
     <zorder>label_switchOn</zorder>
     <zorder>label_switchOff</zorder>
@@ -2724,16 +2686,16 @@ font: bold 9pt;</string>
     <zorder>line_10</zorder>
     <zorder>label_turnROV</zorder>
     <zorder>label_submerge</zorder>
-    <zorder>label_move_4</zorder>
-    <zorder>label_AleftUD_4</zorder>
+    <zorder>label_emerge</zorder>
+    <zorder>label_AleftUD</zorder>
     <zorder>line_11</zorder>
-    <zorder>label_fordward</zorder>
+    <zorder>label_forwards</zorder>
     <zorder>label_backwards</zorder>
-    <zorder>label_speedDown</zorder>
+    <zorder>label_speedLB</zorder>
     <zorder>label_speed</zorder>
     <zorder>label_speed_down</zorder>
     <zorder>line_13</zorder>
-    <zorder>label_speedDown_2</zorder>
+    <zorder>label_speedRB</zorder>
     <zorder>label_speed_2</zorder>
     <zorder>label_speed_up</zorder>
     <zorder>line_14</zorder>

@@ -57,7 +57,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
 
     /********************************  Joystick *****************************************************/
     this->joystick=joystick;
-
+    connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
     connect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
     connect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
 
@@ -135,9 +135,20 @@ void MissionWidget::updatePlayerStatus(int state){
     }
 }
 
-void MissionWidget::updateControlStatus(bool isConnected){
-
+void MissionWidget::updateControlStatus(bool  isConnected ){
+    if(!isConnected){
+        sendAction->sendComando(STOP_ROBOT);
+        disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
+        disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
+        saveSettings();
+        dataThread->closeServer();
+        dataThread->terminate();
+        emit controlOut();
+    }
 }
+
+
+
 
 void MissionWidget::takeScreenshot(){
    if(isCameraOnline){

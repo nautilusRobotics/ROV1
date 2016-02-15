@@ -35,6 +35,9 @@ void MainApp::initWelcomeScreen(){
     projectList=ui.listWidget;
     exm=new ExportManager(this);
     projectListStrings=new QStringList();
+    helpList=new QStringList();
+    helpList->append(QMESAGE_STYLE_HELP_INTRO);
+    helpList->append(QMESAGE_STYLE_HELP_XBOX);
     projectListBools=new QBitArray();
 
     lblListWidget=ui.lblListWidget;
@@ -104,6 +107,8 @@ void MainApp::initWelcomeScreen(){
      pcmanfm.close();
      qDebug()<<"pacman out" + pacman;
      #endif
+
+     helpIdx=0;
 
 
 }
@@ -194,10 +199,7 @@ void MainApp::createProjectList(){
         QFileInfo Info(it.next());
         QString missionName = QString(Info.fileName());
 
-
         qDebug() <<missionName;
-
-
 
         QListWidgetItem *item = new QListWidgetItem();
         item->setSizeHint(QSize(item->sizeHint().width(), 60));
@@ -208,30 +210,23 @@ void MainApp::createProjectList(){
         projectListBools->setBit(idx,myListItem->isExploreAndExport());
         idx++;
 
-
         projectList->addItem(item);
         projectList->setItemWidget(item, myListItem);
     }
 }
 
 void MainApp::runMission(QString missionName){
-
-
-    qDebug() <<"runMission "+missionName;
-
-
+   qDebug() <<"runMission "+missionName;
    disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
-
    missionWidget=new MissionWidget(this,missionName,joystick,&ui,sendAction);
    connect(missionWidget,SIGNAL(returnToHome()),this,SLOT(showHome()));
+   connect(missionWidget,SIGNAL(controlOut()),this,SLOT(controlOut()));
    stackedWidget->setCurrentIndex(1);
 }
 
 void MainApp::exploreMission(QString missionName){
 
-   qDebug() <<"explore "+missionName;
-
-
+  qDebug() <<"explore "+missionName;
   disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
   disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
   disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
@@ -239,12 +234,10 @@ void MainApp::exploreMission(QString missionName){
   stackedWidget->setCurrentIndex(2);
   missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
   connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
-
-
+  connect(missionExplorer,SIGNAL(controlOut()),this,SLOT(controlOut()));
 }
 
 void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
-
 
        qDebug() <<"delete "+missionName;
        QString dirName=QString("%1/%2").arg(missionsPath).arg(missionName);
@@ -258,8 +251,6 @@ void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
           }
           else
              qDebug()<<"no delete";
-
-
 
 }
 
@@ -280,9 +271,7 @@ void MainApp::handleButtonOff(){
 
 void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event){
    if(button==button_A && !event->pressed()){            
-
        rumble.start(createPath("rumbleGamepad.o"));
-
 
        switch(focused){        
           case 0:{
@@ -317,7 +306,21 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
             break;
 
           case maxOptions:
-           qDebug("option Help");
+               qDebug("option Help");
+               disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+               disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+               connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventHelp(QString,QGameControllerButtonEvent*)));
+               connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventHelp(QString,int)));
+               lblShadow->setVisible(true);
+               help=new QDialog(this);
+               int w=1198;
+               int h=732;
+               int x=(width()/2)-(w/2);
+               int y=(height()/2)-(h/2);
+               help->setGeometry(x,y,w,h);
+               help->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
+               help->setStyleSheet(QMESAGE_STYLE_HELP_INTRO);
+               help->show();
            break;
        }        
 
@@ -453,10 +456,11 @@ void MainApp::updateControlStatus(bool isConnected){
         lblShadow->setVisible(true);
         lblGamepadError->setVisible(true);
         qDebug()<<"Trying to reconnect";
-        QTimer::singleShot(2000,Qt::PreciseTimer ,this, SLOT(reconnectJoystick()));
+        QTimer::singleShot(4000,Qt::PreciseTimer ,this, SLOT(reconnectJoystick()));
     }
 
 }
+
 
 void MainApp::reconnectJoystick(){
     int maxTries=5;
@@ -494,8 +498,6 @@ void MainApp::controlCrash(){
         powerOff.start("sudo /mnt/disk1/NautilusOne/powerOff.sh");
         powerOff.waitForFinished();
         powerOff.close();
-
-
 
 #endif
 
@@ -554,7 +556,7 @@ void MainApp::joystickButtonEventMessage(QString button,QGameControllerButtonEve
 void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButtonEvent* event){
 
     if(button==button_A && !event->pressed()){
-      rumble.start(createPath("rumbleGamepad.o"));
+      //rumble.start(createPath("rumbleGamepad.o"));
       if(sendAction->isConnected())
         sendAction->sendComando(POWEROFF_ROBOT);
 
@@ -694,8 +696,7 @@ bool MainApp::checkRobot(){
   return sendAction->isConnected();
 }
 
-
-void MainApp::successExport(bool success){    
+void MainApp::successExport(bool /*unused success*/){
     qDebug()<<"succes Export";
     lblShadow->setVisible(false);
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),exm,SLOT(joystickButtonUSB(QString,QGameControllerButtonEvent*)));
@@ -704,4 +705,36 @@ void MainApp::successExport(bool success){
      //exm->acceptDialogs();
 }
 
+void MainApp::joystickButtonEventHelp(QString button,QGameControllerButtonEvent* event){
 
+    if(button==button_B && !event->pressed()){
+      rumble.start(createPath("rumbleGamepad.o"));
+      lblShadow->setVisible(false);
+
+      disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventHelp(QString,QGameControllerButtonEvent*)));
+      disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventHelp(QString,int)));
+
+      connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+      connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+      help->accept();
+    }
+}
+
+void MainApp::joystickAxisEventHelp(QString axis, int value){
+    if((!axis.compare(axis_cross_horizontal) || !axis.compare(axis_left_horizontal) || !axis.compare(axis_right_horizontal)) &&  value==1000  ){
+      rumble.start(createPath("rumbleGamepad.o"));
+      helpIdx=(helpIdx<(helpList->size()-1))?helpIdx+1:helpIdx;
+      help->setStyleSheet(helpList->at(helpIdx));
+    }
+    else if((!axis.compare(axis_cross_horizontal) || !axis.compare(axis_left_horizontal) || !axis.compare(axis_right_horizontal)) &&   value==-1000){
+      rumble.start(createPath("rumbleGamepad.o"));
+      helpIdx=(helpIdx>0)?helpIdx-1:helpIdx;
+      help->setStyleSheet(helpList->at(helpIdx));
+    }
+
+}
+
+void MainApp::controlOut(){
+    showHome();
+    updateControlStatus(false);
+}

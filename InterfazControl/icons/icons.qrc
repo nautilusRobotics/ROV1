@@ -63,5 +63,7 @@
         <file>Play25.png</file>
         <file>play30.png</file>
         <file>pause50.png</file>
+        <file>helpIntro.png</file>
+        <file>helpControllerLayout.png</file>
     </qresource>
 </RCC>
