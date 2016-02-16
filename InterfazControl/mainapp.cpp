@@ -342,6 +342,9 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
         initControl.start(run);        
         initControl.waitForFinished();
         initControl.close();
+        
+        disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+        disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
 
         QProcess lxpanel;
         lxpanel.start("lxpanel");

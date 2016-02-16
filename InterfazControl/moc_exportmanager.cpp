@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ExportManager_t {
-    QByteArrayData data[7];
-    char stringdata[67];
+    QByteArrayData data[11];
+    char stringdata[127];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,13 +32,19 @@ static const qt_meta_stringdata_ExportManager_t qt_meta_stringdata_ExportManager
 QT_MOC_LITERAL(0, 0, 13),
 QT_MOC_LITERAL(1, 14, 7),
 QT_MOC_LITERAL(2, 22, 0),
-QT_MOC_LITERAL(3, 23, 12),
-QT_MOC_LITERAL(4, 36, 7),
-QT_MOC_LITERAL(5, 44, 8),
-QT_MOC_LITERAL(6, 53, 12)
+QT_MOC_LITERAL(3, 23, 13),
+QT_MOC_LITERAL(4, 37, 12),
+QT_MOC_LITERAL(5, 50, 7),
+QT_MOC_LITERAL(6, 58, 8),
+QT_MOC_LITERAL(7, 67, 17),
+QT_MOC_LITERAL(8, 85, 6),
+QT_MOC_LITERAL(9, 92, 27),
+QT_MOC_LITERAL(10, 120, 5)
     },
-    "ExportManager\0success\0\0launchDialog\0"
-    "saveUsb\0indexUSB\0cancelDialog\0"
+    "ExportManager\0success\0\0acceptDialogs\0"
+    "launchDialog\0saveUsb\0indexUSB\0"
+    "joystickButtonUSB\0button\0"
+    "QGameControllerButtonEvent*\0event\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,7 +54,7 @@ static const uint qt_meta_data_ExportManager[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -56,20 +62,22 @@ static const uint qt_meta_data_ExportManager[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   34,    2, 0x05,
+       1,    1,   39,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   37,    2, 0x0a,
-       4,    1,   38,    2, 0x0a,
-       6,    0,   41,    2, 0x0a,
+       3,    0,   42,    2, 0x0a,
+       4,    0,   43,    2, 0x0a,
+       5,    1,   44,    2, 0x0a,
+       7,    2,   47,    2, 0x0a,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Bool,    2,
+    QMetaType::Void, QMetaType::Bool,    1,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Bool, QMetaType::Int,    5,
     QMetaType::Void,
+    QMetaType::Bool, QMetaType::Int,    6,
+    QMetaType::Void, QMetaType::QString, 0x80000000 | 9,    8,   10,
 
        0        // eod
 };
@@ -80,10 +88,11 @@ void ExportManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         ExportManager *_t = static_cast<ExportManager *>(_o);
         switch (_id) {
         case 0: _t->success((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 1: _t->launchDialog(); break;
-        case 2: { bool _r = _t->saveUsb((*reinterpret_cast< int(*)>(_a[1])));
+        case 1: _t->acceptDialogs(); break;
+        case 2: _t->launchDialog(); break;
+        case 3: { bool _r = _t->saveUsb((*reinterpret_cast< int(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 3: _t->cancelDialog(); break;
+        case 4: _t->joystickButtonUSB((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -123,13 +132,13 @@ int ExportManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

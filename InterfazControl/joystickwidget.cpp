@@ -106,7 +106,7 @@ void JoystickWidget::setController(){
     timer->start();
     
 #ifdef Q_PROCESSOR_ARM
-         QString run=createPath("controlOn.sh");            
+         QString run=createPath("controlInit.sh");            
         QProcess initControl;
         initControl.start(run);        
         initControl.waitForFinished();

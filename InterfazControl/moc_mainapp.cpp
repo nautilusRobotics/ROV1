@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainApp_t {
-    QByteArrayData data[25];
-    char stringdata[413];
+    QByteArrayData data[30];
+    char stringdata[492];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,23 +43,29 @@ QT_MOC_LITERAL(10, 146, 4),
 QT_MOC_LITERAL(11, 151, 5),
 QT_MOC_LITERAL(12, 157, 23),
 QT_MOC_LITERAL(13, 181, 21),
-QT_MOC_LITERAL(14, 203, 26),
-QT_MOC_LITERAL(15, 230, 29),
-QT_MOC_LITERAL(16, 260, 27),
-QT_MOC_LITERAL(17, 288, 25),
-QT_MOC_LITERAL(18, 314, 24),
-QT_MOC_LITERAL(19, 339, 9),
-QT_MOC_LITERAL(20, 349, 6),
-QT_MOC_LITERAL(21, 356, 15),
-QT_MOC_LITERAL(22, 372, 8),
-QT_MOC_LITERAL(23, 381, 17),
-QT_MOC_LITERAL(24, 399, 12)
+QT_MOC_LITERAL(14, 203, 23),
+QT_MOC_LITERAL(15, 227, 21),
+QT_MOC_LITERAL(16, 249, 26),
+QT_MOC_LITERAL(17, 276, 29),
+QT_MOC_LITERAL(18, 306, 27),
+QT_MOC_LITERAL(19, 334, 25),
+QT_MOC_LITERAL(20, 360, 24),
+QT_MOC_LITERAL(21, 385, 9),
+QT_MOC_LITERAL(22, 395, 6),
+QT_MOC_LITERAL(23, 402, 15),
+QT_MOC_LITERAL(24, 418, 8),
+QT_MOC_LITERAL(25, 427, 17),
+QT_MOC_LITERAL(26, 445, 12),
+QT_MOC_LITERAL(27, 458, 13),
+QT_MOC_LITERAL(28, 472, 7),
+QT_MOC_LITERAL(29, 480, 10)
     },
     "MainApp\0createProjectList\0\0"
     "updateControlStatus\0isConnected\0"
     "joystickButtonEventMenu\0button\0"
     "QGameControllerButtonEvent*\0event\0"
     "joystickAxisEventMenu\0axis\0value\0"
+    "joystickButtonEventHelp\0joystickAxisEventHelp\0"
     "joystickButtonEventOpen\0joystickAxisEventOpen\0"
     "joystickButtonEventMessage\0"
     "joystickButtonEventOffMessage\0"
@@ -68,6 +74,7 @@ QT_MOC_LITERAL(24, 399, 12)
     "handleCloseKeyboardEvent\0cancelled\0"
     "result\0preCloseMessage\0showHome\0"
     "reconnectJoystick\0controlCrash\0"
+    "successExport\0success\0controlOut\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -77,7 +84,7 @@ static const uint qt_meta_data_MainApp[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -85,21 +92,25 @@ static const uint qt_meta_data_MainApp[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   89,    2, 0x0a,
-       3,    1,   90,    2, 0x0a,
-       5,    2,   93,    2, 0x0a,
-       9,    2,   98,    2, 0x0a,
-      12,    2,  103,    2, 0x0a,
-      13,    2,  108,    2, 0x0a,
-      14,    2,  113,    2, 0x0a,
-      15,    2,  118,    2, 0x0a,
-      16,    2,  123,    2, 0x0a,
-      17,    2,  128,    2, 0x0a,
-      18,    2,  133,    2, 0x0a,
-      21,    0,  138,    2, 0x0a,
-      22,    0,  139,    2, 0x0a,
-      23,    0,  140,    2, 0x0a,
-      24,    0,  141,    2, 0x0a,
+       1,    0,  109,    2, 0x0a,
+       3,    1,  110,    2, 0x0a,
+       5,    2,  113,    2, 0x0a,
+       9,    2,  118,    2, 0x0a,
+      12,    2,  123,    2, 0x0a,
+      13,    2,  128,    2, 0x0a,
+      14,    2,  133,    2, 0x0a,
+      15,    2,  138,    2, 0x0a,
+      16,    2,  143,    2, 0x0a,
+      17,    2,  148,    2, 0x0a,
+      18,    2,  153,    2, 0x0a,
+      19,    2,  158,    2, 0x0a,
+      20,    2,  163,    2, 0x0a,
+      23,    0,  168,    2, 0x0a,
+      24,    0,  169,    2, 0x0a,
+      25,    0,  170,    2, 0x0a,
+      26,    0,  171,    2, 0x0a,
+      27,    1,  172,    2, 0x0a,
+      29,    0,  175,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
@@ -109,13 +120,17 @@ static const uint qt_meta_data_MainApp[] = {
     QMetaType::Void, QMetaType::QString, 0x80000000 | 7,    6,    8,
     QMetaType::Void, QMetaType::QString, QMetaType::Int,   10,   11,
     QMetaType::Void, QMetaType::QString, 0x80000000 | 7,    6,    8,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int,   10,   11,
+    QMetaType::Void, QMetaType::QString, 0x80000000 | 7,    6,    8,
     QMetaType::Void, QMetaType::QString, 0x80000000 | 7,    6,    8,
     QMetaType::Void, QMetaType::QString, 0x80000000 | 7,    6,    8,
     QMetaType::Void, QMetaType::QString, QMetaType::Int,   10,   11,
-    QMetaType::Void, QMetaType::Bool, QMetaType::QString,   19,   20,
+    QMetaType::Void, QMetaType::Bool, QMetaType::QString,   21,   22,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   28,
     QMetaType::Void,
 
        0        // eod
@@ -130,17 +145,21 @@ void MainApp::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 1: _t->updateControlStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 2: _t->joystickButtonEventMenu((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
         case 3: _t->joystickAxisEventMenu((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 4: _t->joystickButtonEventOpen((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
-        case 5: _t->joystickAxisEventOpen((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 6: _t->joystickButtonEventMessage((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
-        case 7: _t->joystickButtonEventOffMessage((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
-        case 8: _t->joystickButtonEventKeyBoard((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
-        case 9: _t->joystickAxisEventKeyBoard((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 10: _t->handleCloseKeyboardEvent((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 11: _t->preCloseMessage(); break;
-        case 12: _t->showHome(); break;
-        case 13: _t->reconnectJoystick(); break;
-        case 14: _t->controlCrash(); break;
+        case 4: _t->joystickButtonEventHelp((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 5: _t->joystickAxisEventHelp((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 6: _t->joystickButtonEventOpen((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 7: _t->joystickAxisEventOpen((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 8: _t->joystickButtonEventMessage((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 9: _t->joystickButtonEventOffMessage((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 10: _t->joystickButtonEventKeyBoard((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QGameControllerButtonEvent*(*)>(_a[2]))); break;
+        case 11: _t->joystickAxisEventKeyBoard((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 12: _t->handleCloseKeyboardEvent((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 13: _t->preCloseMessage(); break;
+        case 14: _t->showHome(); break;
+        case 15: _t->reconnectJoystick(); break;
+        case 16: _t->controlCrash(); break;
+        case 17: _t->successExport((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 18: _t->controlOut(); break;
         default: ;
         }
     }
@@ -171,13 +190,13 @@ int MainApp::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 19)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 15;
+        _id -= 19;
     }
     return _id;
 }
