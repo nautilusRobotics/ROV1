@@ -1,5 +1,5 @@
 #include "sendaction.h"
-#define OFFLINE
+//#define OFFLINE
 
 SendAction::SendAction(QWidget *parent) : QWidget(parent){    
     cliente = new QTcpSocket(this);
