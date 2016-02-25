@@ -1134,7 +1134,7 @@ font-weight: bold;
 color: rgb(148, 148, 148);</string>
       </property>
       <property name="text">
-       <string>Please enter the new mission's name: </string>
+       <string>Please enter a name for your new mission: </string>
       </property>
      </widget>
     </widget>
@@ -1190,7 +1190,10 @@ color: rgb(148, 148, 148);</string>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(70, 70, 70);
 font: 13pt ; font: bold;
-color: white;</string>
+color: white;
+ border-width: 1px;
+ border-style: solid;
+  border-radius: 15px;</string>
       </property>
       <property name="text">
        <string>Screenshot taken</string>
@@ -1222,7 +1225,7 @@ font: bold 11pt;</string>
       <rect>
        <x>700</x>
        <y>30</y>
-       <width>521</width>
+       <width>401</width>
        <height>21</height>
       </rect>
      </property>
@@ -1231,7 +1234,7 @@ font: bold 11pt;</string>
 </string>
      </property>
      <property name="text">
-      <string>Nautilus Commander ROV Control</string>
+      <string>Nautilus ROV Commander </string>
      </property>
     </widget>
     <widget class="QLabel" name="label_missionName">

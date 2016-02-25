@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'Intro.ui'
 **
-** Created by: Qt User Interface Compiler version 5.1.1
+** Created by: Qt User Interface Compiler version 5.2.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -673,7 +673,10 @@ public:
         label_toastSS->setGeometry(QRect(510, 910, 591, 31));
         label_toastSS->setStyleSheet(QLatin1String("background-color: rgb(70, 70, 70);\n"
 "font: 13pt ; font: bold;\n"
-"color: white;"));
+"color: white;\n"
+" border-width: 1px;\n"
+" border-style: solid;\n"
+"  border-radius: 15px;"));
         label_toastSS->setAlignment(Qt::AlignCenter);
         label_goHome = new QLabel(mission_page);
         label_goHome->setObjectName(QStringLiteral("label_goHome"));
@@ -682,7 +685,7 @@ public:
 "font: bold 11pt;"));
         label_title_2 = new QLabel(mission_page);
         label_title_2->setObjectName(QStringLiteral("label_title_2"));
-        label_title_2->setGeometry(QRect(700, 30, 521, 21));
+        label_title_2->setGeometry(QRect(700, 30, 401, 21));
         label_title_2->setStyleSheet(QLatin1String("font: bold 20pt;\n"
 ""));
         label_missionName = new QLabel(mission_page);
@@ -1400,10 +1403,10 @@ public:
         keyCancel->setText(QApplication::translate("NautilusCommander", "Cancel", 0));
         keyEnter->setText(QApplication::translate("NautilusCommander", "Enter", 0));
         keyErase->setText(QString());
-        label_tipKeyB->setText(QApplication::translate("NautilusCommander", "Please enter the new mission's name: ", 0));
+        label_tipKeyB->setText(QApplication::translate("NautilusCommander", "Please enter a name for your new mission: ", 0));
         label_toastSS->setText(QApplication::translate("NautilusCommander", "Screenshot taken", 0));
         label_goHome->setText(QApplication::translate("NautilusCommander", "Press           Back to Home", 0));
-        label_title_2->setText(QApplication::translate("NautilusCommander", "Nautilus Commander ROV Control", 0));
+        label_title_2->setText(QApplication::translate("NautilusCommander", "Nautilus ROV Commander ", 0));
         label_missionName->setText(QApplication::translate("NautilusCommander", "Mission Name: ", 0));
         label_rovBatt->setText(QApplication::translate("NautilusCommander", "ROV Battery ", 0));
         labelControlBatt->setText(QApplication::translate("NautilusCommander", "Control Battery", 0));

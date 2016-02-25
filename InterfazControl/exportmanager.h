@@ -19,6 +19,7 @@
 #include "joystickwidget.h"
 #include "qgamecontroller.h"
 #include "exportthread.h"
+#include <unistd.h>
 
 
 class ExportManager : public QWidget

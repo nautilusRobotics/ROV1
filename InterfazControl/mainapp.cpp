@@ -266,7 +266,7 @@ void MainApp::handleButtonOff(){
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
     connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOffMessage(QString,QGameControllerButtonEvent*)));
-    showMessage("\nThe system is going to turning off\n       Please put the robot safely",true);
+    showMessage("\nThe system will shut down\n       Please put the robot safely",true);
 }
 
 void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent* event){
