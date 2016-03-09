@@ -157,7 +157,7 @@ void MissionWidget::takeScreenshot(){
 
         qDebug()<<"ScreenShot-----------------------------------";
         QProcess procRTSP;
-        QString run=QString("sh rtspShot.sh %1/%2 pic_%3.png").arg(createPath("Missions")).arg(missionName).arg(numPic);
+        QString run=QString("sh %1 %2/%3 pic_%4.png").arg(createPath("rtspShot.sh")).arg(createPath("Missions")).arg(missionName).arg(numPic);
         qDebug()<<run;
         procRTSP.start(run);
         procRTSP.waitForFinished();
@@ -397,7 +397,7 @@ QString MissionWidget::mapSpeed(int value){
 }
 
 void MissionWidget::searchCamera(){
-    QString checkCamera="sh checkCam.sh";
+    QString checkCamera=QString("sh %1").arg(createPath("checkCam.sh"));
     QProcess procRun;
     procRun.start(checkCamera);
     procRun.waitForFinished();

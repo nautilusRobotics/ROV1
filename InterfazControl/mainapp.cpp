@@ -421,7 +421,7 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
     else if(button==button_B && !event->pressed()){
         rumble.start(createPath("rumbleGamepad.o"));
         int item= projectList->currentRow();
-        QString msg=QString("Are you sure you want to delete the Mission: \"%1\"\n You can't undo this action").arg(projectListStrings->at(item));
+        QString msg=QString("Are you sure you want to delete the Mission:\n \"%1\"\n You can't undo this action").arg(projectListStrings->at(item));
 
         disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
         disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
