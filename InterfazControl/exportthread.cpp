@@ -11,12 +11,14 @@ ExportThread::ExportThread(QObject *parent, QString file, QString ext, QString m
 
 void ExportThread::run(){
 
-    sleep(5);
+    sleep(3);
+    qDebug()<<"Esport Animation Finished";
     if(!QDir(ext).exists())
         QDir().mkpath(ext);
 
     QProcess copyFiles;
     QString run=QString("cp -r %1 %2").arg(file).arg(ext);
+     qDebug()<<"export command  "+run;
     copyFiles.start(run);
     copyFiles.waitForFinished();
     copyFiles.close();
@@ -24,6 +26,7 @@ void ExportThread::run(){
 
    QProcess fixFiles;
    QString fix=QString("rm %1%2/settings.ini %1%2/thumb.sh").arg(ext).arg(missionName);
+   qDebug()<<"export fix command  "+fix;
    fixFiles.start(fix);
    fixFiles.waitForFinished();
    fixFiles.close();

@@ -150,6 +150,7 @@ void MainApp::showMessage(QString message, bool okCancelbtns){
 
 
     QLabel *msgLbl=new QLabel(message);
+    msgLbl->alignment(Qt::AlignCenter);
     msgLbl->setFocusPolicy(Qt::NoFocus);
     msgLbl->setStyleSheet("color: rgb(153, 153, 153);font: bold 14pt;");
     layout->addWidget(msgLbl,1,0,1,1,Qt::AlignCenter);
@@ -245,9 +246,13 @@ void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
           QDir dir(dirName);
 
           if(dir.removeRecursively()){
-              qDebug()<<"delete OK";
+
               projectList->takeItem(projectList->row(item));
 
+              if(dir.rmdir(dirName))
+                  qDebug()<<"delete OK";
+              else
+                qDebug()<<"no delete";
           }
           else
              qDebug()<<"no delete";
