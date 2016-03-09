@@ -560,7 +560,7 @@ void MainApp::joystickButtonEventOffMessage(QString button,QGameControllerButton
 
     if(button==button_A && !event->pressed()){
       //rumble.start(createPath("rumbleGamepad.o"));
-      if(sendAction->isConnected())
+      if(checkRobot())
         sendAction->sendComando(POWEROFF_ROBOT);
 
 #ifdef Q_PROCESSOR_ARM
