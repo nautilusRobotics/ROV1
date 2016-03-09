@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QDir>
 #include <QProcess>
+#include <QDebug>
 
 
 class ExportThread : public QThread

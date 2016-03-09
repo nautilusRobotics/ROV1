@@ -150,7 +150,7 @@ void MainApp::showMessage(QString message, bool okCancelbtns){
 
 
     QLabel *msgLbl=new QLabel(message);
-    msgLbl->alignment(Qt::AlignCenter);
+    msgLbl->setAlignment(Qt::AlignCenter);
     msgLbl->setFocusPolicy(Qt::NoFocus);
     msgLbl->setStyleSheet("color: rgb(153, 153, 153);font: bold 14pt;");
     layout->addWidget(msgLbl,1,0,1,1,Qt::AlignCenter);
