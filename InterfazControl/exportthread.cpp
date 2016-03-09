@@ -11,8 +11,8 @@ ExportThread::ExportThread(QObject *parent, QString file, QString ext, QString m
 
 void ExportThread::run(){
 
-    sleep(3);
-    qDebug()<<"Esport Animation Finished";
+    sleep(2);
+    qDebug()<<"Export Animation Finished";
     if(!QDir(ext).exists())
         QDir().mkpath(ext);
 

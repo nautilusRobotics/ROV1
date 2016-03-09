@@ -2,12 +2,12 @@
 #define EXPORTTHREAD_H
 
 
-//#define QT_NO_DEBUG_OUTPUT
+
 #include <QThread>
 #include <QDir>
 #include <QProcess>
 #include <QDebug>
-
+#define QT_NO_DEBUG_OUTPUT
 
 class ExportThread : public QThread
 {
