@@ -81,7 +81,7 @@ void MissionExplorer::createPreviewList(){
 
              if(fileIdx>videoThumbnailed){
                   QProcess buildThumbs;
-                  QString output=QString("%1.thumb").arg(fileName); // video thumb pic
+                  QString output=QString("%1%2.thumb").arg(missionPath).arg(fileName); // video thumb pic
                   QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(thumbPath).arg(output);
                   qDebug() <<exec;
                   buildThumbs.start(exec);
