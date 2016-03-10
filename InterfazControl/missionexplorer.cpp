@@ -66,7 +66,8 @@ void MissionExplorer::createPreviewList(){
         QString fileRaw = QString(Info.fileName()); //Name plus Extension
         QString fileName=fileRaw.mid(0,fileRaw.length()-4); //justName
         QString fileType=fileRaw.mid(fileRaw.length()-4,fileRaw.length());
-        int fileIdx=fileRaw.remove(QRegExp("[pic_.vd]")).toInt();
+        QString prefileIdx=fileRaw;
+        int fileIdx=prefileIdx.remove(QRegExp("[pic_.vd]")).toInt();
 
         qDebug()<<"File Raw  "+fileRaw;
         qDebug()<<"File Idx  "+QString().number(fileIdx);
