@@ -1,7 +1,7 @@
 #ifndef MISSIONEXPLORER_H
 #define MISSIONEXPLORER_H
 
-#define QT_NO_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QWidget>
 #include <QGridLayout>
 #include <QStyle>

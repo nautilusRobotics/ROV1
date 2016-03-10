@@ -69,6 +69,10 @@ void MissionExplorer::createPreviewList(){
         QString fileType=fileRaw.mid(fileRaw.length()-4,fileRaw.length());
         int fileIdx=fileRaw.mid(3,fileRaw.length()-4).toInt();
 
+        qDebug()<<"File IDx"+QString().number(fileIdx);
+        qDebug()<<"videoThumnailed "+QString().number(fileIdx);
+        qDebug()<<"picsGen "+QString().number(picsGen);
+
          if(!fileType.compare(".mp4")){
              QString thumbPath=QString("%1%2").arg(missionPath).arg(fileRaw);
              files.append(thumbPath);
