@@ -64,15 +64,13 @@ void MissionExplorer::createPreviewList(){
     while (it.hasNext()) {
         QFileInfo Info(it.next());
         QString fileRaw = QString(Info.fileName()); //Name plus Extension
-        qDebug() <<fileRaw;
-
         QString fileName=fileRaw.mid(0,fileRaw.length()-4); //justName
         QString fileType=fileRaw.mid(fileRaw.length()-4,fileRaw.length());
         int fileIdx=fileRaw.mid(3,fileRaw.length()-4).toInt();
 
         qDebug()<<"File Raw  "+fileRaw;
-        qDebug()<<"Mid test "+fileRaw.mid(0,fileRaw.length()-4);
-        qDebug()<<"Mid test2 "+fileRaw.mid(1,fileRaw.length());
+        qDebug()<<"Mid test "+fileRaw.mid(3,fileRaw.length()-4);
+        qDebug()<<"Mid test2 "+fileRaw.mid(2,fileRaw.length());
         qDebug()<<"File Idx  "+QString().number(fileIdx);
         qDebug()<<"videoThumnailed "+QString().number(videoThumbnailed);
         qDebug()<<"picsGen "+QString().number(picsGen);
