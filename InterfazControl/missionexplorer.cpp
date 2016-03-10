@@ -75,14 +75,14 @@ void MissionExplorer::createPreviewList(){
         qDebug()<<"picsGen "+QString().number(picsGen);
 
          if(!fileType.compare(".mp4")){
-             QString thumbPath=QString("%1%2.png").arg(missionPath).arg(fileName);
+             QString thumbPath=QString("%1%2.thumb").arg(missionPath).arg(fileName);
              QString videoPath=QString("%1%2").arg(missionPath).arg(fileRaw);
              files.append(thumbPath);
              isVideoFile.append(true);
 
              if(fileIdx>videoThumbnailed){
                   QProcess buildThumbs;
-                  QString output=QString("%1%2.png").arg(missionPath).arg(fileName); // video thumb pic
+                  QString output=QString("%1%2.thumb").arg(missionPath).arg(fileName); // video thumb pic
                   QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(videoPath).arg(output);
                   qDebug() <<exec;
                   buildThumbs.start(exec);
@@ -122,13 +122,7 @@ void MissionExplorer::addPreviewItem(QString preThumb,bool type){
     QListWidgetItem *item=new QListWidgetItem();
     item->setSizeHint(QSize(item->sizeHint().width(), 180));
     listFiles->addItem(item);
-    QString thumbPath;
-
-
-    thumbPath=(!type)?preThumb:QString("%1.thumb").arg(preThumb);
-
-
-    QImage img(thumbPath);
+    QImage img(preThumb);
     QImage *thumb =new QImage( img.scaled(180, 180, Qt::IgnoreAspectRatio, Qt::FastTransformation));
     QLabel *thumbElement = new QLabel("");
     thumbElement->setAlignment(Qt::AlignCenter);
