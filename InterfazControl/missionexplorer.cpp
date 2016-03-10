@@ -70,8 +70,11 @@ void MissionExplorer::createPreviewList(){
         QString fileType=fileRaw.mid(fileRaw.length()-4,fileRaw.length());
         int fileIdx=fileRaw.mid(3,fileRaw.length()-4).toInt();
 
-        qDebug()<<"File IDx"+QString().number(fileIdx);
-        qDebug()<<"videoThumnailed "+QString().number(fileIdx);
+        qDebug()<<"File Raw  "+fileRaw;
+        qDebug()<<"Mid test "+fileRaw.mid(0,fileRaw.length()-4);
+        qDebug()<<"Mid test2 "+fileRaw.mid(1,fileRaw.length());
+        qDebug()<<"File Idx  "+QString().number(fileIdx);
+        qDebug()<<"videoThumnailed "+QString().number(videoThumbnailed);
         qDebug()<<"picsGen "+QString().number(picsGen);
 
          if(!fileType.compare(".mp4")){
