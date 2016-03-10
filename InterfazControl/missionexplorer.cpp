@@ -54,6 +54,7 @@ MissionExplorer::MissionExplorer(QWidget *parent, QString missionName, JoystickW
     isVideoActive=false;
 
 }
+
 void MissionExplorer::createPreviewList(){
 
     qDebug()<<missionPath;
@@ -155,8 +156,9 @@ void MissionExplorer::loadSettings(){
 }
 
 void MissionExplorer::saveSettings(){
- QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
- settings.setValue("isThumbnailed", true);
+  QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
+  settings.setValue("picsGen", QString::number(picsGen));
+  settings.setValue("videoThumbnailed", QString::number(videoThumbnailed));
 }
 
 void MissionExplorer::displaySource(){
