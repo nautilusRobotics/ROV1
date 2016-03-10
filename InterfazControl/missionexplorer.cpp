@@ -62,26 +62,41 @@ void MissionExplorer::createPreviewList(){
 
     while (it.hasNext()) {
         QFileInfo Info(it.next());
-        QString fileName = QString(Info.fileName());
-        qDebug() <<fileName;
+        QString fileRaw = QString(Info.fileName()); //Name plus Extension
+        qDebug() <<fileRaw;
 
-        QString fileType=fileName.mid(fileName.length()-4,fileName.length());
+        QString fileName=fileRaw.mid(0,fileRaw.length()-4); //justName
+        QString fileType=fileRaw.mid(fileRaw.length()-4,fileRaw.length());
+        int fileIdx=fileRaw.mid(3,fileRaw.length()-4).toInt();
 
          if(!fileType.compare(".mp4")){
-             QString thumbPath=QString("%1%2").arg(missionPath).arg(fileName);
+             QString thumbPath=QString("%1%2").arg(missionPath).arg(fileRaw);
              files.append(thumbPath);
              isVideoFile.append(true);
 
-             if(createThumbs){
+             if(fileIdx>videoThumbnailed){
                   QProcess buildThumbs;
-                  QString exec=QString("sh %1thumb.sh %2").arg(missionPath).arg(thumbPath);
+                  QString output=QString("%1.thumb").arg(fileName); // video thumb pic
+                  QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(thumbPath).arg(output);
                   qDebug() <<exec;
                   buildThumbs.start(exec);
                   buildThumbs.waitForFinished();
+                  videoThumbnailed++;
              }
          }
-         else if(!fileType.compare(".png") ){
-             QString thumbPath=QString("%1%2").arg(missionPath).arg(fileName);
+         else if(!fileType.compare(".pvd") ){  //PIC VIDEO FILE
+            QString thumbPath=QString("%1%2.pvd").arg(missionPath).arg(fileName);
+
+             if(fileIdx>picsGen){
+                  QProcess buildPicsFromShotVideo;
+                  QString output=QString("%1.png").arg(fileName);
+                  QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(thumbPath).arg(output);
+                  qDebug() <<exec;
+                  buildPicsFromShotVideo.start(exec);
+                  buildPicsFromShotVideo.waitForFinished();
+                  picsGen++;
+             }
+
              files.prepend(thumbPath);
              isVideoFile.prepend(false);
          }
@@ -91,7 +106,7 @@ void MissionExplorer::createPreviewList(){
 
     for (int i = 0; i < files.size(); ++i) {
         qDebug()<<"List "+files.at(i);        
-       addPreviewItem(files.at(i),isVideoFile.at(i));
+        addPreviewItem(files.at(i),isVideoFile.at(i));
     }
 
 
@@ -129,7 +144,10 @@ void MissionExplorer::addPreviewItem(QString preThumb,bool type){
 
 void MissionExplorer::loadSettings(){
      QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
-     createThumbs = !settings.value("isThumbnailed", "").toBool();
+     videoThumbnailed = settings.value("videoThumbnailed", "").toString().compare("")?settings.value("videoThumbnailed", "").toInt():0;
+     picsGen= settings.value("picsGen", "").toString().compare("")?settings.value("picsGen", "").toInt():0;
+     numPics=settings.value("pics", "").toString().compare("")?settings.value("pics", "").toInt():0;
+     numVids=settings.value("videos", "").toString().compare("")?settings.value("videos", "").toInt():0;
 }
 
 void MissionExplorer::saveSettings(){

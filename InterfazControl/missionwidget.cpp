@@ -157,11 +157,12 @@ void MissionWidget::takeScreenshot(){
 
         qDebug()<<"ScreenShot-----------------------------------";
         QProcess procRTSP;
-        QString run=QString("sh %1 %2/%3 pic_%4.png").arg(createPath("rtspShot.sh")).arg(createPath("Missions")).arg(missionName).arg(numPic);
+        numPic++;
+        QString run=QString("sh %1 %2/%3 pic_%4.pvd").arg(createPath("rtspShot.sh")).arg(createPath("Missions")).arg(missionName).arg(numPic);
         qDebug()<<run;
         procRTSP.start(run);
         procRTSP.waitForFinished();
-        numPic++;
+
 
    }
    else
@@ -178,27 +179,17 @@ void MissionWidget::loadSettings(){
      QString countPic = settings.value("pics", "").toString();
      qDebug()<<"Load Settigns videos:"+countVideos+" pics: "+countPic;
 
+     numPic=countPic.compare("")?countPic.toInt():0;
+     numVideos=countVideos.compare("")?countVideos.toInt():0;
 
-     if(!countVideos.compare("")){
-          numPic=0;
-          numVideos=0;
-
-     }
-     else{
-         numPic=countPic.toInt();
-         numVideos=countVideos.toInt();
-     }
 
 }
 
 void MissionWidget::saveSettings()
 {
      QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
-     if(rtsp->getVideoCount()!=numVideos)settings.setValue("isThumbnailed", false);
-     QString countVideos=QString("%1").arg(rtsp->getVideoCount());
-     QString countPic=QString("%1").arg(numPic);
-     settings.setValue("videos", countVideos);
-     settings.setValue("pics", countPic);
+     settings.setValue("videos", QString::number(rtsp->getVideoCount()));
+     settings.setValue("pics",  QString::number(numPic));
 }
 
 void MissionWidget::axisEvent(QString axis,int value){

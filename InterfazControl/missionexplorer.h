@@ -58,7 +58,7 @@ private:
     QSlider *progressPlay;
     QString videoFile;
     QProcess rumble;
-    bool createThumbs;
+    int videoThumbnailed, picsGen, numVids, numPics;
     bool isPlaying, isVideoActive;
     void createPreviewList();
     void addPreviewItem(QString preThumb, bool type);
