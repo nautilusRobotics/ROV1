@@ -91,10 +91,10 @@ void MissionExplorer::createPreviewList(){
          }
          else if(!fileType.compare(".pvd") ){  //PIC VIDEO FILE
             QString thumbPath=QString("%1%2.pvd").arg(missionPath).arg(fileName);
+            QString output=QString("%1%2.png").arg(missionPath).arg(fileName);
 
              if(fileIdx>picsGen){
                   QProcess buildPicsFromShotVideo;
-                  QString output=QString("%1.png").arg(fileName);
                   QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(thumbPath).arg(output);
                   qDebug() <<exec;
                   buildPicsFromShotVideo.start(exec);
@@ -102,7 +102,7 @@ void MissionExplorer::createPreviewList(){
                   picsGen++;
              }
 
-             files.prepend(thumbPath);
+             files.prepend(output);
              isVideoFile.prepend(false);
          }
 

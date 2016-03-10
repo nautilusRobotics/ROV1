@@ -158,7 +158,7 @@ void MissionWidget::takeScreenshot(){
         qDebug()<<"ScreenShot-----------------------------------";
         QProcess procRTSP;
         numPic++;
-        QString run=QString("sh %1 %2/%3 pic_%4.pvd").arg(createPath("rtspShot.sh")).arg(createPath("Missions")).arg(missionName).arg(numPic);
+        QString run=QString("sh %1 %2/%3/pic_%4.pvd").arg(createPath("rtspShot.sh")).arg(createPath("Missions")).arg(missionName).arg(numPic);
         qDebug()<<run;
         procRTSP.start(run);
         procRTSP.waitForFinished();
@@ -300,7 +300,11 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
      else if(button==button_B && !event->pressed()){
          rumble.start(createPath("rumbleGamepad.o"));
          if(isCameraOnline){
+
+
                  emit saveVideo();
+                 qDebug("emit saveVideo");
+
                  isRecording=!isRecording;
                  if(isRecording)
                      statusVideoOff->setVisible(false);
