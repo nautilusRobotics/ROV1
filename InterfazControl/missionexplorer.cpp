@@ -75,14 +75,15 @@ void MissionExplorer::createPreviewList(){
         qDebug()<<"picsGen "+QString().number(picsGen);
 
          if(!fileType.compare(".mp4")){
-             QString thumbPath=QString("%1%2").arg(missionPath).arg(fileRaw);
+             QString thumbPath=QString("%1%2.thumb").arg(missionPath).arg(fileName);
+             QString videoPath=QString("%1%2").arg(missionPath).arg(fileRaw);
              files.append(thumbPath);
              isVideoFile.append(true);
 
              if(fileIdx>videoThumbnailed){
                   QProcess buildThumbs;
                   QString output=QString("%1%2.thumb").arg(missionPath).arg(fileName); // video thumb pic
-                  QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(thumbPath).arg(output);
+                  QString exec=QString("sh %1thumb.sh %2 %3").arg(missionPath).arg(videoPath).arg(output);
                   qDebug() <<exec;
                   buildThumbs.start(exec);
                   buildThumbs.waitForFinished();
