@@ -234,8 +234,8 @@ public:
        // myargs += "50%:50%";
         myargs += "-fps";
         myargs += "30";
-        myargs += "-vo";
-        myargs += "vdpau";
+       // myargs += "-vo";
+       // myargs += "vdpau";
 
 
 
