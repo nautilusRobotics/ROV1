@@ -642,8 +642,8 @@ public:
 "color: rgb(148, 148, 148);"));
         label_loading = new QLabel(keyboardGroup);
         label_loading->setObjectName(QStringLiteral("label_loading"));
-        label_loading->setGeometry(QRect(350, 250, 291, 71));
-        label_loading->setStyleSheet(QLatin1String("color:  rgb(40, 40, 40);\n"
+        label_loading->setGeometry(QRect(210, 170, 291, 71));
+        label_loading->setStyleSheet(QLatin1String("color:  rgb(255, 255, 255);\n"
 "font: bold 40pt;"));
         stackedWidget->addWidget(intro_page);
         label_bckgd->raise();
@@ -1369,7 +1369,7 @@ public:
 
         retranslateUi(NautilusCommander);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(NautilusCommander);

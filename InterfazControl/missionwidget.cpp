@@ -284,6 +284,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
           saveSettings();
           dataThread->closeServer();
           dataThread->terminate();
+          mplayer->stop();
 
           emit returnToHome();
 

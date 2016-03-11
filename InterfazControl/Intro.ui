@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -1140,8 +1140,8 @@ color: rgb(148, 148, 148);</string>
      <widget class="QLabel" name="label_loading">
       <property name="geometry">
        <rect>
-        <x>350</x>
-        <y>250</y>
+        <x>210</x>
+        <y>170</y>
         <width>291</width>
         <height>71</height>
        </rect>
@@ -1150,7 +1150,7 @@ color: rgb(148, 148, 148);</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:  rgb(40, 40, 40);
+       <string notr="true">color:  rgb(255, 255, 255);
 font: bold 40pt;</string>
       </property>
       <property name="text">
