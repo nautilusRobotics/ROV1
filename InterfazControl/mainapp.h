@@ -83,7 +83,7 @@ public slots:
 
     private:    
         QPushButton *btnNew, *btnOff, *btnOpen;
-        QLabel *lblHelp, *lblListWidget, *lblTitle, *lblShadow, *lblGamepadError, *lblRepairMessage;
+        QLabel *lblHelp, *lblListWidget, *lblTitle, *lblShadow, *lblGamepadError, *lblRepairMessage, *lblLoading;
         QLineEdit *newMission;
         QListWidget *projectList;
         JoystickWidget *joystick;        

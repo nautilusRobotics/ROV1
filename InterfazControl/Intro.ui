@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -1137,6 +1137,26 @@ color: rgb(148, 148, 148);</string>
        <string>Please enter a name for your new mission: </string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_loading">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>250</y>
+        <width>291</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:  rgb(40, 40, 40);
+font: bold 40pt;</string>
+      </property>
+      <property name="text">
+       <string>Loading...</string>
+      </property>
+     </widget>
     </widget>
     <zorder>label_bckgd</zorder>
     <zorder>btnNew</zorder>
@@ -1206,7 +1226,7 @@ color: white;
     <widget class="QLabel" name="label_goHome">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>110</x>
        <y>30</y>
        <width>221</width>
        <height>21</height>
@@ -1344,10 +1364,10 @@ QProgressBar::chunk {background-color:  rgb(146, 255, 116);width: 20px;}</string
     <widget class="QLabel" name="label_Controls">
      <property name="geometry">
       <rect>
-       <x>3</x>
+       <x>0</x>
        <y>150</y>
-       <width>72</width>
-       <height>15</height>
+       <width>81</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1356,6 +1376,9 @@ font: bold 11pt;</string>
      </property>
      <property name="text">
       <string>Controls:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line">
@@ -1443,7 +1466,7 @@ font: bold 11pt;</string>
       <rect>
        <x>0</x>
        <y>240</y>
-       <width>78</width>
+       <width>81</width>
        <height>16</height>
       </rect>
      </property>
@@ -1453,6 +1476,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Screenshot</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_2">
@@ -1474,9 +1500,9 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_take">
      <property name="geometry">
       <rect>
-       <x>25</x>
+       <x>5</x>
        <y>220</y>
-       <width>31</width>
+       <width>71</width>
        <height>21</height>
       </rect>
      </property>
@@ -1486,6 +1512,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Take</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_3">
@@ -1523,10 +1552,10 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_Record">
      <property name="geometry">
       <rect>
-       <x>18</x>
+       <x>0</x>
        <y>293</y>
-       <width>51</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1536,14 +1565,17 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Record</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_video">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>310</y>
-       <width>41</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1553,14 +1585,17 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Video</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_move">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>526</y>
-       <width>41</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1570,14 +1605,17 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Move</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_camera">
      <property name="geometry">
       <rect>
-       <x>14</x>
+       <x>0</x>
        <y>541</y>
-       <width>51</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1586,6 +1624,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Camera</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_6">
@@ -2081,9 +2122,9 @@ QSlider::handle:vertical{height: 10px; background-image: url(:/new/prefix1/dotGr
     <widget class="QLabel" name="label_center">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>370</y>
-       <width>51</width>
+       <width>81</width>
        <height>21</height>
       </rect>
      </property>
@@ -2094,13 +2135,16 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Center</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_cameraCenter">
      <property name="geometry">
       <rect>
-       <x>16</x>
+       <x>0</x>
        <y>386</y>
-       <width>51</width>
+       <width>81</width>
        <height>21</height>
       </rect>
      </property>
@@ -2110,6 +2154,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Camera</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="labelControlBatt_7">
@@ -2196,9 +2243,9 @@ font:  11pt;</string>
     <widget class="QLabel" name="label_turnROV">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>634</y>
-       <width>71</width>
+       <width>81</width>
        <height>16</height>
       </rect>
      </property>
@@ -2208,6 +2255,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Turn ROV</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="label_submerge">
@@ -2226,14 +2276,17 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Submerge</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_emerge">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>5</x>
        <y>878</y>
-       <width>61</width>
-       <height>16</height>
+       <width>71</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2242,6 +2295,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Emerge</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="label_AleftUD">
@@ -2279,9 +2335,9 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_forwards">
      <property name="geometry">
       <rect>
-       <x>4</x>
+       <x>0</x>
        <y>740</y>
-       <width>71</width>
+       <width>81</width>
        <height>16</height>
       </rect>
      </property>
@@ -2292,13 +2348,16 @@ font: bold 9pt;</string>
      <property name="text">
       <string> Forwards</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_backwards">
      <property name="geometry">
       <rect>
-       <x>5</x>
+       <x>0</x>
        <y>757</y>
-       <width>71</width>
+       <width>81</width>
        <height>16</height>
       </rect>
      </property>
@@ -2308,6 +2367,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Backwards</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="label_speedLB">
@@ -2329,10 +2391,10 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_speed">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>-5</x>
        <y>946</y>
-       <width>41</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2342,14 +2404,17 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Speed</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_speed_down">
      <property name="geometry">
       <rect>
-       <x>17</x>
+       <x>-3</x>
        <y>962</y>
-       <width>41</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2358,6 +2423,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Down</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_13">
@@ -2395,10 +2463,10 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_speed_2">
      <property name="geometry">
       <rect>
-       <x>19</x>
+       <x>-1</x>
        <y>1036</y>
-       <width>41</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2408,14 +2476,17 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Speed</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_speed_up">
      <property name="geometry">
       <rect>
-       <x>31</x>
+       <x>1</x>
        <y>1050</y>
-       <width>41</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2424,6 +2495,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Up</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_14">
@@ -2590,9 +2664,9 @@ font:  11pt;</string>
     <widget class="QLabel" name="label_toggle">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>440</y>
-       <width>51</width>
+       <width>81</width>
        <height>21</height>
       </rect>
      </property>
@@ -2603,13 +2677,16 @@ font: bold 9pt;</string>
      <property name="text">
       <string>Toggle</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_toggle_2">
      <property name="geometry">
       <rect>
-       <x>21</x>
+       <x>0</x>
        <y>458</y>
-       <width>51</width>
+       <width>81</width>
        <height>21</height>
       </rect>
      </property>
@@ -2619,6 +2696,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Lights</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="labelBackMW">

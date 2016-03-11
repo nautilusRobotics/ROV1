@@ -136,9 +136,18 @@ quint64 ExportManager::dir_size(const QString & str)
 bool ExportManager::saveUsb(int indexUSB ){
 
     QString file=QString("%1/%2").arg(createPath("Missions")).arg(missionName);
-    QString ext=QString("/media/%1/NautilusRobotics/").arg(names.at(indexUSB));
 
-    ExportThread *exportT=new ExportThread(this,file,ext,missionName);
+    QString parent=QString("/media/%1/NautilusRobotics/").arg(names.at(indexUSB));
+    QString dest=QString("%1%2").arg(parent).arg(missionName);
+
+
+    if(!QDir(parent).exists())
+      QDir().mkdir(parent);
+
+    if(!QDir(dest).exists())
+      QDir().mkdir(dest);
+
+    ExportThread *exportT=new ExportThread(this,file,dest,missionName);
     connect(exportT,SIGNAL(saveFinish()),this,SLOT(acceptDialogs()));
     exportT->start();
 

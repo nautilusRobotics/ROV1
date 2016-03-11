@@ -55,6 +55,9 @@ void MainApp::initWelcomeScreen(){
 
     lblRepairMessage=ui.lblRepair;
     lblRepairMessage->setVisible(false);
+
+    lblLoading=ui.label_loading;
+    lblLoading->setVisible(false);
   
 
 
@@ -226,7 +229,8 @@ void MainApp::runMission(QString missionName){
 }
 
 void MainApp::exploreMission(QString missionName){
-
+  lblLoading->setVisible(true);
+  lblShadow->setVisible(true);
   qDebug() <<"explore "+missionName;
   disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
   disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
@@ -260,6 +264,9 @@ void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
 }
 
 void MainApp::showHome(){
+    lblLoading->setVisible(false);
+    lblShadow->setVisible(false);
+
    connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
    connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
    connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
