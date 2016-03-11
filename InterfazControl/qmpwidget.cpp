@@ -225,8 +225,8 @@ public:
             }
         }
         QStringList myargs;
-        myargs += "-slave";
-        myargs += "-idle";
+       // myargs += "-slave";
+       // myargs += "-idle";
        // myargs += "-noquiet";
         myargs += "-identify";
         myargs += "-nomouseinput";       

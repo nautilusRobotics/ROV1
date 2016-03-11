@@ -70,8 +70,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
 
 
 
-    mplayer=ui->mplayerWG;
-    mplayer->setVisible(false);
+    mplayer=ui->mplayerWG;    
     //connect(mplayer,SIGNAL(stateChanged(int)),this,SLOT(updatePlayerStatus(int)));
     mplayer->start();    
     mplayer->load("rtsp://admin:12345@10.5.5.110:554");
