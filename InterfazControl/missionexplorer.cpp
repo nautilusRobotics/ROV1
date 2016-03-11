@@ -75,7 +75,7 @@ void MissionExplorer::createPreviewList(){
         qDebug()<<"picsGen "+QString().number(picsGen);
 
          if(!fileType.compare(".mp4")){
-             QString thumbPath=QString("%1%2.thumb").arg(missionPath).arg(fileName);
+             QString thumbPath=QString("%1%2").arg(missionPath).arg(fileName); //path+filename
              QString videoPath=QString("%1%2").arg(missionPath).arg(fileRaw);
              files.append(thumbPath);
              isVideoFile.append(true);
@@ -122,6 +122,9 @@ void MissionExplorer::addPreviewItem(QString preThumb,bool type){
     QListWidgetItem *item=new QListWidgetItem();
     item->setSizeHint(QSize(item->sizeHint().width(), 180));
     listFiles->addItem(item);
+
+    preThumb=type?QString("%1.thumb").arg(preThumb):preThumb;
+
     QImage img(preThumb);
     QImage *thumb =new QImage( img.scaled(180, 180, Qt::IgnoreAspectRatio, Qt::FastTransformation));
     QLabel *thumbElement = new QLabel("");
@@ -171,7 +174,8 @@ void MissionExplorer::displaySource(){
       isPlaying=true;
       isVideoActive=true;
       mplayer->start();
-      mplayer->load(fileToShow);
+      QString videoShow=QString("%1.mp4").arg(fileToShow);
+      mplayer->load(videoShow);
    }
    else{
       isVideoActive=false;
