@@ -1141,8 +1141,8 @@ color: rgb(148, 148, 148);</string>
     <widget class="QLabel" name="label_loading">
      <property name="geometry">
       <rect>
-       <x>1780</x>
-       <y>420</y>
+       <x>903</x>
+       <y>454</y>
        <width>291</width>
        <height>71</height>
       </rect>

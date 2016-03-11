@@ -642,7 +642,7 @@ public:
 "color: rgb(148, 148, 148);"));
         label_loading = new QLabel(intro_page);
         label_loading->setObjectName(QStringLiteral("label_loading"));
-        label_loading->setGeometry(QRect(1780, 420, 291, 71));
+        label_loading->setGeometry(QRect(903, 454, 291, 71));
         label_loading->setStyleSheet(QLatin1String("color:  rgb(255, 255, 255);\n"
 "font: bold 40pt;"));
         stackedWidget->addWidget(intro_page);
