@@ -226,10 +226,10 @@ public:
         }
         QStringList myargs;
         myargs += "-slave";
-       // myargs += "-idle";
-       // myargs += "-noquiet";
-        //myargs += "-identify";
-        //myargs += "-nomouseinput";
+        myargs += "-idle";
+        myargs += "-noquiet";
+        myargs += "-identify";
+        myargs += "-nomouseinput";
         //myargs += "-geometry";
        // myargs += "50%:50%";
         myargs += "-fps";
