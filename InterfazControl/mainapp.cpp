@@ -425,6 +425,7 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
         if(projectListBools->at(item)){
             disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
             disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+            qDebug() <<"button Explore Mission";
             exploreMission(projectListStrings->at(item));
             lblTitle->setText("Welcome to Nautilus Commander");
             openMissionBox->setVisible(false);
