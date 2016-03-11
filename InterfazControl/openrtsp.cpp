@@ -24,7 +24,7 @@ void openRTSP::saveVideo(){
        isSaving=false;
        qDebug() << "Closing RTSP";       
        QProcess kill;
-       QString run= QString("pkill openRTSP");
+       QString run= QString("sh %1 %2").arg(createPath("rtsp_kill.sh")).arg(procSave.pid()+1);
        qDebug() << run;
        kill.start(run);
        kill.waitForFinished();

@@ -228,18 +228,16 @@ void MainApp::runMission(QString missionName){
    stackedWidget->setCurrentIndex(1);
 }
 
-void MainApp::exploreMission(QString missionName){
-  lblLoading->setVisible(true);
-  lblShadow->setVisible(true);
-  qDebug() <<"explore "+missionName;
-  disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
-  disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
-  disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+void MainApp::exploreMission(QString missionName){  
+    qDebug() <<"explore "+missionName;
+    disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
+    disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+    disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
 
-  stackedWidget->setCurrentIndex(2);
-  missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
-  connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
-  connect(missionExplorer,SIGNAL(controlOut()),this,SLOT(controlOut()));
+    stackedWidget->setCurrentIndex(2);
+    missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
+    connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
+    connect(missionExplorer,SIGNAL(controlOut()),this,SLOT(controlOut()));
 }
 
 void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
@@ -423,6 +421,9 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
         int item= projectList->currentRow();
 
         if(projectListBools->at(item)){
+            lblLoading->setVisible(true);
+            lblShadow->setVisible(true);
+
             disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
             disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
             qDebug() <<"button Explore Mission";
