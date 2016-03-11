@@ -640,9 +640,9 @@ public:
         label_tipKeyB->setStyleSheet(QLatin1String("font-size: 12pt;\n"
 "font-weight: bold;\n"
 "color: rgb(148, 148, 148);"));
-        label_loading = new QLabel(keyboardGroup);
+        label_loading = new QLabel(intro_page);
         label_loading->setObjectName(QStringLiteral("label_loading"));
-        label_loading->setGeometry(QRect(210, 170, 291, 71));
+        label_loading->setGeometry(QRect(1780, 420, 291, 71));
         label_loading->setStyleSheet(QLatin1String("color:  rgb(255, 255, 255);\n"
 "font: bold 40pt;"));
         stackedWidget->addWidget(intro_page);
@@ -666,6 +666,7 @@ public:
         lblGamepad->raise();
         lblRepair->raise();
         keyboardGroup->raise();
+        label_loading->raise();
         mission_page = new QWidget();
         mission_page->setObjectName(QStringLiteral("mission_page"));
         mission_page->setStyleSheet(QStringLiteral(""));

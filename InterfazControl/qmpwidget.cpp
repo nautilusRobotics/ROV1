@@ -230,8 +230,8 @@ public:
         myargs += "-noquiet";
         myargs += "-identify";
         myargs += "-nomouseinput";
-        //myargs += "-geometry";
-       // myargs += "50%:50%";
+        myargs += "-geometry";
+        myargs += "50%:50%";
         myargs += "-fps";
         myargs += "30";
         myargs += "-vo";
