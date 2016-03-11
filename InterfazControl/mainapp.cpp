@@ -466,6 +466,10 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
        lblTitle->setText("Welcome to Nautilus Commander");
        openMissionBox->setVisible(false);
     }
+    else if(button==button_start && !event->pressed()){
+        lblLoading->setVisible(true);
+        lblShadow->setVisible(true);
+    }
 }
 
 void MainApp::updateControlStatus(bool isConnected){

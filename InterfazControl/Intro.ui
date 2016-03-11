@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -1226,7 +1226,7 @@ color: white;
     <widget class="QLabel" name="label_goHome">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>112</x>
        <y>30</y>
        <width>221</width>
        <height>21</height>
@@ -1472,7 +1472,7 @@ font: bold 11pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: bold 9pt;</string>
+font: bold 8.5pt;</string>
      </property>
      <property name="text">
       <string>Screenshot</string>
@@ -1620,7 +1620,7 @@ font: bold 9pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: bold 9pt;</string>
+font: bold 8.7pt;</string>
      </property>
      <property name="text">
       <string>Camera</string>
@@ -2150,7 +2150,7 @@ font: bold 9pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: bold 9pt;</string>
+font: bold 8.7pt;</string>
      </property>
      <property name="text">
       <string>Camera</string>
@@ -2363,7 +2363,7 @@ font: bold 9pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: bold 9pt;</string>
+font: bold 8.5pt;</string>
      </property>
      <property name="text">
       <string>Backwards</string>
@@ -2399,7 +2399,7 @@ font: bold 9pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: bold 9pt;</string>
+font: bold 8.7pt;</string>
      </property>
      <property name="text">
       <string>Speed</string>
@@ -2471,7 +2471,7 @@ font: bold 9pt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: bold 9pt;</string>
+font: bold 8.7pt;</string>
      </property>
      <property name="text">
       <string>Speed</string>
@@ -2812,7 +2812,7 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_goHome_2">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>112</x>
        <y>30</y>
        <width>221</width>
        <height>21</height>
@@ -3011,9 +3011,9 @@ font: bold 9pt;</string>
     <widget class="QLabel" name="label_nav">
      <property name="geometry">
       <rect>
-       <x>12</x>
+       <x>2</x>
        <y>320</y>
-       <width>71</width>
+       <width>76</width>
        <height>21</height>
       </rect>
      </property>
@@ -3023,6 +3023,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Navigate</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_12">
@@ -3157,9 +3160,9 @@ QSlider::sub-page:qlineargradient {background: #408af1 ;border-top-right-radius:
     <widget class="QLabel" name="label_palyStop">
      <property name="geometry">
       <rect>
-       <x>8</x>
+       <x>0</x>
        <y>400</y>
-       <width>71</width>
+       <width>79</width>
        <height>21</height>
       </rect>
      </property>
@@ -3169,6 +3172,9 @@ font: bold 9pt;</string>
      </property>
      <property name="text">
       <string>Play/Stop</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_16">

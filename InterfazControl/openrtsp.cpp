@@ -19,6 +19,7 @@ void openRTSP::saveVideo(){
        QString run= QString("sh %1 %2 %3").arg(createPath("rtsp.sh")).arg(missionName).arg(numVideo);
        qDebug() << run; 
        procSave.start(run);
+       qDebug()<<QString.number(procSave.pid());
    }
    else{
        isSaving=false;
