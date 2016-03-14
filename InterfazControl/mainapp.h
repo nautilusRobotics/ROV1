@@ -79,6 +79,7 @@ public slots:
     void controlCrash();
     void successExport(bool success);
     void controlOut();
+    void exploreMission(QString missionName);
 
 
     private:    
@@ -114,8 +115,7 @@ public slots:
         void setNormalkey();
         void setSelectkey();
         void handleNewBtn(QString missionName);
-        void runMission(QString missionName);
-        void exploreMission(QString missionName);
+        void runMission(QString missionName);        
         void deleteMission(QString missionName,QListWidgetItem *item);
         void handleButtonOff();
         void closeMessage(bool reconectMenu);

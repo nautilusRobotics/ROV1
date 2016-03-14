@@ -230,13 +230,15 @@ void MainApp::runMission(QString missionName){
 
 void MainApp::exploreMission(QString missionName){
     qDebug() <<"explore "+missionName;
+    lblTitle->setText("Welcome to Nautilus Commander");
+    openMissionBox->setVisible(false);
     disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
-   /* missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
+    missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
     stackedWidget->setCurrentIndex(2);
     connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
-    connect(missionExplorer,SIGNAL(controlOut()),this,SLOT(controlOut()));*/
+    connect(missionExplorer,SIGNAL(controlOut()),this,SLOT(controlOut()));
 }
 
 void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
@@ -420,15 +422,12 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
         int item= projectList->currentRow();
 
         if(projectListBools->at(item)){
-           /* disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
-            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));*/
+            disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+            disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
             qDebug() <<"button Explore Mission";
             lblLoading->setVisible(true);
             lblShadow->setVisible(true);
-            exploreMission(projectListStrings->at(item));
-            lblTitle->setText("Welcome to Nautilus Commander");
-            openMissionBox->setVisible(false);
-
+            QTimer::singleShot(100,Qt::PreciseTimer ,this, SLOT(exploreMission(projectListStrings->at(item))));
         }
     }
     else if(button==button_B && !event->pressed()){
@@ -467,12 +466,12 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
     }
     else if(button==button_start && !event->pressed()){
         if(lblLoading->isVisible()){
-            lblLoading->setVisible(true);
-            lblShadow->setVisible(true);
-        }
-        else{
             lblLoading->setVisible(false);
             lblShadow->setVisible(false);
+        }
+        else{
+            lblLoading->setVisible(true);
+            lblShadow->setVisible(true);
         }
     }
 }
