@@ -155,7 +155,6 @@ void MissionWidget::takeScreenshot(){
    if(isCameraOnline){
         lblScreenShot->setVisible(true);
         QTimer::singleShot(1500,Qt::PreciseTimer ,this, SLOT(closeScreenShot()));
-
         qDebug()<<"ScreenShot-----------------------------------";
         QProcess procRTSP;
         numPic++;

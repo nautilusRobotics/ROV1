@@ -427,7 +427,8 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
             qDebug() <<"button Explore Mission";
             lblLoading->setVisible(true);
             lblShadow->setVisible(true);
-            QTimer::singleShot(100,Qt::PreciseTimer ,this, SLOT(exploreMission(projectListStrings->at(item))));
+            QString mName=projectListStrings->at(item);
+            QTimer::singleShot(100,Qt::PreciseTimer ,this, SLOT(exploreMission(mName)));
         }
     }
     else if(button==button_B && !event->pressed()){
