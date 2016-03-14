@@ -1370,7 +1370,7 @@ public:
 
         retranslateUi(NautilusCommander);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(NautilusCommander);
@@ -1449,7 +1449,7 @@ public:
         label_btnX->setText(QString());
         label->setText(QString());
         label_cross->setText(QString());
-        label_screenshot->setText(QApplication::translate("NautilusCommander", "Screenshot", 0));
+        label_screenshot->setText(QApplication::translate("NautilusCommander", "Photo", 0));
         label_take->setText(QApplication::translate("NautilusCommander", "Take", 0));
         label_Record->setText(QApplication::translate("NautilusCommander", "Record", 0));
         label_video->setText(QApplication::translate("NautilusCommander", "Video", 0));

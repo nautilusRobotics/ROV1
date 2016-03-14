@@ -153,8 +153,8 @@ void MissionWidget::updateControlStatus(bool  isConnected ){
 
 void MissionWidget::takeScreenshot(){
    if(isCameraOnline){
-        lblScreenShot->setVisible(true);
-        QTimer::singleShot(500,Qt::PreciseTimer ,this, SLOT(closeScreenShot()));
+        //lblScreenShot->setVisible(true);
+        //QTimer::singleShot(500,Qt::PreciseTimer ,this, SLOT(closeScreenShot()));
 
         qDebug()<<"ScreenShot-----------------------------------";
         QProcess procRTSP;

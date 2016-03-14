@@ -32,7 +32,7 @@
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="intro_page">
     <property name="styleSheet">
@@ -1476,7 +1476,7 @@ font: bold 11pt;</string>
 font: bold 8.5pt;</string>
      </property>
      <property name="text">
-      <string>Screenshot</string>
+      <string>Photo</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
