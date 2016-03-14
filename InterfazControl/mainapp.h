@@ -79,7 +79,8 @@ public slots:
     void controlCrash();
     void successExport(bool success);
     void controlOut();
-    void exploreMission(QString missionName);
+    void exploreMissionSlot();
+
 
 
     private:    
@@ -90,7 +91,7 @@ public slots:
         JoystickWidget *joystick;        
         MissionWidget *mission;
         ExportManager *exm;
-        QString missionsPath;
+        QString missionsPath, missionExploreName;
         QStringList    *secretKeyList;
         QLineEdit *resultKeyBoard;
         QDialog *toast, *help;
@@ -120,6 +121,7 @@ public slots:
         void handleButtonOff();
         void closeMessage(bool reconectMenu);
         bool checkRobot();
+        void exploreMission(QString missionName);
 
 
 };

@@ -403,6 +403,10 @@ void MainApp::joystickAxisEventOpen(QString axis, int value){
     projectList->setCurrentRow(openProjectRow);
 }
 
+void MainApp::exploreMissionSlot(){
+    exploreMission(missionExploreName);
+}
+
 void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent* event){
     if(button==button_A && !event->pressed()){
         rumble.start(createPath("rumbleGamepad.o"));
@@ -427,8 +431,8 @@ void MainApp::joystickButtonEventOpen(QString button,QGameControllerButtonEvent*
             qDebug() <<"button Explore Mission";
             lblLoading->setVisible(true);
             lblShadow->setVisible(true);
-            QString mName=projectListStrings->at(item);
-            QTimer::singleShot(100,Qt::PreciseTimer ,this, SLOT(exploreMission(mName)));
+            missionExploreName=projectListStrings->at(item);
+            QTimer::singleShot(100,Qt::PreciseTimer ,this, SLOT(exploreMissionSlot()));
         }
     }
     else if(button==button_B && !event->pressed()){
