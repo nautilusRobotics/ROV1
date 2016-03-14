@@ -108,7 +108,7 @@ public slots:
         SendAction *sendAction;
         QProcess rumble;
         int focused, openProjectRow, secretKey, keyRow,keyCol, helpIdx;
-        bool isOpen, isWorkingOffline, isRobotOnline;
+        bool isOpen, isWorkingOffline, isRobotOnline, isMissionWidget, isExploreMission;
         void showMessage(QString message, bool okCancelbtns);
         void initWelcomeScreen();        
         void launchKeyBoard();

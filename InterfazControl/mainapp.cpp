@@ -365,7 +365,7 @@ void MainApp::joystickButtonEventMenu(QString button,QGameControllerButtonEvent*
             this->close();
         #endif
 
-	}
+       }
     }
 
 }
