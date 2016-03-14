@@ -92,7 +92,6 @@ public:
     QLabel *label_loading;
     QWidget *mission_page;
     QMPwidget *mplayerWG;
-    QLabel *label_toastSS;
     QLabel *label_goHome;
     QLabel *label_title_2;
     QLabel *label_missionName;
@@ -174,6 +173,7 @@ public:
     QLabel *label_toggle;
     QLabel *label_toggle_2;
     QLabel *labelBackMW;
+    QLabel *label_toastSS;
     QWidget *explore_page;
     QMPwidget *mplayerEx;
     QLabel *label_goHome_2;
@@ -675,16 +675,6 @@ public:
         mplayerWG->setEnabled(false);
         mplayerWG->setGeometry(QRect(80, 80, 1600, 1000));
         mplayerWG->setStyleSheet(QStringLiteral(""));
-        label_toastSS = new QLabel(mplayerWG);
-        label_toastSS->setObjectName(QStringLiteral("label_toastSS"));
-        label_toastSS->setGeometry(QRect(510, 910, 591, 31));
-        label_toastSS->setStyleSheet(QLatin1String("background-color: rgb(70, 70, 70);\n"
-"font: 13pt ; font: bold;\n"
-"color: white;\n"
-" border-width: 1px;\n"
-" border-style: solid;\n"
-"  border-radius: 15px;"));
-        label_toastSS->setAlignment(Qt::AlignCenter);
         label_goHome = new QLabel(mission_page);
         label_goHome->setObjectName(QStringLiteral("label_goHome"));
         label_goHome->setGeometry(QRect(112, 30, 221, 21));
@@ -1140,6 +1130,16 @@ public:
         labelBackMW->setObjectName(QStringLiteral("labelBackMW"));
         labelBackMW->setGeometry(QRect(0, 0, 1920, 1080));
         labelBackMW->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/backVideo.svg);"));
+        label_toastSS = new QLabel(mission_page);
+        label_toastSS->setObjectName(QStringLiteral("label_toastSS"));
+        label_toastSS->setGeometry(QRect(580, 58, 591, 21));
+        label_toastSS->setStyleSheet(QLatin1String("background-color: rgb(70, 70, 70);\n"
+"font: 13pt ; font: bold;\n"
+"color: white;\n"
+" border-width: 1px;\n"
+" border-style: solid;\n"
+"  border-radius: 10px;"));
+        label_toastSS->setAlignment(Qt::AlignCenter);
         stackedWidget->addWidget(mission_page);
         labelBackMW->raise();
         mplayerWG->raise();
@@ -1215,6 +1215,7 @@ public:
         label_btnY->raise();
         label_toggle->raise();
         label_toggle_2->raise();
+        label_toastSS->raise();
         explore_page = new QWidget();
         explore_page->setObjectName(QStringLiteral("explore_page"));
         explore_page->setStyleSheet(QStringLiteral(""));
@@ -1437,7 +1438,6 @@ public:
         label_loading->setWhatsThis(QApplication::translate("NautilusCommander", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_WHATSTHIS
         label_loading->setText(QApplication::translate("NautilusCommander", "Loading...", 0));
-        label_toastSS->setText(QApplication::translate("NautilusCommander", "Screenshot taken", 0));
         label_goHome->setText(QApplication::translate("NautilusCommander", "Press           Back to Home", 0));
         label_title_2->setText(QApplication::translate("NautilusCommander", "Nautilus ROV Commander ", 0));
         label_missionName->setText(QApplication::translate("NautilusCommander", "Mission Name: ", 0));
@@ -1503,6 +1503,7 @@ public:
         label_toggle->setText(QApplication::translate("NautilusCommander", "Toggle", 0));
         label_toggle_2->setText(QApplication::translate("NautilusCommander", "Lights", 0));
         labelBackMW->setText(QString());
+        label_toastSS->setText(QApplication::translate("NautilusCommander", "Photo taken", 0));
         label_goHome_2->setText(QApplication::translate("NautilusCommander", "Press           Back to Home", 0));
         label_title_3->setText(QApplication::translate("NautilusCommander", "Nautilus Commander Explore Mission", 0));
         label_missionName_2->setText(QApplication::translate("NautilusCommander", "Mission Name: ", 0));
