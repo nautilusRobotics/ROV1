@@ -215,7 +215,7 @@ void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *ev
         saveSettings();
         mplayer->setVisible(false);
         showDefaultPic();
-        mplayer->close();
+        mplayer->quit();
 
         emit returnToHome();
      }
