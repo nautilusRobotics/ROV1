@@ -24,6 +24,7 @@ DataThread::DataThread(QProgressBar *bc, QProgressBar *br)
 
 
 void DataThread::run(){
+       qDebug("Running Server");
     while(!this->isFinished()){
         if(newMessage){
            update();
@@ -60,6 +61,7 @@ void DataThread::update(){
 
 #endif
 #ifndef Q_PROCESSOR_ARM
+         qDebug()<<"Update Q_PROCCESSOR_ARM"+ QString().number(valueTest);
          batteryControl->setValue(valueTest);
          valueTest=(valueTest<100)?valueTest+1:0;
 #endif

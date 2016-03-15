@@ -65,8 +65,8 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     connect(this,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
 
 
-    dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
-    dataThread->start();
+  //  dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
+    //dataThread->start();
 
 
 

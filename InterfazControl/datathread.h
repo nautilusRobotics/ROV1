@@ -2,7 +2,7 @@
 #define DATATHREAD_H
 
 
-#define QT_NO_DEBUG_OUTPUT
+//#define QT_NO_DEBUG_OUTPUT
 #include <QThread>
 #include <QTimer>
 #include <QProgressBar>
