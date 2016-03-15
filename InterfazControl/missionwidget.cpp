@@ -66,7 +66,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
 
 
     dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
-    QTimer::singleShot(1000,Qt::PreciseTimer ,this, SLOT(initGraphics()));
+    dataThread->start();
 
 
 
