@@ -273,15 +273,21 @@ void MissionWidget::axisEvent(QString axis,int value){
 void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *event){
      if(button==button_back && !event->pressed()){
 
-          rumble.start(createPath("rumbleGamepad.o"));                     
+          rumble.start(createPath("rumbleGamepad.o"));
+
+          if(islightsOn){
+              lblLightsOff->setVisible(true);
+              lblLightsOn->setVisible(false);
+              sendAction->sendComando(OFF_LIGHT);
+          }
           sendAction->sendComando(STOP_ROBOT);
           if(isRecording)emit saveVideo();
 
           disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
           disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
           saveSettings();
-          dataThread->closeServer();
-          dataThread->terminate();
+          //dataThread->closeServer();
+          //dataThread->terminate();
           mplayer->setVisible(false);
 
           emit returnToHome();
