@@ -74,7 +74,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     //connect(mplayer,SIGNAL(stateChanged(int)),this,SLOT(updatePlayerStatus(int)));
     mplayer->start();    
     mplayer->load("rtsp://admin:12345@10.5.5.110:554");
-
+    mplayer->setVisible(false);
 
 
     isCameraOnline=true;
@@ -89,11 +89,6 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     lastCommand="";
     speedDial->setValue(speeds[0][0]);
 
-
-}
-
-void MissionWidget::initGraphics(){
-    dataThread->start();
 }
 
 void MissionWidget::robotDisconnected(){

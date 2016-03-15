@@ -13,6 +13,8 @@ DataThread::DataThread(QProgressBar *bc, QProgressBar *br)
 
    server=new QTcpServer(this);
    connect(server,SIGNAL(newConnection()),this,SLOT(newConnection()));
+   connect(this,SIGNAL(controlStatus(int)),batteryControl,SLOT(setValue(int)));
+   connect(this,SIGNAL(rovStatus(int)),batteryRobot,SLOT(setValue(int)));
 
    if(server->listen(QHostAddress::Any,8888))
        qDebug("Server Listening ....");
@@ -56,7 +58,7 @@ void DataThread::update(){
 
         //qDebug()<<"ControlBattery Level: "+output;
 
-        batteryControl->setValue(output.toInt());        
+        emit controlStatus(output.toInt());
         procRun.close();        
 
 #endif
@@ -66,7 +68,7 @@ void DataThread::update(){
          valueTest=(valueTest<100)?valueTest+1:0;
 #endif
 
-         batteryRobot->setValue(robotBattery);
+         emit  rovStatus(robotBattery);
 }
 
 void DataThread::closeServer(){

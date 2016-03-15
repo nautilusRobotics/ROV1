@@ -39,6 +39,10 @@ public slots:
     void disconnected();
     void stop();
 
+signals:
+    void controlStatus(int value);
+    void rovStatus(int value);
+
 
 
 protected:
