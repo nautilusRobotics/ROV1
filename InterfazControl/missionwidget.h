@@ -56,6 +56,7 @@ public slots:
     void searchCamera(void);
     void robotDisconnected(void);
     void closeScreenShot(void);
+    void initGraphics(void);
 
 
 private:

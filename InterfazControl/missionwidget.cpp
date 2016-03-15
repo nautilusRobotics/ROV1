@@ -65,8 +65,8 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     connect(this,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
 
 
-  //  dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
-    //dataThread->start();
+    dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
+    QTimer::singleShot(1000,Qt::PreciseTimer ,this, SLOT(initGraphics()));
 
 
 
@@ -74,7 +74,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     //connect(mplayer,SIGNAL(stateChanged(int)),this,SLOT(updatePlayerStatus(int)));
     mplayer->start();    
     mplayer->load("rtsp://admin:12345@10.5.5.110:554");
-    mplayer->setVisible(true);
+
 
 
     isCameraOnline=true;
@@ -90,6 +90,10 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     speedDial->setValue(speeds[0][0]);
 
 
+}
+
+void MissionWidget::initGraphics(){
+    dataThread->start();
 }
 
 void MissionWidget::robotDisconnected(){
@@ -286,8 +290,8 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
           disconnect(this->joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(axisEvent(QString,int)));
           disconnect(this->joystick,SIGNAL(joystickButtonEvent(QString, QGameControllerButtonEvent*)),this,SLOT(buttonEvent(QString,QGameControllerButtonEvent*)));
           saveSettings();
-          //dataThread->closeServer();
-          //dataThread->terminate();
+          dataThread->closeServer();
+          dataThread->terminate();
           mplayer->setVisible(false);
 
           emit returnToHome();
