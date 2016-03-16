@@ -148,9 +148,6 @@ void MissionWidget::updateControlStatus(bool  isConnected ){
     }
 }
 
-
-
-
 void MissionWidget::takeScreenshot(){
    if(isCameraOnline){
         lblScreenShot->setVisible(true);
@@ -196,10 +193,10 @@ void MissionWidget::axisEvent(QString axis,int value){
 
         switch (value) {
         case -1000:
-            command= QString("%1%2").arg(RIGHT_ROBOT).arg(speeds[2][dialIndex]);
+            command= QString("%1%2").arg(RIGHT_ROBOT).arg(speeds[1][dialIndex]);
             break;
         case 1000:
-            command=QString("%1%2").arg(LEFT_ROBOT).arg(speeds[1][dialIndex]);
+            command=QString("%1%2").arg(LEFT_ROBOT).arg(speeds[2][dialIndex]);
             break;
         case  0:
             command=QString("%1%2").arg(LEFT_ROBOT).arg(1500);
