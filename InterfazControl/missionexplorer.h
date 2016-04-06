@@ -29,7 +29,7 @@ public:
     explicit MissionExplorer(QWidget *parent = 0, QString missionName="Untitled",JoystickWidget *joystick= 0, Ui::NautilusCommander *gui=0);
 
 signals:
-    void returnToHome();
+    void returnToHome(bool);
     void controlOut(void);
 
 public slots:

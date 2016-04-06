@@ -236,6 +236,7 @@ public:
         myargs += "30";
         myargs += "-vo";
         myargs += "vdpau";
+        myargs += "-nojoystick";
 
 
 

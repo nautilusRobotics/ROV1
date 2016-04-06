@@ -2,7 +2,7 @@
 #define DATATHREAD_H
 
 
-//#define QT_NO_DEBUG_OUTPUT
+#define QT_NO_DEBUG_OUTPUT
 #include <QThread>
 #include <QTimer>
 #include <QProgressBar>
@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QLabel>
 
 #include "com.h"
 #include "sendaction.h"
@@ -22,14 +23,16 @@ class DataThread : public QThread
      Q_OBJECT
 
 public:
-    DataThread(QProgressBar *bc, QProgressBar *br);
+    DataThread(QProgressBar *bc, QProgressBar *br, QLabel *depth);
     void closeServer();
 
 private:
-    QProgressBar *batteryControl, *batteryRobot;        
+    QProgressBar *batteryControl, *batteryRobot;
+    QLabel *labelDepth;
     QTcpServer *server;
     QTcpSocket *socket;
     int valueTest, robotBattery;
+    QString robotDepth;
     bool newMessage;
 
 public slots:
@@ -42,7 +45,7 @@ public slots:
 signals:
     void controlStatus(int value);
     void rovStatus(int value);
-
+    void rovDepthStatus(QString value);
 
 
 protected:

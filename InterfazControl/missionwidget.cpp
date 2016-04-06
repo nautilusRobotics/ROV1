@@ -1,7 +1,5 @@
 #include "missionwidget.h"
 
-
-
 extern QString createPath(QString path);
 
 MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joystick,  Ui::NautilusCommander *gui, SendAction *sa) :
@@ -65,7 +63,7 @@ MissionWidget::MissionWidget(QWidget *parent, QString mName, JoystickWidget *joy
     connect(this,SIGNAL(saveVideo()),rtsp,SLOT(saveVideo()));
 
 
-    dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov);
+    dataThread=new DataThread(ui->progressBattControl, ui->progressBattRov,ui->labelDepthValue);
     dataThread->start();
 
 
@@ -286,7 +284,7 @@ void MissionWidget::buttonEvent(QString button, QGameControllerButtonEvent *even
           dataThread->terminate();
           mplayer->setVisible(false);
 
-          emit returnToHome();
+          emit returnToHome(true);
 
      }
      else if(button==button_X && !event->pressed()){

@@ -3,18 +3,21 @@
 
 extern QString createPath(QString path);
 
-DataThread::DataThread(QProgressBar *bc, QProgressBar *br)
+DataThread::DataThread(QProgressBar *bc, QProgressBar *br, QLabel *depth)
 {
    qDebug("Data Thread");
    batteryControl=bc;  
    batteryRobot=br;
+   labelDepth=depth;
    valueTest=0;
    robotBattery=0;
+   robotDepth="0";
 
    server=new QTcpServer(this);
    connect(server,SIGNAL(newConnection()),this,SLOT(newConnection()));
    connect(this,SIGNAL(controlStatus(int)),batteryControl,SLOT(setValue(int)));
    connect(this,SIGNAL(rovStatus(int)),batteryRobot,SLOT(setValue(int)));
+   connect(this,SIGNAL(rovDepthStatus(QString)),labelDepth,SLOT(setText(QString)));
 
    if(server->listen(QHostAddress::Any,8888))
        qDebug("Server Listening ....");
@@ -29,6 +32,7 @@ void DataThread::run(){
        qDebug("Running Server");
     while(!this->isFinished()){
         if(newMessage){
+           qDebug("New Message");
            update();
            newMessage=false;
         }
@@ -63,12 +67,13 @@ void DataThread::update(){
 
 #endif
 #ifndef Q_PROCESSOR_ARM
-         qDebug()<<"Update Q_PROCCESSOR_ARM"+ QString().number(valueTest);
+         qDebug()<<"Update Q_PROCCESSOR_ARM "+ QString().number(valueTest);
          batteryControl->setValue(valueTest);
          valueTest=(valueTest<100)?valueTest+1:0;
 #endif
 
          emit  rovStatus(robotBattery);
+         emit rovDepthStatus(robotDepth);
 }
 
 void DataThread::closeServer(){
@@ -93,9 +98,12 @@ void DataThread::startRead(){
     int sn=socket->bytesAvailable();
     qDebug("socket bytes %d",sn);   
     QString clientMessage=QString(socket->read(socket->bytesAvailable()));   
-    robotBattery=clientMessage.toInt();
-    qDebug()<<"cliente"+clientMessage;
+    QString battString=clientMessage.mid(4,3);
+    QString depthString=clientMessage.mid(0,4);
+    robotBattery=battString.toInt();
+    robotDepth=QString().number(depthString.toInt());
     qDebug("Robot battery %d",robotBattery);
+    qDebug()<<"Robot depth "+robotDepth;
 }
 
 

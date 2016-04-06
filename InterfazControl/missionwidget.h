@@ -42,7 +42,7 @@ class MissionWidget : public QWidget
 public:
     explicit MissionWidget(QWidget *parent = 0, QString mName="Untitled",  JoystickWidget *joystick= 0, Ui::NautilusCommander *gui=0, SendAction *sa=0);
 signals:
-    void returnToHome();
+    void returnToHome(bool);
     void saveVideo(void);
     void controlOut(void);
 

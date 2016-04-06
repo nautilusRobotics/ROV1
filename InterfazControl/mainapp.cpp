@@ -116,15 +116,32 @@ void MainApp::initWelcomeScreen(){
 
 }
 
+bool MainApp::missionNameExist(QString newMissionName){
+    QDirIterator it(missionsPath,QDir::NoDotAndDotDot | QDir::AllDirs);
+
+    while (it.hasNext()) {
+        QFileInfo Info(it.next());
+        QString missionName = QString(Info.fileName());
+        if(!missionName.compare(newMissionName))
+            return false;
+    }
+
+    return true;
+}
+
 void MainApp::handleNewBtn(QString missionName){
 
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
 
-    if(missionName.compare(""))
-        runMission(missionName);
+    if(missionNameExist(missionName)){
+        if(missionName.compare(""))
+            runMission(missionName);
+        else
+            showToast("Invalid mission name",550);
+    }
     else
-        showToast("Invalid mission name",100);
+       showToast("The mission name already exists",550);
 
 }
 
@@ -164,7 +181,7 @@ void MainApp::showMessage(QString message, bool okCancelbtns){
 
 }
 
-void MainApp::showToast(QString message, int time){    
+void MainApp::showToast(QString message, int time){
     showMessage(message,false);
     QTimer::singleShot(time,Qt::PreciseTimer ,this, SLOT(preCloseMessage()));
 }
@@ -190,7 +207,6 @@ void MainApp::closeMessage(bool reconectMenu){
 }
 
 void MainApp::createProjectList(){
-
     QDirIterator it(missionsPath,QDir::NoDotAndDotDot | QDir::AllDirs);
     projectListStrings->clear();
     projectList->clear();
@@ -223,7 +239,7 @@ void MainApp::runMission(QString missionName){
    qDebug() <<"runMission "+missionName;
    disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
    missionWidget=new MissionWidget(this,missionName,joystick,&ui,sendAction);
-   connect(missionWidget,SIGNAL(returnToHome()),this,SLOT(showHome()));
+   connect(missionWidget,SIGNAL(returnToHome(bool)),this,SLOT(showHome(bool)));
    connect(missionWidget,SIGNAL(controlOut()),this,SLOT(controlOut()));
    stackedWidget->setCurrentIndex(1);
 }
@@ -231,13 +247,13 @@ void MainApp::runMission(QString missionName){
 void MainApp::exploreMission(QString missionName){
     qDebug() <<"explore "+missionName;
     lblTitle->setText("Welcome to Nautilus Commander");
-    openMissionBox->setVisible(false);
+    //openMissionBox->setVisible(false);
     disconnect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
     disconnect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
     disconnect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
     missionExplorer=new MissionExplorer(this,missionName,joystick,&ui);
     stackedWidget->setCurrentIndex(2);
-    connect(missionExplorer,SIGNAL(returnToHome()),this,SLOT(showHome()));
+    connect(missionExplorer,SIGNAL(returnToHome(bool)),this,SLOT(showHome(bool)));
     connect(missionExplorer,SIGNAL(controlOut()),this,SLOT(controlOut()));
 }
 
@@ -249,26 +265,28 @@ void MainApp::deleteMission(QString missionName,QListWidgetItem *item){
           QDir dir(dirName);
 
           if(dir.removeRecursively()){
-
               projectList->takeItem(projectList->row(item));
-
-              if(dir.rmdir(dirName))
-                  qDebug()<<"delete OK";
-              else
-                qDebug()<<"no delete";
+              projectListStrings->removeOne(missionName);
+              qDebug()<<"delete OK";
           }
           else
              qDebug()<<"no delete";
 
 }
 
-void MainApp::showHome(){
-    lblLoading->setVisible(false);
-    lblShadow->setVisible(false);
-
+void MainApp::showHome(bool fromMissionWidget){
+   lblLoading->setVisible(false);
+   lblShadow->setVisible(false);
    connect(joystick,SIGNAL(updateStatus(bool)),this,SLOT(updateControlStatus(bool)));
-   connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
-   connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+
+   if(fromMissionWidget){
+        connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventMenu(QString,QGameControllerButtonEvent*)));
+        connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventMenu(QString,int)));
+   }
+   else{
+       connect(joystick,SIGNAL(joystickButtonEvent(QString,QGameControllerButtonEvent*)),this,SLOT(joystickButtonEventOpen(QString,QGameControllerButtonEvent*)));
+       connect(joystick,SIGNAL(joystickAxisEvent(QString,int)),this,SLOT(joystickAxisEventOpen(QString,int)));
+   }
 
    stackedWidget->setCurrentIndex(0);
 }
@@ -707,7 +725,7 @@ void MainApp::joystickButtonEventKeyBoard(QString button,QGameControllerButtonEv
             }
         }
         else{
-            newKey=(!newKey.compare("space"))?" ":newKey;
+            newKey=(!newKey.compare("space"))?"_":newKey;
             if(tmpPos!=0)newKey=newKey.toLower();
             tmpReceiptString = tmpReceiptString.insert(tmpPos, newKey);
             resultKeyBoard->setText(tmpReceiptString);
@@ -761,10 +779,9 @@ void MainApp::joystickAxisEventHelp(QString axis, int value){
       helpIdx=(helpIdx>0)?helpIdx-1:helpIdx;
       help->setStyleSheet(helpList->at(helpIdx));
     }
-
 }
 
 void MainApp::controlOut(){
-    showHome();
+    showHome(true);
     updateControlStatus(false);
 }

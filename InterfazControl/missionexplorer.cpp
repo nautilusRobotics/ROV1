@@ -217,7 +217,7 @@ void MissionExplorer::buttonEvent(QString button, QGameControllerButtonEvent *ev
         showDefaultPic();
         mplayer->stop();
 
-        emit returnToHome();
+        emit returnToHome(false);
      }
     else if(button==button_A && !event->pressed()){
         rumble.start(createPath("rumbleGamepad.o"));

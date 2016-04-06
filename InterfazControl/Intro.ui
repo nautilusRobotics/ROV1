@@ -1783,7 +1783,7 @@ font: bold 11pt;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="labelControlBatt_3">
+    <widget class="QLabel" name="labelDepthValue">
      <property name="geometry">
       <rect>
        <x>1740</x>
@@ -2749,7 +2749,7 @@ color: white;
     <zorder>labelControlBatt_2</zorder>
     <zorder>lblMissionName</zorder>
     <zorder>label_depthIco</zorder>
-    <zorder>labelControlBatt_3</zorder>
+    <zorder>labelDepthValue</zorder>
     <zorder>labelControlBatt_4</zorder>
     <zorder>labelControlBatt_5</zorder>
     <zorder>label_tempIco</zorder>

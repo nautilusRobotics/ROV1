@@ -125,7 +125,7 @@ public:
     QLabel *labelControlBatt_2;
     QLabel *lblMissionName;
     QLabel *label_depthIco;
-    QLabel *labelControlBatt_3;
+    QLabel *labelDepthValue;
     QLabel *labelControlBatt_4;
     QLabel *labelControlBatt_5;
     QLabel *label_tempIco;
@@ -852,10 +852,10 @@ public:
         label_depthIco->setGeometry(QRect(1830, 260, 32, 32));
         label_depthIco->setStyleSheet(QStringLiteral("background-image: url(:/new/prefix1/depth.png);"));
         label_depthIco->setFrameShape(QFrame::NoFrame);
-        labelControlBatt_3 = new QLabel(mission_page);
-        labelControlBatt_3->setObjectName(QStringLiteral("labelControlBatt_3"));
-        labelControlBatt_3->setGeometry(QRect(1740, 260, 81, 41));
-        labelControlBatt_3->setStyleSheet(QLatin1String("color: rgb(153, 153, 153);\n"
+        labelDepthValue = new QLabel(mission_page);
+        labelDepthValue->setObjectName(QStringLiteral("labelDepthValue"));
+        labelDepthValue->setGeometry(QRect(1740, 260, 81, 41));
+        labelDepthValue->setStyleSheet(QLatin1String("color: rgb(153, 153, 153);\n"
 "font: bold 30pt;"));
         labelControlBatt_4 = new QLabel(mission_page);
         labelControlBatt_4->setObjectName(QStringLiteral("labelControlBatt_4"));
@@ -1172,7 +1172,7 @@ public:
         labelControlBatt_2->raise();
         lblMissionName->raise();
         label_depthIco->raise();
-        labelControlBatt_3->raise();
+        labelDepthValue->raise();
         labelControlBatt_4->raise();
         labelControlBatt_5->raise();
         label_tempIco->raise();
@@ -1464,7 +1464,7 @@ public:
         labelControlBatt_2->setText(QApplication::translate("NautilusCommander", "Depth (m)", 0));
         lblMissionName->setText(QString());
         label_depthIco->setText(QString());
-        labelControlBatt_3->setText(QApplication::translate("NautilusCommander", "125", 0));
+        labelDepthValue->setText(QApplication::translate("NautilusCommander", "125", 0));
         labelControlBatt_4->setText(QApplication::translate("NautilusCommander", "30", 0));
         labelControlBatt_5->setText(QApplication::translate("NautilusCommander", "Temperature(\302\260C)", 0));
         label_tempIco->setText(QString());

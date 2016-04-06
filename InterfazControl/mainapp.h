@@ -74,7 +74,7 @@ public slots:
     void joystickAxisEventKeyBoard(QString axis, int value);
     void handleCloseKeyboardEvent(bool cancelled,QString result);    
     void preCloseMessage();
-    void showHome();
+    void showHome(bool fromMissionWidget);
     void reconnectJoystick();
     void controlCrash();
     void successExport(bool success);
@@ -122,6 +122,7 @@ public slots:
         void closeMessage(bool reconectMenu);
         bool checkRobot();
         void exploreMission(QString missionName);
+        bool missionNameExist(QString newMissionName);
 
 
 };
