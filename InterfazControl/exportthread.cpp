@@ -1,5 +1,6 @@
 #include "exportthread.h"
 
+extern QString createPath(QString path);
 
 ExportThread::ExportThread(QObject *parent, QString src, QString ext, QString missionName) :
     QThread(parent)
@@ -13,15 +14,15 @@ ExportThread::ExportThread(QObject *parent, QString src, QString ext, QString mi
 void ExportThread::run(){
     sleep(1);
     QProcess copyFiles;
-    QString run=QString("sh copy.sh %1/*.png %2").arg(src).arg(dest);
+    QString run=QString("copy.sh %1/*.png %2").arg(src).arg(dest);
     qDebug()<<"export command png "+run;
-    copyFiles.start(run);
+    copyFiles.start(createPath(run));
     copyFiles.waitForFinished();
     copyFiles.close();
 
-    run=QString("sh copy.sh %1/*.mp4 %2").arg(src).arg(dest);
+    run=QString("copy.sh %1/*.mp4 %2").arg(src).arg(dest);
     qDebug()<<"export command mp4  "+run;
-    copyFiles.start(run);
+    copyFiles.start(createPath(run));
     copyFiles.waitForFinished();
     copyFiles.close();
 
