@@ -206,6 +206,7 @@ void MainApp::closeMessage(bool reconectMenu){
     }
 }
 
+
 void MainApp::createProjectList(){
     QDirIterator it(missionsPath,QDir::NoDotAndDotDot | QDir::AllDirs);
     projectListStrings->clear();
