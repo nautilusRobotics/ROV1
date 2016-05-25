@@ -12,7 +12,7 @@
 #define POWEROFF_ROBOT "pwof0000"  //Turn off the robot
 #define STOP_ROBOT     "stop0000"  //Stop the robot wait for reStart
 #define CHECK_ROBOT    "Gcrb0000"  // Check if the robot is online
-#define START_ROBOT    "strt0000"  //Enable ESC's
+#define START_ROBOT    "strt.120"  //Enable ESC's
 #define CENTER_CAMARA  "ctcm0000"  //TILT CAMERA
 #define NULL_CMD       "null0000"  //null COMMNAD
 #define GET_DEPTH      "Gdpt0000"  //Request the depth value of the robot

@@ -27,5 +27,4 @@ void ExportThread::run(){
     copyFiles.close();
 
     emit saveFinish();
-
 }

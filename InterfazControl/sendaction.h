@@ -8,7 +8,7 @@
 #include <QString>
 #include "com.h"
 #include <QTcpSocket>
-#define ROBOT_IP "10.5.5.103"
+#define ROBOT_IP "10.5.5.104"
 #define ROBOT_PORT 50002
 
 class SendAction : public QWidget
