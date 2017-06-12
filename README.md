@@ -2,7 +2,9 @@
 GitHub de Nautilus Robotics S.A.S
 www.nautilusrobotics.com
 
-This app, based on Qt was designed to control and teleoperate the NautilusBeta ROV using a portable device created with an Olimex board.
+
+This app, based on Qt was designed to control and teleoperate the NautilusBeta ROV using a portable device created with an Olimex board. Written by Andres Rengifo  to Nautilus Robotics https://github.com/andresR8
+
  ### Menu
 <p align="center"><img src="http://i.imgur.com/VXtlj1F.jpg"></p>
 
